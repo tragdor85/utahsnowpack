@@ -1,0 +1,99 @@
+/* Design tokens — extended into the full design system in docs/PLAN.md task 6. */
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --border: #30363d;
+  --text: #e6edf3;
+  --text-dim: #8b949e;
+  --accent: #58a6ff;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 2rem;
+
+  --radius: 0.5rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+  line-height: 1.5;
+}
+
+.shell {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.shell__header {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.shell__header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.shell__subtitle {
+  margin: var(--space-1) 0 0;
+  color: var(--text-dim);
+}
+
+.shell__main {
+  display: grid;
+  place-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+.shell__footer {
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .shell__header,
+  .shell__main,
+  .shell__footer {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+}

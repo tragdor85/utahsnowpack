@@ -4,16 +4,16 @@ Each task is sized 1–4 agent turns. Critical path: **2 → 3 → 4 → 5** (da
 pipeline) can run in parallel with **6–8** (UI on mock data). Task 2 is the
 main risk — see "Risk notes".
 
-## Task 1 — Scaffold app + toolchain  (est. 1–2 turns)
+## Task 1 — Scaffold app + toolchain (est. 1–2 turns)
 
 Create the application skeleton: pnpm workspace, Vite + TypeScript, Vitest,
 ESLint/Prettier, GitHub repo push, CI (lint + test + build on PR), and a
 minimal dashboard shell that renders a "Utah Snowpack — loading data" screen.
 
-- **Accept:** `pnpm lint && pnpm test && pnpm build` green locally *and* in CI;
+- **Accept:** `pnpm lint && pnpm test && pnpm build` green locally _and_ in CI;
   `dist/index.html` serves the shell; README build/run steps verified.
 
-## Task 2 — Validate the SNOTEL data endpoint  (est. 3–4 turns, RISK)
+## Task 2 — Validate the SNOTEL data endpoint (est. 3–4 turns, RISK)
 
 From multiple network contexts, test the public SNOTEL feeds (NRCS SNOTEL
 station data, NWPC snow portal, Utah DWR, ACIS `data.rcc-acis.org`) for:
@@ -26,7 +26,7 @@ primary source; record the exact endpoints, parameters, and auth (if any) in
   `data/raw/` fixtures, with a written decision record for the chosen source and
   documented fallback (KSL page parser) if the official feed is flaky.
 
-## Task 3 — Site registry: KSL sites → SNOTEL IDs  (est. 2–3 turns)
+## Task 3 — Site registry: KSL sites → SNOTEL IDs (est. 2–3 turns)
 
 Build `data/sites.json`: for all 206 KSL sites (from
 `data/ksl-baseline-2026-10-24.json`), resolve the NRCS SNOTEL station ID,
@@ -37,7 +37,7 @@ lat/lon, elevation, and basin membership by matching the SNOTEL station catalog
   validates against a schema test; coordinates plot within their basins on a
   quick map check.
 
-## Task 4 — Normalizer + snowpack.json contract  (est. 2–3 turns)
+## Task 4 — Normalizer + snowpack.json contract (est. 2–3 turns)
 
 Define the canonical output schema (`data/snowpack.json`: basins → sites, SWE
 in, water-year precip in, long-term averages, % of average, `-M`/`*` flags,
@@ -48,7 +48,7 @@ and the 6-band color class the same way KSL does.
   for all 8 basin % values and ≥95% of site values (tolerance: 1 pt / 0.1 in);
   schema + normalization tests green.
 
-## Task 5 — Daily data pipeline  (est. 1–2 turns)
+## Task 5 — Daily data pipeline (est. 1–2 turns)
 
 GitHub Actions workflow: daily cron (~08:30 MDT, after the SNOTEL report) and
 `workflow_dispatch` — fetch → normalize → commit/publish `snowpack.json` (and
@@ -57,7 +57,7 @@ raw fixtures for audit) → trigger deploy. Include a staleness stamp in the JSO
 - **Accept:** one `workflow_dispatch` run end-to-end updates the deployed JSON
   without a deploy of app code; failed runs are logged visibly.
 
-## Task 6 — UI shell + design system  (est. 1–2 turns)
+## Task 6 — UI shell + design system (est. 1–2 turns)
 
 Dark-themed responsive layout (header w/ last-updated + water-year banner,
 legend, main map area, side detail panel) + design tokens (colors incl. the 6
@@ -66,7 +66,7 @@ legend bands, type scale, spacing). Render with a mock `snowpack.json`.
 - **Accept:** desktop (1280) and mobile (390) layouts render mock data with
   correct legend bands; keyboard tab order works; screenshot test committed.
 
-## Task 7 — Interactive basin map  (est. 3–4 turns)
+## Task 7 — Interactive basin map (est. 3–4 turns)
 
 MapLibre GL basemap (no tracking, offline-capable tiles) with the 8 basin
 polygons (source: NHD hydrologic boundaries clipped to the KSL basins, or
@@ -77,7 +77,7 @@ tooltips, and site dots.
   baseline data; selecting a basin updates the detail panel; works with zero
   third-party network calls beyond tiles (and degrades gracefully without).
 
-## Task 8 — Basin/site detail panel  (est. 2–3 turns)
+## Task 8 — Basin/site detail panel (est. 2–3 turns)
 
 Detail panel parity with KSL: site table (Site, Elev, SWE, Avg, % Avg, Precip,
 Avg, % Avg) with `-M`/`*` flags, per-basin summary card (sites reporting,
@@ -86,7 +86,7 @@ aggregate SWE, trend arrow), search/filter, sticky header, sorted by elevation.
 - **Accept:** column-for-column parity with the captured KSL baseline;
   a11y: tables announced, flags exposed via aria-label; passes axe checks.
 
-## Task 9 — Time-series charts  (est. 3–4 turns)
+## Task 9 — Time-series charts (est. 3–4 turns)
 
 Per-site SWE area chart + water-year precip bar/area chart; basin aggregate
 line; multi-year context if the endpoint provides history; chart theming +
@@ -95,7 +95,7 @@ touch/keyboard interaction.
 - **Accept:** real-data charts render for every basin and ≥5 sample sites, with
   empty-state handling for sites missing history.
 
-## Task 10 — Freshness, resilience, shareability  (est. 1–2 turns)
+## Task 10 — Freshness, resilience, shareability (est. 1–2 turns)
 
 "Last updated" display with relative time + staleness badges (per site and
 global), client fallback to the last bundled `snowpack.json` on fetch failure,
@@ -104,7 +104,7 @@ OG/Twitter meta tags, favicon + PWA manifest.
 - **Accept:** with network blocked, the page still serves the last good data
   with a visible "data from <date>" warning; og:image renders the current map.
 
-## Task 11 — Deploy + end-to-end parity  (est. 2–3 turns)
+## Task 11 — Deploy + end-to-end parity (est. 2–3 turns)
 
 Deploy static site (GitHub Pages or Cloudflare Pages) + wire the pipeline to it;
 final live check of the deployed dashboard against the live KSL page; README
@@ -121,7 +121,7 @@ final pass (source attribution, data license, how to add basins/sites).
   `snotel.gov`, `dwr.utah.gov`, and NWPC domains didn't resolve here (2026-10-24);
   they may be region-restricted or renamed. Mitigation: probe from a second
   network (phone/VPN) before committing to a source; the KSL-page parser is a
-  guaranteed fallback because it reads *the exact same numbers* KSL publishes
+  guaranteed fallback because it reads _the exact same numbers_ KSL publishes
   (KSL's upstream is NRCS SNOTEL — scraping KSL is same-data, not a re-source).
 - **R2 — station ID mapping (Task 3).** Names like "Bear River RS" / "Kelley R.S."
   may not 1:1 with catalog names; mitigation: elevation + basin disambiguation,

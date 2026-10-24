@@ -18,9 +18,9 @@ What KSL actually does:
   in the HTML at render time; there is **no client-side snowpack API** (the only
   KSL API call is `news-api.ksl.com/v1/weather/getHeaderWeather`, which powers
   the header widget, not the basin data).
-- Page meta description: *"Follow current Utah snowpack at KSL.com with SWE
+- Page meta description: _"Follow current Utah snowpack at KSL.com with SWE
   values, precipitation amounts, and percent of average across major basins from
-  NRCS SNOTEL sites."* → **upstream = USDA NRCS SNOTEL network**.
+  NRCS SNOTEL sites."_ → **upstream = USDA NRCS SNOTEL network**.
 - KSL shows: a map image (basins colored by SWE % of avg, legend 50-69 / 70-89 /
   90-109 / 110-129 / 130-149 / >150%), "Last Updated" stamp, and per-basin
   site tables with columns: Site, Elev (ft), SWE (in), SWE avg, SWE % avg,
@@ -33,16 +33,16 @@ What KSL actually does:
 
 Machine-readable SNOTEL feed status (probed from dev machine, 2026-10-24):
 
-| Candidate | Result |
-|---|---|
-| `www.nwpc.nws.noaa.gov` (NWPC Snow portal) | does not resolve (DNS) — re-verify from other networks |
-| `www.snotel.gov` (NRCS SNOTEL) | does not resolve (DNS) — re-verify from other networks |
-| `snotel.org` | Vercel domain live, root deployment 404 (stale project) |
-| `dwr.utah.gov` (Utah DWR SNOTEL) | does not resolve (DNS) — re-verify |
-| ACIS (`data.rcc-acis.org`) | API reachable; StnMeta SNOTEL queries not yet validated |
-| `ksl.com/api/weather/snowpack` | returns 200 with empty body (not usable) |
+| Candidate                                  | Result                                                  |
+| ------------------------------------------ | ------------------------------------------------------- |
+| `www.nwpc.nws.noaa.gov` (NWPC Snow portal) | does not resolve (DNS) — re-verify from other networks  |
+| `www.snotel.gov` (NRCS SNOTEL)             | does not resolve (DNS) — re-verify from other networks  |
+| `snotel.org`                               | Vercel domain live, root deployment 404 (stale project) |
+| `dwr.utah.gov` (Utah DWR SNOTEL)           | does not resolve (DNS) — re-verify                      |
+| ACIS (`data.rcc-acis.org`)                 | API reachable; StnMeta SNOTEL queries not yet validated |
+| `ksl.com/api/weather/snowpack`             | returns 200 with empty body (not usable)                |
 
-**Decision:** the fetcher must be built around a *validated* public SNOTEL
+**Decision:** the fetcher must be built around a _validated_ public SNOTEL
 endpoint (task 2 of the plan) and must be swappable — the pipeline consumes a
 normalization layer, and a KSL-page parser exists as a guaranteed-parity
 fallback. Whatever endpoint wins, the output contract is identical.

@@ -1,6 +1,12 @@
 node_modules/
 dist/
+coverage/
 .snowpack/
 *.log
+*.local
 .DS_Store
+
+# Generated pipeline output (docs/PLAN.md task 5); captured baselines stay tracked.
 data/generated/
+data/snowpack.json
+data/raw/

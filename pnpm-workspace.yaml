@@ -1,0 +1,6 @@
+packages:
+  - app
+
+# pnpm 10 blocks dependency build scripts by default; approve the ones we need.
+onlyBuiltDependencies:
+  - esbuild
