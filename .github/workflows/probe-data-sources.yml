@@ -1,0 +1,40 @@
+name: probe-data-sources
+
+# Manual utility (docs/PLAN.md task 2): reachability check of SNOTEL candidate
+# data sources from a GitHub-hosted (US) network context, with the raw
+# responses captured as artifacts. Dispatch on demand; no scheduled runs.
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe candidate sources
+        run: |
+          set -x
+          for u in \
+            "https://www.snotel.gov/" \
+            "https://snotel.gov/" \
+            "https://snotel.sc.egov.usda.gov/" \
+            "https://www.nwpc.nws.noaa.gov/" \
+            "https://dwr.utah.gov/" \
+            "https://snow.utah.gov/" \
+            "https://www.nrcs.usda.gov/" \
+            "https://www.ksl.com/weather/snowpack"
+          do
+            code=$(curl -sL -o /dev/null -w "%{http_code}" --max-time 15 "$u" || echo 000)
+            echo "PROBE $u -> $code"
+          done
+          mkdir -p probe
+          curl -sL --max-time 20 "https://www.snotel.gov/" -o probe/snotel.gov.html || true
+          curl -sL --max-time 20 "https://www.ksl.com/weather/snowpack" -o probe/ksl-snowpack.html || true
+          curl -s --max-time 20 -X POST -H "Content-Type: application/json" \
+            -d '{"state":"UT"}' "https://data.rcc-acis.org/StnMeta" -o probe/acis-ut-stnmeta.json || true
+          ls -la probe/
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: probe-responses
+          path: probe/
