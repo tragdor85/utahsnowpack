@@ -8,13 +8,26 @@ _Task 2 of `docs/PLAN.md`. Written 2026-10-25. Re-verify by dispatching the
 
 **Primary source: KSL's snowpack page** — `https://www.ksl.com/weather/snowpack`
 (server-rendered HTML tables). Fetched with one plain HTTPS GET; no auth, no
-API key.
+API key. Already implemented, matches the baseline roster exactly, and is the
+simplest to fetch.
 
-The official SNOTEL feeds are **not** a viable live source: the SNOTEL-specific
-hostnames do not resolve from any network context tested (see evidence below).
-The plan anticipated "official feed with the KSL page parser as documented
-fallback"; validation flipped that — **KSL is the primary, the official feed is
-recorded as dead and is re-verified opportunistically** by the probe workflow.
+**Fallback source: the USDA Water & Climate Center (WCC) SNOTEL report** —
+`https://wcc.sc.egov.usda.gov/reports/UpdateReport.html?report=Utah&format=SNOTEL+Snowpack+Update+Report`.
+This is the **official, upstream** feed: it is the same NRCS SNOTEL data KSL
+republishes (SWE values match KSL exactly), and it is fresher (first reading of
+the day, 00:00, vs. KSL's ~10:10 am stamp). Validated 2026-10-25 — see the WCC
+section below.
+
+Clarification of the task 2 record: the SNOTEL **brand** hostnames
+(`snotel.gov`, NWPC, DWR's snow page) do not resolve from any network context
+tested (see evidence) — the consumer portal is decommissioned. But the
+**underlying data center** (WCC, on the general USDA `sc.egov.usda.gov` host)
+is alive and serves the full report, so there **is** now a reachable official
+fallback. The plan anticipated "official feed with the KSL page parser as
+documented fallback"; validation landed on **KSL primary + WCC fallback**
+(independent failure modes: commercial media vs. government). WCC is a strong
+candidate for _primary_ if KSL ever fails; it is not implemented yet (see
+"WCC — implementation notes").
 
 ## Evidence
 
@@ -25,15 +38,16 @@ Tested from two independent network contexts on 2026-10-24/25:
    `probe-data-sources` workflow (run 40111650005; raw responses captured as
    artifacts).
 
-| Candidate                          | Local          | GH runner           | Roster coverage                            | Needed elements                                                                                            | Auth |
-| ---------------------------------- | -------------- | ------------------- | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------- | ---- |
-| **KSL** `ksl.com/weather/snowpack` | 200, 166,762 B | 200, byte-identical | **206/206 (100%)**                         | SWE, SWE avg, SWE % avg, precip, precip avg, precip % avg, elev, flags, Last Updated — all present per row | none |
-| `snotel.gov` / `www.snotel.gov`    | DNS fail       | 000 (DNS fail)      | —                                          | —                                                                                                          | —    |
-| `snotel.sc.egov.usda.gov`          | DNS fail       | 000 (DNS fail)      | —                                          | —                                                                                                          | —    |
-| `nwpc.nws.noaa.gov`                | DNS fail       | 000                 | —                                          | —                                                                                                          | —    |
-| `dwr.utah.gov`, `snow.utah.gov`    | DNS fail       | 000                 | —                                          | —                                                                                                          | —    |
-| `nrcs.usda.gov` (main site)        | 200            | 200                 | no SNOTEL feed exposed (checked paths 404) | —                                                                                                          | —    |
-| ACIS `data.rcc-acis.org`           | 200            | 200                 | SNOTEL stations **not** indexed (0 hits)   | swv/pcpn only for NWS/coop stations                                                                        | none |
+| Candidate                          | Local                                     | GH runner                                   | Roster coverage                                            | Needed elements                                                                                            | Auth                 |
+| ---------------------------------- | ----------------------------------------- | ------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | -------------------- |
+| **KSL** `ksl.com/weather/snowpack` | 200, 166,762 B                            | 200, byte-identical                         | **206/206 (100%)**                                         | SWE, SWE avg, SWE % avg, precip, precip avg, precip % avg, elev, flags, Last Updated — all present per row | none                 |
+| `snotel.gov` / `www.snotel.gov`    | DNS fail                                  | 000 (DNS fail)                              | —                                                          | —                                                                                                          | —                    |
+| `snotel.sc.egov.usda.gov`          | DNS fail                                  | 000 (DNS fail)                              | —                                                          | —                                                                                                          | —                    |
+| `nwpc.nws.noaa.gov`                | DNS fail                                  | 000                                         | —                                                          | —                                                                                                          | —                    |
+| `dwr.utah.gov`, `snow.utah.gov`    | DNS fail                                  | 000                                         | —                                                          | —                                                                                                          | —                    |
+| `nrcs.usda.gov` (main site)        | 200                                       | 200                                         | no SNOTEL feed exposed (checked paths 404)                 | —                                                                                                          | —                    |
+| ACIS `data.rcc-acis.org`           | 200                                       | 200                                         | SNOTEL stations **not** indexed (0 hits)                   | swv/pcpn only for NWS/coop stations                                                                        | none                 |
+| **WCC** `wcc.sc.egov.usda.gov`     | 200, 421,327 B (3× identical, no CAPTCHA) | added to probe workflow, pending runner run | **203/207 (98%)** by normalized name — clears the 95% gate | SWE, today's median SWE, median peak SWE + dates, % of median — **no precipitation column**                | session (JSESSIONID) |
 
 DNS failures are real (resolver `Errno 8`, not a local quirk): the SNOTEL
 hostnames fail identically from the local machine and the US runner, matching
@@ -73,11 +87,56 @@ decommissioned until the probe workflow says otherwise.
 4. Byte-identical responses across contexts — no regional content variation
    observed.
 
+### WCC — the official upstream (validated fallback)
+
+The USDA Water & Climate Center report is where SNOTEL data actually lives.
+Investigated 2026-10-25 (fetched 3×; all HTTP 200, identical 421,327-byte
+bodies, no CAPTCHA/bot wall).
+
+- **Reachable & durable**: `wcc.sc.egov.usda.gov` is the general USDA
+  `sc.egov.usda.gov` data host (not one of the dead SNOTEL brand hosts), so it
+  resolves normally and is government infrastructure — a far more durable
+  failure mode than KSL's commercial page.
+- **Official & upstream**: header reads "Based on Mountain Data from NRCS
+  SNOTEL Sites." It is the same data KSL republishes — spot-checked SWE matches
+  KSL exactly (Howell Canyon 1.1, George Creek 1.2, Tony Grove 0.0, Emigrant
+  Summit 0.1, …). The only differences are display formatting (WCC `0.0` vs.
+  KSL `.0`; WCC `1.0 (10)` vs KSL `1.0`) and station-name conventions.
+- **Fresher**: "Data based on the first reading of the day (typically 00:00)
+  for Saturday, October 24, 2026" — earlier than KSL's ~10:10 am stamp.
+- **How to fetch**: `GET` the URL with a browser-like `User-Agent`, follow
+  redirects (`-L`), and keep the `JSESSIONID` cookie (the first request 302s
+  with a fresh session, then returns 200). Encoding is `ISO-8859-1`.
+  Reproducible with plain `curl`.
+- **Structure**: one table `id="update_report_data"` (243 rows) with 17 basin
+  groups and **207 site rows** (8 cells: site, elev ft, SWE in, today's median
+  SWE in, median peak SWE in, median peak date, % of today's median, % of
+  median peak). Basin names are long official names (`NORTHEASTERN UINTAHS`,
+  `BEAR RIVER (UPPER)`); a separate index table gives 17 basin SWE/peak/percent
+  totals. No per-row links, row ids, or station IDs in the markup — join key is
+  the site name.
+- **Name conventions differ from the baseline**: WCC uses hyphens and short
+  suffixes (`Hole-in-Rock`, `Mill-D North`, `Rocky Basin-Settleme`, `Chepeta`,
+  `EF Blacks Fork GS`), the baseline uses KSL's (`Hole in Rock`, `Mill D North`,
+  …). Aggressive normalization (lowercase, strip all non-alphanumerics) matches
+  **203/207**; the 4 residual mismatches are suffix/notation variants (`Chepeta`
+  ×2 vs `Chepeta M`, `EF Blacks Fork GS` vs `EF Blacks Fork`, `Takka Wiiya`).
+  A small mapping table (or prefix match) closes the gap to ~100%.
+- **Gaps vs KSL**: no precipitation column (KSL has 3 precip cells; the baseline
+  records them); some station names appear in multiple basins (e.g. `Trial
+Lake` ×4), so name joins should carry the basin for disambiguation.
+- **Implementation status**: not yet implemented in `pipeline/`. When built it
+  lands as a second source (`pipeline/src/sources/wcc.ts`) behind the existing
+  coverage gate, used as the automatic fallback if the KSL fetch/parse fails.
+
 ### Why the others lose
 
-- **Official SNOTEL/NWPC/DWR**: unreachable (DNS) from both contexts. Nothing
-  to fetch. Recorded for the probe workflow to re-check; if `snotel.gov`
-  comes back it becomes a _cross-check_ channel, not a replacement.
+- **Official SNOTEL/NWPC/DWR brand portals**: unreachable (DNS) from both
+  contexts — the _consumer_ sites are decommissioned. (Note this is distinct
+  from WCC, which is alive — see above.) If `snotel.gov` comes back it becomes
+  a _cross-check_ channel, not a replacement.
+- **WCC**: not _lost_ — it is the validated fallback; it simply isn't the
+  primary yet (KSL is simpler and already matches the baseline exactly).
 - **ACIS** (`data.rcc-acis.org`): reachable, official NOAA, no auth — but
   SNOTEL stations are not indexed in its `StnMeta` under site names (0 hits
   for "SNOTEL" and for site names; `state=UT` returns 1351 NWS/coop/METAR
@@ -109,8 +168,11 @@ guard compares the `lastUpdated` stamp against the expected daily cadence.
 
 ## Fallbacks and robustness guards
 
-There is currently **no reachable fallback** — the official feeds are dead —
-so the fetcher fails loudly instead of serving stale data:
+There **is** now an official fallback — the WCC report (see above) — so the
+strategy is: **fetch KSL; on a hard KSL failure (unreachable, redesign, or
+coverage-gate trip), fall back to WCC.** (WCC fetch/parse is documented but not
+yet implemented in `pipeline/`; until it lands, the guard below fails loudly.
+) The KSL path keeps these guards:
 
 1. **Structural guard**: no `Last Updated` stamp or no highlight rows → hard
    error (KSL redesign detected).

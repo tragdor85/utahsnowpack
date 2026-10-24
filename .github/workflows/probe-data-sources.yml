@@ -14,6 +14,8 @@ jobs:
       - name: Probe candidate sources
         run: |
           set -x
+          UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+          WCC="https://wcc.sc.egov.usda.gov/reports/UpdateReport.html?report=Utah&format=SNOTEL+Snowpack+Update+Report"
           for u in \
             "https://www.snotel.gov/" \
             "https://snotel.gov/" \
@@ -22,14 +24,18 @@ jobs:
             "https://dwr.utah.gov/" \
             "https://snow.utah.gov/" \
             "https://www.nrcs.usda.gov/" \
+            "$WCC" \
             "https://www.ksl.com/weather/snowpack"
           do
-            code=$(curl -sL -o /dev/null -w "%{http_code}" --max-time 15 "$u" || echo 000)
+            code=$(curl -sL -A "$UA" -o /dev/null -w "%{http_code}" --max-time 20 "$u" || echo 000)
             echo "PROBE $u -> $code"
           done
           mkdir -p probe
           curl -sL --max-time 20 "https://www.snotel.gov/" -o probe/snotel.gov.html || true
-          curl -sL --max-time 20 "https://www.ksl.com/weather/snowpack" -o probe/ksl-snowpack.html || true
+          curl -sL -A "$UA" --max-time 20 "https://www.ksl.com/weather/snowpack" -o probe/ksl-snowpack.html || true
+          # WCC is session-based (302 -> JSESSIONID -> 200); follow + keep cookies.
+          curl -sL -A "$UA" --max-time 30 -c probe/wcc-cookies.txt -b probe/wcc-cookies.txt \
+            "$WCC" -o probe/wcc-ut-snotel.html || true
           curl -s --max-time 20 -X POST -H "Content-Type: application/json" \
             -d '{"state":"UT"}' "https://data.rcc-acis.org/StnMeta" -o probe/acis-ut-stnmeta.json || true
           ls -la probe/
