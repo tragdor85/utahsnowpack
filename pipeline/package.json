@@ -1,0 +1,15 @@
+{
+  "name": "@utahsnowpack/pipeline",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "fetch:dry": "tsx src/fetch.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.5"
+  }
+}

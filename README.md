@@ -1,9 +1,11 @@
 # utahsnowpack
 
-A modern dashboard for Utah snowpack, using the same data sources as
-[ksl.com/weather/snowpack](https://www.ksl.com/weather/snowpack): the **USDA NRCS
-SNOTEL** network — SWE, water-year precipitation, and percent-of-average across
-Utah's 8 major basins and their 206 reporting sites.
+A modern dashboard for Utah snowpack, using the same data as
+[ksl.com/weather/snowpack](https://www.ksl.com/weather/snowpack): SNOTEL
+network readings — SWE, water-year precipitation, and percent-of-average across
+Utah's 8 major basins and their 206 reporting sites. (The official SNOTEL
+feeds are dead; KSL's server-rendered page is our validated live source — see
+[docs/data-sources.md](docs/data-sources.md).)
 
 ## Why
 
@@ -17,14 +19,21 @@ no interactivity. This project rebuilds it as a live, interactive dashboard:
 
 ## Status
 
-Task 1 of [docs/PLAN.md](docs/PLAN.md) done: app scaffolded (Vite + React +
-TypeScript in a pnpm workspace), toolchain green (ESLint, Prettier, Vitest),
-CI runs lint + test + build, and the dashboard shell renders the loading
-screen. Next: task 2 — validate the SNOTEL data endpoint.
+Tasks 1–2 of [docs/PLAN.md](docs/PLAN.md) done:
+
+- App scaffolded (Vite + React + TypeScript in a pnpm workspace), toolchain
+  green (ESLint, Prettier, Vitest), CI runs lint + test + build, dashboard
+  shell renders the loading screen.
+- **Data source validated** (the plan's main risk): the official SNOTEL feeds
+  are dead, so the pipeline fetches KSL's server-rendered snowpack page. The
+  fetcher (`pipeline/`) currently retrieves **206/206 roster sites (100%)**
+  from the live page. Full decision record: [docs/data-sources.md](docs/data-sources.md).
 
 `data/ksl-baseline-2026-10-24.json` is a captured copy of the KSL page (all 8
-basins, 206 sites, legend, last-updated stamp) used as the parity reference for
-testing.
+canonical basins, 206 sites, legend, last-updated stamp) used as the parity
+reference for testing. Note: KSL's live page currently groups the same 206
+sites under 16 sections; the pipeline records KSL's section names verbatim and
+maps to the canonical 8 basins via the baseline roster.
 
 ## Build & run
 
@@ -35,10 +44,16 @@ version is in `packageManager`; `corepack enable` or `npm i -g pnpm`).
 pnpm install          # install all workspace deps
 pnpm dev              # dev server (http://localhost:5173)
 pnpm lint             # ESLint
-pnpm test             # Vitest (runs in app/)
+pnpm test             # Vitest (app/ + pipeline/)
 pnpm build            # type-check + production build → app/dist
 pnpm preview          # serve the production build locally
+pnpm fetch:dry        # fetch live KSL page → data/raw/ (gitignored), validates coverage
 ```
+
+`fetch:dry` accepts `--fixture <file>` to run offline against a captured page
+(`data/fixtures/` holds the committed test fixture). It exits non-zero if the
+page structure is unrecognizable or roster coverage drops below 95%
+(see [docs/data-sources.md](docs/data-sources.md)).
 
 CI (`.github/workflows/ci.yml`) runs the same `pnpm lint && pnpm test &&
 pnpm build` on every PR and main push, and uploads `app/dist` as an artifact.
@@ -47,6 +62,11 @@ pnpm build` on every PR and main push, and uploads `app/dist` as an artifact.
 
 ```
 app/        Vite + React + TypeScript dashboard (src/, dist/ is the build)
-data/       captured baselines; generated snowpack.json + raw/ are gitignored
-docs/       spec, plan, data-source research
+pipeline/   data pipeline: KSL fetcher/parser, coverage gate, tests
+data/       committed baselines + fixtures; generated raw/ output is gitignored
+docs/       spec, plan, data-source research (data-sources.md)
 ```
+
+Workflows: `ci.yml` (lint + test + build on every PR/push) and
+`probe-data-sources.yml` (manual dispatch; re-probes SNOTEL/KSL/ACIS
+reachability from a US datacenter and uploads raw responses).
