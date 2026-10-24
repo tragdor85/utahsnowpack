@@ -1,0 +1,2160 @@
+{
+  "source_page": "https://www.ksl.com/weather/snowpack",
+  "captured": "2026-10-24",
+  "last_updated_display": "",
+  "map_image": "https://img.ksl.com/slc/3206/320670/32067051.jpeg",
+  "data_source": "USDA NRCS SNOTEL network (Utah sites). KSL page is server-rendered: React shell + tables embedded in HTML; only client API call is news-api.ksl.com/v1/weather/getHeaderWeather (header widget, not basin data).",
+  "columns_note": "SWE in inches. Precip = water year (Oct 1 - Sep 30) in inches. % Avg = percent of long-term average. -M = missing data. * = data may not provide valid measure of conditions.",
+  "legend": [
+    {
+      "color": "orange",
+      "label": "50-69%"
+    },
+    {
+      "color": "yellow",
+      "label": "70-89%"
+    },
+    {
+      "color": "green",
+      "label": "90-109%"
+    },
+    {
+      "color": "blue1",
+      "label": "110-129%"
+    },
+    {
+      "color": "blue2",
+      "label": "130-149%"
+    },
+    {
+      "color": "blue3",
+      "label": "> 150%"
+    }
+  ],
+  "basins": [
+    {
+      "id": "raft_river",
+      "color": "blue3",
+      "name": "RAFT RIVER",
+      "pct_avg": "230",
+      "sites": [
+        {
+          "site": "Howell Canyon",
+          "elev_ft": "8010",
+          "swe_in": "1.1",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.9",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "279"
+        },
+        {
+          "site": "George Creek",
+          "elev_ft": "8960",
+          "swe_in": "1.2",
+          "swe_avg_in": "1.0",
+          "swe_pct_avg": "120*",
+          "precip_in": "6.3",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "350"
+        }
+      ]
+    },
+    {
+      "id": "bear_river",
+      "color": "yellow",
+      "name": "BEAR RIVER",
+      "pct_avg": "84",
+      "sites": [
+        {
+          "site": "Tony Grove RS",
+          "elev_ft": "6320",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.6",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "162"
+        },
+        {
+          "site": "Little Bear",
+          "elev_ft": "6540",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.6",
+          "precip_avg_in": "1.7",
+          "precip_pct_avg": "212"
+        },
+        {
+          "site": "Oxford Spring",
+          "elev_ft": "6790",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.8",
+          "precip_avg_in": "1.0",
+          "precip_pct_avg": "280"
+        },
+        {
+          "site": "Giveout",
+          "elev_ft": "6940",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.0",
+          "precip_avg_in": "1.2",
+          "precip_pct_avg": "250"
+        },
+        {
+          "site": "Slug Creek Divide",
+          "elev_ft": "7240",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.6",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "162"
+        },
+        {
+          "site": "Klondike Narrows",
+          "elev_ft": "7280",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.1",
+          "precip_avg_in": "2.8",
+          "precip_pct_avg": "146"
+        },
+        {
+          "site": "Emigrant Summit",
+          "elev_ft": "7390",
+          "swe_in": ".1",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.1",
+          "precip_avg_in": "2.0",
+          "precip_pct_avg": "155"
+        },
+        {
+          "site": "Temple Fork",
+          "elev_ft": "7420",
+          "swe_in": ".4",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.1",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "150"
+        },
+        {
+          "site": "Salt River Summit",
+          "elev_ft": "7630",
+          "swe_in": ".1",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "1.7",
+          "precip_avg_in": "1.2",
+          "precip_pct_avg": "142"
+        },
+        {
+          "site": "Garden City Summit",
+          "elev_ft": "7680",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.8",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "175"
+        },
+        {
+          "site": "Sedgwick Peak",
+          "elev_ft": "7800",
+          "swe_in": ".2",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.6",
+          "precip_avg_in": "1.2",
+          "precip_pct_avg": "383"
+        },
+        {
+          "site": "Bug Lake",
+          "elev_ft": "7980",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.6",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "186"
+        },
+        {
+          "site": "Burts Miller Ranch",
+          "elev_ft": "7900",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "1.4",
+          "precip_avg_in": ".8",
+          "precip_pct_avg": "175"
+        },
+        {
+          "site": "Franklin Basin",
+          "elev_ft": "8140",
+          "swe_in": ".0",
+          "swe_avg_in": ".2",
+          "swe_pct_avg": "0*",
+          "precip_in": "3.9",
+          "precip_avg_in": "2.6",
+          "precip_pct_avg": "150"
+        },
+        {
+          "site": "Kelley R.S.",
+          "elev_ft": "8240",
+          "swe_in": ".1",
+          "swe_avg_in": ".2",
+          "swe_pct_avg": "50*",
+          "precip_in": "1.8",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "129"
+        },
+        {
+          "site": "Usu Doc Daniel",
+          "elev_ft": "8610",
+          "swe_in": ".0",
+          "swe_avg_in": ".9",
+          "swe_pct_avg": "0*",
+          "precip_in": "3.1",
+          "precip_avg_in": "2.1",
+          "precip_pct_avg": "148"
+        },
+        {
+          "site": "Dry Bread Pond",
+          "elev_ft": "8290",
+          "swe_in": ".1",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.4",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "189"
+        },
+        {
+          "site": "Tony Grove Lake",
+          "elev_ft": "8450",
+          "swe_in": ".0",
+          "swe_avg_in": ".2",
+          "swe_pct_avg": "0*",
+          "precip_in": "4.1",
+          "precip_avg_in": "2.2",
+          "precip_pct_avg": "186"
+        },
+        {
+          "site": "Powder Mountain",
+          "elev_ft": "8490",
+          "swe_in": ".3",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "5.0",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Bear River RS",
+          "elev_ft": "8510",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "1.8",
+          "precip_avg_in": "1.0",
+          "precip_pct_avg": "180"
+        },
+        {
+          "site": "Monte Cristo",
+          "elev_ft": "8930",
+          "swe_in": ".2",
+          "swe_avg_in": ".1",
+          "swe_pct_avg": "200*",
+          "precip_in": "3.4",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "189"
+        },
+        {
+          "site": "Spring Creek Divide",
+          "elev_ft": "9020",
+          "swe_in": ".1",
+          "swe_avg_in": ".6",
+          "swe_pct_avg": "17*",
+          "precip_in": "2.7",
+          "precip_avg_in": "1.5",
+          "precip_pct_avg": "180"
+        },
+        {
+          "site": "Hayden Fork",
+          "elev_ft": "9170",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.4",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "189"
+        },
+        {
+          "site": "Lily Lake",
+          "elev_ft": "9130",
+          "swe_in": ".0",
+          "swe_avg_in": ".1",
+          "swe_pct_avg": "0*",
+          "precip_in": "1.8",
+          "precip_avg_in": "1.5",
+          "precip_pct_avg": "120"
+        },
+        {
+          "site": "Chalk Creek #1",
+          "elev_ft": "9160",
+          "swe_in": ".3",
+          "swe_avg_in": ".4",
+          "swe_pct_avg": "75*",
+          "precip_in": "4.4",
+          "precip_avg_in": "2.0",
+          "precip_pct_avg": "220"
+        },
+        {
+          "site": "Trial Lake",
+          "elev_ft": "9970",
+          "swe_in": "1.0",
+          "swe_avg_in": ".4",
+          "swe_pct_avg": "250*",
+          "precip_in": "3.8",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "238"
+        }
+      ]
+    },
+    {
+      "id": "weber_ogden",
+      "color": "blue3",
+      "name": "WEBER-OGDEN",
+      "pct_avg": "191",
+      "sites": [
+        {
+          "site": "Ben Lomond Trail",
+          "elev_ft": "5970",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "5.8",
+          "precip_avg_in": "1.9",
+          "precip_pct_avg": "305"
+        },
+        {
+          "site": "Lost Creek Resv",
+          "elev_ft": "6070",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.3",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "164"
+        },
+        {
+          "site": "Farmington Lower",
+          "elev_ft": "6850",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "6.0",
+          "precip_avg_in": "2.7",
+          "precip_pct_avg": "222"
+        },
+        {
+          "site": "Kilfoil Creek",
+          "elev_ft": "7230",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.7",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "169"
+        },
+        {
+          "site": "Hardscrabble",
+          "elev_ft": "7270",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "6.1",
+          "precip_avg_in": "2.1",
+          "precip_pct_avg": "290"
+        },
+        {
+          "site": "Parleys Summit",
+          "elev_ft": "7590",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.8",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "211"
+        },
+        {
+          "site": "Smith Morehouse",
+          "elev_ft": "7640",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.2",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "229"
+        },
+        {
+          "site": "Ben Lomond Peak",
+          "elev_ft": "7690",
+          "swe_in": ".1",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "7.7",
+          "precip_avg_in": "2.1",
+          "precip_pct_avg": "367"
+        },
+        {
+          "site": "Parrish Creek",
+          "elev_ft": "7760",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.7",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "261"
+        },
+        {
+          "site": "Farmington",
+          "elev_ft": "7920",
+          "swe_in": ".3",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "5.8",
+          "precip_avg_in": "2.4",
+          "precip_pct_avg": "242"
+        },
+        {
+          "site": "Lookout Peak",
+          "elev_ft": "8150",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.8",
+          "precip_avg_in": "1.9",
+          "precip_pct_avg": "200"
+        },
+        {
+          "site": "Horse Ridge",
+          "elev_ft": "8210",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.7",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "169"
+        },
+        {
+          "site": "Chalk Creek #2",
+          "elev_ft": "8200",
+          "swe_in": ".1",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.6",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "225"
+        },
+        {
+          "site": "Lightning Ridge",
+          "elev_ft": "8200",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.0",
+          "precip_avg_in": "2.2",
+          "precip_pct_avg": "136"
+        },
+        {
+          "site": "Beaver Divide",
+          "elev_ft": "8230",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.7",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "193"
+        },
+        {
+          "site": "Dry Bread Pond",
+          "elev_ft": "8290",
+          "swe_in": ".1",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.4",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "189"
+        },
+        {
+          "site": "Parleys Upper",
+          "elev_ft": "8330",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "4.7",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Powder Mountain",
+          "elev_ft": "8490",
+          "swe_in": ".3",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "5.0",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Redden Mine Lwr",
+          "elev_ft": "8540",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "3.9",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Monte Cristo",
+          "elev_ft": "8930",
+          "swe_in": ".2",
+          "swe_avg_in": ".1",
+          "swe_pct_avg": "200*",
+          "precip_in": "3.4",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "189"
+        },
+        {
+          "site": "Chalk Creek #1",
+          "elev_ft": "9160",
+          "swe_in": ".3",
+          "swe_avg_in": ".4",
+          "swe_pct_avg": "75*",
+          "precip_in": "4.4",
+          "precip_avg_in": "2.0",
+          "precip_pct_avg": "220"
+        },
+        {
+          "site": "Thaynes Canyon",
+          "elev_ft": "9260",
+          "swe_in": ".0",
+          "swe_avg_in": ".2",
+          "swe_pct_avg": "0*",
+          "precip_in": "5.5",
+          "precip_avg_in": "2.0",
+          "precip_pct_avg": "275"
+        },
+        {
+          "site": "Trial Lake",
+          "elev_ft": "9970",
+          "swe_in": "1.0",
+          "swe_avg_in": ".4",
+          "swe_pct_avg": "250*",
+          "precip_in": "3.8",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "238"
+        }
+      ]
+    },
+    {
+      "id": "provo_river",
+      "color": "blue3",
+      "name": "PROVO RIVER",
+      "pct_avg": "220",
+      "sites": [
+        {
+          "site": "Louis Meadow",
+          "elev_ft": "6740",
+          "swe_in": "-M",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.1",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "256"
+        },
+        {
+          "site": "Mill Creek Canyon",
+          "elev_ft": "6960",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "5.1",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Dry Fork",
+          "elev_ft": "7180",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.2",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "200"
+        },
+        {
+          "site": "Hardscrabble",
+          "elev_ft": "7270",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "6.1",
+          "precip_avg_in": "2.1",
+          "precip_pct_avg": "290"
+        },
+        {
+          "site": "Hobble Creek",
+          "elev_ft": "7360",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "3.3",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Parleys Summit",
+          "elev_ft": "7590",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.8",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "211"
+        },
+        {
+          "site": "Cascade Mountain",
+          "elev_ft": "7750",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.5",
+          "precip_avg_in": "1.9",
+          "precip_pct_avg": "237"
+        },
+        {
+          "site": "Santaquin Meadows",
+          "elev_ft": "7830",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "3.4",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Clear Creek #2",
+          "elev_ft": "7850",
+          "swe_in": ".1",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.5",
+          "precip_avg_in": "1.2",
+          "precip_pct_avg": "292"
+        },
+        {
+          "site": "Daniels Strawberry",
+          "elev_ft": "8010",
+          "swe_in": ".2",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.8",
+          "precip_avg_in": "1.2",
+          "precip_pct_avg": "400"
+        },
+        {
+          "site": "Payson R.S.",
+          "elev_ft": "8050",
+          "swe_in": ".2",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.4",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "243"
+        },
+        {
+          "site": "Strawberry Divide",
+          "elev_ft": "8100",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.3",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "307"
+        },
+        {
+          "site": "Timpanogos Divide",
+          "elev_ft": "8180",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "9.0",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "562"
+        },
+        {
+          "site": "Lookout Peak",
+          "elev_ft": "8150",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.8",
+          "precip_avg_in": "1.9",
+          "precip_pct_avg": "200"
+        },
+        {
+          "site": "Beaver Divide",
+          "elev_ft": "8230",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.7",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "193"
+        },
+        {
+          "site": "Parleys Upper",
+          "elev_ft": "8330",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "4.7",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Redden Mine Lwr",
+          "elev_ft": "8540",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "3.9",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Rocky Basin Settleme",
+          "elev_ft": "8700",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "5.2",
+          "precip_avg_in": "1.7",
+          "precip_pct_avg": "306"
+        },
+        {
+          "site": "Atwater",
+          "elev_ft": "8750",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "8.9",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Brighton",
+          "elev_ft": "8790",
+          "swe_in": ".2",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "7.8",
+          "precip_avg_in": "2.1",
+          "precip_pct_avg": "371"
+        },
+        {
+          "site": "Mill D North",
+          "elev_ft": "8940",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.7",
+          "precip_avg_in": "2.0",
+          "precip_pct_avg": "235"
+        },
+        {
+          "site": "Clear Creek #1",
+          "elev_ft": "8960",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.8",
+          "precip_avg_in": "1.7",
+          "precip_pct_avg": "224"
+        },
+        {
+          "site": "Snowbird",
+          "elev_ft": "9170",
+          "swe_in": ".5",
+          "swe_avg_in": ".4",
+          "swe_pct_avg": "125*",
+          "precip_in": "12.0",
+          "precip_avg_in": "2.9",
+          "precip_pct_avg": "414"
+        },
+        {
+          "site": "Thaynes Canyon",
+          "elev_ft": "9260",
+          "swe_in": ".0",
+          "swe_avg_in": ".2",
+          "swe_pct_avg": "0*",
+          "precip_in": "5.5",
+          "precip_avg_in": "2.0",
+          "precip_pct_avg": "275"
+        },
+        {
+          "site": "Wolf Creek Peak",
+          "elev_ft": "9770",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "3.8",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Trial Lake",
+          "elev_ft": "9970",
+          "swe_in": "1.0",
+          "swe_avg_in": ".4",
+          "swe_pct_avg": "250*",
+          "precip_in": "3.8",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "238"
+        },
+        {
+          "site": "Bevans Cabin",
+          "elev_ft": "6470",
+          "swe_in": ".1",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "4.5",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Dry Fork",
+          "elev_ft": "7180",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.2",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "200"
+        },
+        {
+          "site": "Vernon Creek",
+          "elev_ft": "7310",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.5",
+          "precip_avg_in": ".9",
+          "precip_pct_avg": "500"
+        },
+        {
+          "site": "Mining Fork",
+          "elev_ft": "8290",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "6.3",
+          "precip_avg_in": "1.5",
+          "precip_pct_avg": "420"
+        },
+        {
+          "site": "Rocky Basin Settleme",
+          "elev_ft": "8700",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "5.2",
+          "precip_avg_in": "1.7",
+          "precip_pct_avg": "306"
+        }
+      ]
+    },
+    {
+      "id": "green_river",
+      "color": "red",
+      "name": "NE UINTAHS",
+      "pct_avg": "40",
+      "sites": [
+        {
+          "site": "Chepeta M",
+          "elev_ft": ".7",
+          "swe_in": "*",
+          "swe_avg_in": "6.4",
+          "swe_pct_avg": "1.6",
+          "precip_in": "400",
+          "precip_avg_in": "",
+          "precip_pct_avg": ""
+        },
+        {
+          "site": "Spirit Lk",
+          "elev_ft": "10240",
+          "swe_in": ".2",
+          "swe_avg_in": ".2",
+          "swe_pct_avg": "100*",
+          "precip_in": "6.5",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "361"
+        },
+        {
+          "site": "Henrys Fork",
+          "elev_ft": "10180",
+          "swe_in": "-M",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "3.3",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Steel Creek Park",
+          "elev_ft": "10140",
+          "swe_in": ".0",
+          "swe_avg_in": ".8",
+          "swe_pct_avg": "0*",
+          "precip_in": "2.4",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "150"
+        },
+        {
+          "site": "Buck Pasture",
+          "elev_ft": "9630",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "3.3",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Mosby Mtn.",
+          "elev_ft": "9550",
+          "swe_in": "-M",
+          "swe_avg_in": ".2",
+          "swe_pct_avg": "*",
+          "precip_in": "5.5",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "344"
+        },
+        {
+          "site": "Trout Creek",
+          "elev_ft": "9440",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "6.3",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "394"
+        },
+        {
+          "site": "Hewinta",
+          "elev_ft": "9510",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "1.7",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "106"
+        },
+        {
+          "site": "EF Blacks Fork",
+          "elev_ft": "GS",
+          "swe_in": "9360",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": ".0",
+          "precip_in": "*",
+          "precip_avg_in": "1.7",
+          "precip_pct_avg": "1.4"
+        },
+        {
+          "site": "Hole in Rock",
+          "elev_ft": "9170",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.4",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "171"
+        },
+        {
+          "site": "Hickerson Park",
+          "elev_ft": "9120",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.2",
+          "precip_avg_in": "1.0",
+          "precip_pct_avg": "220"
+        },
+        {
+          "site": "Blacks Fork Jct",
+          "elev_ft": "8880",
+          "swe_in": ".1",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "1.4",
+          "precip_avg_in": "1.2",
+          "precip_pct_avg": "117"
+        },
+        {
+          "site": "Kings Cabin",
+          "elev_ft": "8740",
+          "swe_in": ".1",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "6.6",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "471"
+        }
+      ]
+    },
+    {
+      "id": "duchesne",
+      "color": "blue3",
+      "name": "DUCHESNE",
+      "pct_avg": "194",
+      "sites": [
+        {
+          "site": "Rock Creek",
+          "elev_ft": "7880",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "6.1",
+          "precip_avg_in": "1.0",
+          "precip_pct_avg": "610"
+        },
+        {
+          "site": "Currant Creek",
+          "elev_ft": "7920",
+          "swe_in": ".5",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.6",
+          "precip_avg_in": "1.0",
+          "precip_pct_avg": "360"
+        },
+        {
+          "site": "Daniels Strawberry",
+          "elev_ft": "8010",
+          "swe_in": ".2",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.8",
+          "precip_avg_in": "1.2",
+          "precip_pct_avg": "400"
+        },
+        {
+          "site": "Strawberry Divide",
+          "elev_ft": "8100",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.3",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "307"
+        },
+        {
+          "site": "Lakefork #3",
+          "elev_ft": "8430",
+          "swe_in": ".2",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.2",
+          "precip_avg_in": ".9",
+          "precip_pct_avg": "467"
+        },
+        {
+          "site": "White River #1",
+          "elev_ft": "8620",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "5.4",
+          "precip_avg_in": ".9",
+          "precip_pct_avg": "600"
+        },
+        {
+          "site": "Wilbur Bench",
+          "elev_ft": "9170",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "5.5",
+          "precip_avg_in": "1.1",
+          "precip_pct_avg": "500"
+        },
+        {
+          "site": "Mosby Mtn.",
+          "elev_ft": "9550",
+          "swe_in": "-M",
+          "swe_avg_in": ".2",
+          "swe_pct_avg": "*",
+          "precip_in": "5.5",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "344"
+        },
+        {
+          "site": "Wolf Creek Peak",
+          "elev_ft": "9770",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "3.8",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Trial Lake",
+          "elev_ft": "9970",
+          "swe_in": "1.0",
+          "swe_avg_in": ".4",
+          "swe_pct_avg": "250*",
+          "precip_in": "3.8",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "238"
+        },
+        {
+          "site": "Lakefork #1",
+          "elev_ft": "10120",
+          "swe_in": ".2",
+          "swe_avg_in": ".1",
+          "swe_pct_avg": "200*",
+          "precip_in": "5.8",
+          "precip_avg_in": "1.3",
+          "precip_pct_avg": "446"
+        },
+        {
+          "site": "Chepeta M",
+          "elev_ft": ".7",
+          "swe_in": "*",
+          "swe_avg_in": "6.4",
+          "swe_pct_avg": "1.6",
+          "precip_in": "400",
+          "precip_avg_in": "",
+          "precip_pct_avg": ""
+        },
+        {
+          "site": "Brown Duck",
+          "elev_ft": "10570",
+          "swe_in": ".8",
+          "swe_avg_in": ".6",
+          "swe_pct_avg": "133*",
+          "precip_in": "6.9",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "431"
+        },
+        {
+          "site": "Lakefork Basin",
+          "elev_ft": "10890",
+          "swe_in": ".0",
+          "swe_avg_in": ".3",
+          "swe_pct_avg": "0*",
+          "precip_in": "4.9",
+          "precip_avg_in": "1.9",
+          "precip_pct_avg": "258"
+        },
+        {
+          "site": "Five Points Lake",
+          "elev_ft": "10920",
+          "swe_in": ".6",
+          "swe_avg_in": ".4",
+          "swe_pct_avg": "150*",
+          "precip_in": "6.2",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "344"
+        },
+        {
+          "site": "Corral",
+          "elev_ft": "8210",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "4.8",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Upper Joes Valley",
+          "elev_ft": "8600",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "2.9",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "White River #1",
+          "elev_ft": "8620",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "5.4",
+          "precip_avg_in": ".9",
+          "precip_pct_avg": "600"
+        },
+        {
+          "site": "Mammoth Cottonwood",
+          "elev_ft": "8710",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.6",
+          "precip_avg_in": "1.2",
+          "precip_pct_avg": "300"
+        },
+        {
+          "site": "Timberline",
+          "elev_ft": "8720",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.8",
+          "precip_avg_in": "1.5",
+          "precip_pct_avg": "320"
+        },
+        {
+          "site": "Clear Creek #1",
+          "elev_ft": "8960",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.8",
+          "precip_avg_in": "1.7",
+          "precip_pct_avg": "224"
+        },
+        {
+          "site": "Red Pine Ridge",
+          "elev_ft": "8990",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.7",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "264"
+        },
+        {
+          "site": "Wilbur Bench",
+          "elev_ft": "9170",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "5.5",
+          "precip_avg_in": "1.1",
+          "precip_pct_avg": "500"
+        },
+        {
+          "site": "Wrigley Creek",
+          "elev_ft": "9330",
+          "swe_in": ".3",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "4.9",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Buck Flat",
+          "elev_ft": "9410",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.8",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "211"
+        },
+        {
+          "site": "Mt Baldy",
+          "elev_ft": "9520",
+          "swe_in": ".1",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "3.1",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Huntington Horse",
+          "elev_ft": "9650",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "4.1",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "GBRC Meadows",
+          "elev_ft": "9850",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "4.6",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Seeley Creek",
+          "elev_ft": "9900",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.6",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "257"
+        },
+        {
+          "site": "Fish Lake Utah",
+          "elev_ft": "8780",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.2",
+          "precip_avg_in": ".7",
+          "precip_pct_avg": "314"
+        },
+        {
+          "site": "Dills Camp",
+          "elev_ft": "9240",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.8",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "271"
+        },
+        {
+          "site": "Wrigley Creek",
+          "elev_ft": "9330",
+          "swe_in": ".3",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "4.9",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Buck Flat",
+          "elev_ft": "9410",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.8",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "211"
+        },
+        {
+          "site": "Lonesome Beaver",
+          "elev_ft": "9530",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "8.5",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Black Flat U.M. Ck",
+          "elev_ft": "9420",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.9",
+          "precip_avg_in": "1.0",
+          "precip_pct_avg": "290"
+        },
+        {
+          "site": "Mt Baldy",
+          "elev_ft": "9520",
+          "swe_in": ".1",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "3.1",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Donkey Reservoir",
+          "elev_ft": "9800",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "6.2",
+          "precip_avg_in": ".9",
+          "precip_pct_avg": "689"
+        },
+        {
+          "site": "Sunflower Flat",
+          "elev_ft": "10010",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "8.8",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Corral",
+          "elev_ft": "8210",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "4.8",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "East Willow Creek",
+          "elev_ft": "8300",
+          "swe_in": ".4",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "5.3",
+          "precip_avg_in": "1.0",
+          "precip_pct_avg": "530"
+        },
+        {
+          "site": "Elk Ridge",
+          "elev_ft": "8540",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "6.6",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Timberline",
+          "elev_ft": "8720",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.8",
+          "precip_avg_in": "1.5",
+          "precip_pct_avg": "320"
+        },
+        {
+          "site": "Lasal Mountain Lower",
+          "elev_ft": "8780",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "6.8",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Camp Jackson",
+          "elev_ft": "8840",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "8.7",
+          "precip_avg_in": "1.3",
+          "precip_pct_avg": "669"
+        },
+        {
+          "site": "Buckboard Flat",
+          "elev_ft": "8920",
+          "swe_in": ".6",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "14.4",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Wilbur Bench",
+          "elev_ft": "9170",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "5.5",
+          "precip_avg_in": "1.1",
+          "precip_pct_avg": "500"
+        },
+        {
+          "site": "Mt Pennell",
+          "elev_ft": "9210",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "8.1",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Lonesome Beaver",
+          "elev_ft": "9530",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "8.5",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Lasal Mountain",
+          "elev_ft": "9580",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "7.7",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "428"
+        },
+        {
+          "site": "Gold Basin",
+          "elev_ft": "10070",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "9.2",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        }
+      ]
+    },
+    {
+      "id": "sevier_river",
+      "color": "blue1",
+      "name": "UPPER SEVIER",
+      "pct_avg": "120",
+      "sites": [
+        {
+          "site": "Long Valley Jct",
+          "elev_ft": "7460",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "5.2",
+          "precip_avg_in": ".8",
+          "precip_pct_avg": "650"
+        },
+        {
+          "site": "Harris Flat",
+          "elev_ft": "7800",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.4",
+          "precip_avg_in": "1.0",
+          "precip_pct_avg": "440"
+        },
+        {
+          "site": "Gooseberry RS",
+          "elev_ft": "7930",
+          "swe_in": ".2",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.1",
+          "precip_avg_in": "1.3",
+          "precip_pct_avg": "162"
+        },
+        {
+          "site": "Panguitch Lake RS",
+          "elev_ft": "8300",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "3.7",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Gooseberry RS Up",
+          "elev_ft": "8400",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "2.4",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Yankee Reservoir",
+          "elev_ft": "8680",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "3.9",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Pine Creek",
+          "elev_ft": "8730",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.8",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "211"
+        },
+        {
+          "site": "Fish Lake Utah",
+          "elev_ft": "8780",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.2",
+          "precip_avg_in": ".7",
+          "precip_pct_avg": "314"
+        },
+        {
+          "site": "Agua Canyon",
+          "elev_ft": "8890",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "6.8",
+          "precip_avg_in": ".9",
+          "precip_pct_avg": "756"
+        },
+        {
+          "site": "Pickle Keg",
+          "elev_ft": "9010",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.7",
+          "precip_avg_in": "1.3",
+          "precip_pct_avg": "208"
+        },
+        {
+          "site": "Kimberly Mine",
+          "elev_ft": "9110",
+          "swe_in": ".4",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.8",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "267"
+        },
+        {
+          "site": "Webster Flat",
+          "elev_ft": "9150",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "6.2",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "388"
+        },
+        {
+          "site": "Box Springs",
+          "elev_ft": "9230",
+          "swe_in": ".1",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.3",
+          "precip_avg_in": "1.1",
+          "precip_pct_avg": "391"
+        },
+        {
+          "site": "Bobs Hollow",
+          "elev_ft": "9320",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "2.5",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Castle Valley",
+          "elev_ft": "9600",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.6",
+          "precip_avg_in": "1.1",
+          "precip_pct_avg": "418"
+        },
+        {
+          "site": "Farnsworth Lake",
+          "elev_ft": "9620",
+          "swe_in": ".5",
+          "swe_avg_in": ".4",
+          "swe_pct_avg": "125*",
+          "precip_in": "3.6",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "225"
+        },
+        {
+          "site": "Widtsoe #3",
+          "elev_ft": "9640",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "7.2",
+          "precip_avg_in": "1.2",
+          "precip_pct_avg": "600"
+        },
+        {
+          "site": "Jones Corral",
+          "elev_ft": "9710",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.3",
+          "precip_avg_in": "1.2",
+          "precip_pct_avg": "358"
+        },
+        {
+          "site": "Midway Valley",
+          "elev_ft": "9830",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.9",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "306"
+        },
+        {
+          "site": "Box Creek",
+          "elev_ft": "9850",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "4.5",
+          "precip_avg_in": "1.1",
+          "precip_pct_avg": "409"
+        },
+        {
+          "site": "Brian Head",
+          "elev_ft": "10040",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "4.5",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Clayton Springs",
+          "elev_ft": "10010",
+          "swe_in": ".2",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "7.0",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "500"
+        },
+        {
+          "site": "Big Flat",
+          "elev_ft": "10320",
+          "swe_in": ".4",
+          "swe_avg_in": "1.1",
+          "swe_pct_avg": "36*",
+          "precip_in": "4.5",
+          "precip_avg_in": "1.5",
+          "precip_pct_avg": "300"
+        },
+        {
+          "site": "Rees Flat",
+          "elev_ft": "7190",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "3.8",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Beaver Dams",
+          "elev_ft": "7980",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.1",
+          "precip_avg_in": "1.3",
+          "precip_pct_avg": "162"
+        },
+        {
+          "site": "Mammoth Cottonwood",
+          "elev_ft": "8710",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.6",
+          "precip_avg_in": "1.2",
+          "precip_pct_avg": "300"
+        },
+        {
+          "site": "Thistle Flat",
+          "elev_ft": "8790",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "2.8",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "GBRC HQ",
+          "elev_ft": "8800",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "3.0",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Red Pine Ridge",
+          "elev_ft": "8990",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.7",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "264"
+        },
+        {
+          "site": "Pickle Keg",
+          "elev_ft": "9010",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "2.7",
+          "precip_avg_in": "1.3",
+          "precip_pct_avg": "208"
+        },
+        {
+          "site": "Buck Flat",
+          "elev_ft": "9410",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.8",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "211"
+        },
+        {
+          "site": "Mt Baldy",
+          "elev_ft": "9520",
+          "swe_in": ".1",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "3.1",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Huntington Horse",
+          "elev_ft": "9650",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "4.1",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "GBRC Meadows",
+          "elev_ft": "9850",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "4.6",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Seeley Creek",
+          "elev_ft": "9900",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.6",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "257"
+        },
+        {
+          "site": "Rees Flat",
+          "elev_ft": "7190",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "3.8",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Vernon Creek",
+          "elev_ft": "7310",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.5",
+          "precip_avg_in": ".9",
+          "precip_pct_avg": "500"
+        },
+        {
+          "site": "Oak Creek",
+          "elev_ft": "7840",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "5.2",
+          "precip_avg_in": "1.1",
+          "precip_pct_avg": "473"
+        },
+        {
+          "site": "Pine Creek",
+          "elev_ft": "8730",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "3.8",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "211"
+        },
+        {
+          "site": "Bobs Hollow",
+          "elev_ft": "9320",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "2.5",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        }
+      ]
+    },
+    {
+      "id": "beaver_river",
+      "color": "yellow",
+      "name": "BEAVER RIVER",
+      "pct_avg": "73",
+      "sites": [
+        {
+          "site": "Merchant Valley",
+          "elev_ft": "8710",
+          "swe_in": "-M",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "-M",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Kimberly Mine",
+          "elev_ft": "9110",
+          "swe_in": ".4",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.8",
+          "precip_avg_in": "1.8",
+          "precip_pct_avg": "267"
+        },
+        {
+          "site": "Big Flat",
+          "elev_ft": "10320",
+          "swe_in": ".4",
+          "swe_avg_in": "1.1",
+          "swe_pct_avg": "36*",
+          "precip_in": "4.5",
+          "precip_avg_in": "1.5",
+          "precip_pct_avg": "300"
+        },
+        {
+          "site": "Agua Canyon",
+          "elev_ft": "8890",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "6.8",
+          "precip_avg_in": ".9",
+          "precip_pct_avg": "756"
+        },
+        {
+          "site": "Widtsoe #3",
+          "elev_ft": "9640",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "7.2",
+          "precip_avg_in": "1.2",
+          "precip_pct_avg": "600"
+        },
+        {
+          "site": "Donkey Reservoir",
+          "elev_ft": "9800",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "6.2",
+          "precip_avg_in": ".9",
+          "precip_pct_avg": "689"
+        },
+        {
+          "site": "Sunflower Flat",
+          "elev_ft": "10010",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "8.8",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Clayton Springs",
+          "elev_ft": "10010",
+          "swe_in": ".2",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "7.0",
+          "precip_avg_in": "1.4",
+          "precip_pct_avg": "500"
+        },
+        {
+          "site": "Little Grassy",
+          "elev_ft": "6070",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "5.9",
+          "precip_avg_in": ".7",
+          "precip_pct_avg": "843"
+        },
+        {
+          "site": "Gutz Peak",
+          "elev_ft": "6790",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "7.2",
+          "precip_avg_in": "1.3",
+          "precip_pct_avg": "554"
+        },
+        {
+          "site": "Long Valley Jct",
+          "elev_ft": "7460",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "5.2",
+          "precip_avg_in": ".8",
+          "precip_pct_avg": "650"
+        },
+        {
+          "site": "Harris Flat",
+          "elev_ft": "7800",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.4",
+          "precip_avg_in": "1.0",
+          "precip_pct_avg": "440"
+        },
+        {
+          "site": "Long Flat",
+          "elev_ft": "7990",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "5.9",
+          "precip_avg_in": "1.0",
+          "precip_pct_avg": "590"
+        },
+        {
+          "site": "Suu Ranch",
+          "elev_ft": "8050",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "6.9",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Gardner Peak",
+          "elev_ft": "8320",
+          "swe_in": ".5",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "8.7",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "544"
+        },
+        {
+          "site": "Yankee Reservoir",
+          "elev_ft": "8680",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "3.9",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        },
+        {
+          "site": "Webster Flat",
+          "elev_ft": "9150",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "6.2",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "388"
+        },
+        {
+          "site": "Kolob",
+          "elev_ft": "9250",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "8.4",
+          "precip_avg_in": "1.3",
+          "precip_pct_avg": "646"
+        },
+        {
+          "site": "Castle Valley",
+          "elev_ft": "9600",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.6",
+          "precip_avg_in": "1.1",
+          "precip_pct_avg": "418"
+        },
+        {
+          "site": "Midway Valley",
+          "elev_ft": "9830",
+          "swe_in": ".0",
+          "swe_avg_in": ".0",
+          "swe_pct_avg": "*",
+          "precip_in": "4.9",
+          "precip_avg_in": "1.6",
+          "precip_pct_avg": "306"
+        },
+        {
+          "site": "Brian Head",
+          "elev_ft": "10040",
+          "swe_in": ".0",
+          "swe_avg_in": "-M",
+          "swe_pct_avg": "*",
+          "precip_in": "4.5",
+          "precip_avg_in": "-M",
+          "precip_pct_avg": "*"
+        }
+      ]
+    }
+  ]
+}

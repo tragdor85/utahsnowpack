@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.snowpack/
+*.log
+.DS_Store
+data/generated/
