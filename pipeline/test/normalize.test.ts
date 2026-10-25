@@ -25,10 +25,18 @@ import { parseWccReport, WCC_REPORT_URL, type WccSnapshot } from '../src/sources
 const FETCHED_AT = '2026-10-25T00:00:00.000Z';
 
 const FIXTURES = fileURLToPath(new URL('../../data/fixtures', import.meta.url));
+const TEST_FIXTURES = fileURLToPath(new URL('./fixtures', import.meta.url));
 const KSL_FIXTURE = readFileSync(`${FIXTURES}/ksl-2026-10-24.html`, 'utf8');
 const WCC_FIXTURE = readFileSync(`${FIXTURES}/wcc-ut-snotel-report-2026-10-24.html`, 'latin1');
-const KSL_FIXTURE_1025 = readFileSync(`${FIXTURES}/ksl-2026-10-25.html`, 'utf8');
-const WCC_FIXTURE_1025 = readFileSync(`${FIXTURES}/wcc-ut-snotel-report-2026-10-25.html`, 'latin1');
+// Pinned copies, NOT data/fixtures: the daily pipeline overwrites the
+// date-stamped captures with later same-day renders (the 10-25 capture was
+// re-fetched after KSL re-rendered), so the stale-page scenario must be
+// tested against a frozen pair.
+const KSL_FIXTURE_1025 = readFileSync(`${TEST_FIXTURES}/ksl-2026-10-25-stale.html`, 'utf8');
+const WCC_FIXTURE_1025 = readFileSync(
+  `${TEST_FIXTURES}/wcc-ut-snotel-report-2026-10-25.html`,
+  'latin1',
+);
 const REGISTRY = loadRegistry();
 
 // ---------------------------------------------------------------------------
