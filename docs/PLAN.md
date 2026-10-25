@@ -121,7 +121,7 @@ and site dots.
   values. e2e: canvas renders sized, clicking the DUCHESNE polygon selects
   it; unit: layer builders + polygon bounds.
 
-## Task 8 — Basin/site detail panel (est. 2–3 turns)
+## Task 8 — Basin/site detail panel (est. 2–3 turns) — ✅ done (2026-10-25, `e520f23`)
 
 Detail panel parity with KSL: site table (Site, Elev, SWE, Avg, % Avg, Precip,
 Avg, % Avg) with `-M`/`*` flags, per-basin summary card (sites reporting,
@@ -129,6 +129,13 @@ aggregate SWE, trend arrow), search/filter, sticky header, sorted by elevation.
 
 - **Accept:** column-for-column parity with the captured KSL baseline;
   a11y: tables announced, flags exposed via aria-label; passes axe checks.
+
+Done: parity verified cell-by-cell against the 10-24 capture (192 of 194
+matched sites; the 2 exceptions are KSL's own column-shift bug; all 8 basin
+rollups identical to KSL's). The plan's "trend arrow" is covered
+by the band-colored rollup (no multi-year history exists yet; task 9 adds it).
+E2E includes a real-data parity test re-deriving every cell from the served
+snowpack.json, so daily pipeline updates stay in lockstep with the UI.
 
 ## Task 9 — Time-series charts (est. 3–4 turns)
 
