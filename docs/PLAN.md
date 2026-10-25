@@ -174,7 +174,7 @@ Note: per-site staleness is expressed via the existing `-M`/dimmed display —
 neither KSL nor the WCC report publishes a per-site last-report date, so there
 is no fresher per-site signal to badge.
 
-## Task 11 — Deploy + end-to-end parity (est. 2–3 turns)
+## Task 11 — Deploy + end-to-end parity (est. 2–3 turns) — ✅ done (2026-10-25, `b529821`…`76efa8a`)
 
 Deploy static site (GitHub Pages or Cloudflare Pages) + wire the pipeline to it;
 final live check of the deployed dashboard against the live KSL page; README
@@ -182,6 +182,20 @@ final pass (source attribution, data license, how to add basins/sites).
 
 - **Accept:** public URL live; every basin % and ≥95% of site values on the
   live site match live KSL within tolerance on the same day; docs current.
+
+**Landed 2026-10-25:** GitHub Pages at
+<https://tragdor85.github.io/utahsnowpack/> (site created via the REST API,
+`build_type: workflow`; `deploy.yml` builds with `VITE_BASE=/utahsnowpack/`
+on every main push — code _and_ daily data commits — and deploys via
+`actions/deploy-pages`). Live parity checked same-day against the live KSL
+page: **8/8 basins and 191/191 site rows identical** (SWE, SWE avg, % avg,
+PREC, PREC avg, % avg), zero warnings on either side. Data fetches are
+base-relative (`import.meta.env.BASE_URL`) so the sub-path deploy works;
+share-card meta tags take production absolute URLs from the deploy env
+(`app/.env` holds the local defaults). README rewritten (sources +
+attribution, freshness, commands, how to add basins/sites) and MIT LICENSE
+added. One gotcha: a top-level `environment:` key is not valid in a workflow
+file (job-level only) — the first deploy run failed at parse for that.
 
 ---
 
