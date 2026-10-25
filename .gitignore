@@ -6,7 +6,9 @@ coverage/
 *.local
 .DS_Store
 
-# Generated pipeline output (docs/PLAN.md task 5); captured baselines stay tracked.
+# data/snowpack.json and data/fixtures/ are COMMITTED: the daily pipeline
+# (docs/PLAN.md task 5, .github/workflows/daily-data.yml) updates them from
+# live sources. data/raw/ is a local fetch:dry byproduct; data/generated/ is
+# scratch space. Captured baselines stay tracked.
 data/generated/
-data/snowpack.json
 data/raw/

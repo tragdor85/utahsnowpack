@@ -80,6 +80,12 @@ describe('coverageReport', () => {
     expect(cov.missing).toEqual(['No Such Site', 'Ghost Peak']);
     expect(cov.pct).toBeCloseTo(33.33, 1);
   });
+
+  it('matches a clean roster name against a flagged page name (Atwater  M, 2026-10-25)', () => {
+    const cov = coverageReport(snapshot, ['Hewinta', 'Chepeta']);
+    expect(cov.matched).toBe(2);
+    expect(cov.missing).toEqual([]);
+  });
 });
 
 describe('full fixture (task 2 acceptance: >=95% roster coverage, offline)', () => {

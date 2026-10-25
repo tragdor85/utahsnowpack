@@ -11,6 +11,7 @@
     "test": "pnpm -r test",
     "build": "pnpm -r build",
     "fetch:dry": "pnpm --filter @utahsnowpack/pipeline fetch:dry",
+    "fetch:all": "pnpm --filter @utahsnowpack/pipeline fetch:all",
     "build:registry": "pnpm --filter @utahsnowpack/pipeline build:registry",
     "build:snowpack": "pnpm --filter @utahsnowpack/pipeline build:snowpack",
     "dev": "pnpm -r --parallel dev",

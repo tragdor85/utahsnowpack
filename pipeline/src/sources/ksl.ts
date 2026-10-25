@@ -52,6 +52,22 @@ function cleanCell(cell: string): string {
   return cell.replace(/<[^>]+>/g, '').trim();
 }
 
+/**
+ * Trailing data-quality flag on the site cell: "Chepeta  M" → "M".
+ * KSL appends " M" when the station's SWE reading is missing (it has not
+ * reported yet — common on pre-morning-report page renders). The flag is a
+ * display marker, not part of the station name.
+ */
+export function trailingFlag(name: string): string | null {
+  const m = name.match(/\s[-*]?\s?[M*]$/);
+  return m ? m[0].trim() : null;
+}
+
+/** "Chepeta  M" → "Chepeta". */
+export function stripFlag(name: string): string {
+  return name.replace(/\s*[-*]?\s?[M*]\s*$/, '').trim();
+}
+
 function parseRows(tableHtml: string): KslRow[] {
   const rows: KslRow[] = [];
   for (const m of tableHtml.matchAll(/<tr[^>]*class="[^"]*highlight[^"]*"[^>]*>(.*?)<\/tr>/g)) {

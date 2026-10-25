@@ -192,17 +192,24 @@ raw snapshots plus the pinned registry into the canonical `data/snowpack.json`
   water-year precip, which the WCC report does not carry. Values are taken
   verbatim after undoing KSL's two cell-shift display quirks
   (`reconstructKslRow` in `pipeline/src/normalize.ts`):
-  - *name-overflow*: a non-numeric elev cell is the name's tail
+  - _name-overflow_: a non-numeric elev cell is the name's tail
     ("EF Blacks Fork" + "GS"); the last cell (precip % avg) is dropped.
-  - *flag-shift*: a trailing M/-M/* flag on the name plus k trailing empty
+  - _flag-shift_: a trailing M/-M/* flag on the name plus k trailing empty
     filler cells means SWE (and, for k ≥ 2, the elevation) was dropped and
     the remaining cells shifted left. k=2 is the only shape observed
-    ("Chepeta  M"); other k values reconstruct but emit a warning.
-- **WCC** supplies *reported-today* membership: the report lists only stations
-  with a reading, and KSL's basin % is computed over exactly that set. KSL's
-  own table keeps last-known values for non-reporting stations, so it cannot
-  supply the set. For every station that reported, the normalizer cross-checks
-  KSL vs WCC SWE and SWE-avg (tolerance 0.05 in) and warns on disagreement.
+    ("Chepeta M"); other k values reconstruct but emit a warning.
+- **WCC** supplies _reported-today_: the report lists **every** station in
+  the network — including ones that did not report (their SWE cell is `-M`,
+  e.g. 5 of 149 on 2026-10-24, 7 of 149 on 2026-10-25) — so _presence alone
+  says nothing_; reported-today means **SWE non-missing in the WCC report**.
+  The basin rollup runs over the reported stations' KSL values. For every
+  station that reported, the normalizer cross-checks KSL vs WCC SWE and
+  SWE-avg (tolerance 0.05 in) and warns on disagreement; it also cross-checks
+  each basin rollup against the report's own `Basin Index (%)` row (warns on
+  a >2 pt divergence, or when the index exists but no rollup is computable)
+  and warns — in one aggregate line, above a 10%/5-station threshold — when
+  the sources disagree about _who_ reported (the signature of a stale KSL
+  page; see the 2026-10-25 fixture test).
 
 Basin rollup: `swePctAvg = round(100 × Σ SWE ÷ Σ SWE-avg)` over the basin's
 reporting stations that have a non-null SWE **and** non-null SWE-avg — the
@@ -257,9 +264,15 @@ User-Agent: <browser-like UA>   # plain curl also works; UA set defensively
 
 ## Cadence
 
-KSL re-renders the page around the SNOTEL daily report (observed stamp:
-Saturday ~10:10 am local). Task 5's pipeline may poll hourly; a staleness
-guard compares the `lastUpdated` stamp against the expected daily cadence.
+The SNOTEL network reports at 08:00 Mountain. The WCC daily report appears
+shortly after. The KSL page re-renders on its own schedule — observed: a
+~02:15 pre-report render and a ~10:10 post-report render (local wall clock),
+so a fetch before ~10:10 Mountain captures a stale pre-report page (the
+2026-10-25 capture: 133 of 148 registry stations still `-M`). Task 5's
+daily pipeline therefore runs at 18:30 UTC (10:30 MST / 11:30 MDT — after
+the ~10:10 render in either DST state) and the normalizer's warnings
+(out-of-sync count, basin-index divergence, source-date mismatch) surface any
+residual staleness in `snowpack.json` for the app's stamp (task 10).
 
 ## Fallbacks and robustness guards
 

@@ -77,12 +77,13 @@ async function fetchKsl(): Promise<{ html: string; sourceUrl: string }> {
   return { html: await res.text(), sourceUrl: KSL_URL };
 }
 
-interface Guards {
-  warnings: string[];
-  errors: string[];
-}
-
-function guard(snapshot: KslSnapshot, warnings: string[], errors: string[]): Guards {
+/**
+ * Structural guards for a KSL snapshot (shared by fetch:dry and fetch:all).
+ * Errors mean "unrecognizable page"; warnings mean "suspicious but usable".
+ */
+export function guardKsl(snapshot: KslSnapshot): { warnings: string[]; errors: string[] } {
+  const warnings: string[] = [];
+  const errors: string[] = [];
   if (!snapshot.lastUpdated)
     errors.push("no 'Last Updated' stamp found — KSL page layout may have changed");
   if (snapshot.rowCount === 0)
@@ -101,6 +102,11 @@ function guard(snapshot: KslSnapshot, warnings: string[], errors: string[]): Gua
   return { warnings, errors };
 }
 
+/** Fetch the KSL snowpack page (exported for fetch-all). */
+export async function fetchKslHtml(): Promise<string> {
+  return (await fetchKsl()).html;
+}
+
 export async function main(argv: string[] = process.argv.slice(2)): Promise<number> {
   const fixtureIdx = argv.indexOf('--fixture');
   const fixturePath = fixtureIdx >= 0 ? argv[fixtureIdx + 1] : undefined;
@@ -108,9 +114,7 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
   const source = fixturePath ? loadHtml(fixturePath) : await fetchKsl();
   const snapshot = parseKslHtml(source.html, source.sourceUrl, new Date().toISOString());
 
-  const warnings: string[] = [];
-  const errors: string[] = [];
-  guard(snapshot, warnings, errors);
+  const { warnings, errors } = guardKsl(snapshot);
 
   const cov = coverageReport(snapshot);
   if (cov.pct < 95) {

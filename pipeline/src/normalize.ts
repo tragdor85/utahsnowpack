@@ -1,18 +1,18 @@
 /**
  * Normalizer (docs/PLAN.md task 4): turns the two raw snapshots — the KSL
- * page (all roster sites, 8 columns) and the WCC report (stations that
- * reported today) — plus the pinned site registry into the canonical
- * `data/snowpack.json` (see schema.ts).
+ * page (all roster sites, 8 columns) and the WCC report (all stations,
+ * `-M` for those that did not report) — plus the pinned site registry into
+ * the canonical `data/snowpack.json` (see schema.ts).
  *
  * Source roles (docs/data-sources.md):
  * - KSL supplies every displayed site value, including precipitation, which
  *   the WCC report does not carry. Values are taken verbatim after undoing
  *   KSL's two cell-shift display quirks (reconstructKslRow).
- * - The WCC report supplies "reported today" membership: it lists only
- *   stations with a reading. KSL's basin % is computed over exactly that set
- *   — verified 8/8 against the 2026-10-24 baseline (see docs/data-sources.md
- *   "Basin rollup"). KSL's own table keeps last-known values for stations
- *   that did not report, so it cannot supply the set itself.
+ * - The WCC report lists every station in the network, with `-M` where a
+ *   station did not report. "Reported today" therefore means *SWE
+ *   non-missing in the WCC report* — not mere presence in it. The basin
+ *   rollup runs over KSL values for the reported stations; the report's own
+ *   basin index row is kept as a cross-check on that rollup.
  */
 import { BASINS, type BasinDef } from './basins.js';
 import { parseKslStamp } from './fetch.js';
@@ -24,8 +24,8 @@ import {
   type SnowpackSite,
   type SiteFlag,
 } from './schema.js';
-import type { KslRow, KslSnapshot } from './sources/ksl.js';
-import type { WccRow, WccSnapshot } from './sources/wcc.js';
+import { stripFlag, trailingFlag, type KslRow, type KslSnapshot } from './sources/ksl.js';
+import type { WccGroup, WccRow, WccSnapshot } from './sources/wcc.js';
 
 // ---------------------------------------------------------------------------
 // Cell parsing
@@ -51,6 +51,7 @@ export function parseMetric(cell: string): Metric {
   const raw = cell.trim();
   if (raw === '') return { value: null, missing: true, invalid: false };
   if (/^-?M\*?$/i.test(raw)) return { value: null, missing: true, invalid: raw.includes('*') };
+  if (/^N\/A$/i.test(raw)) return { value: null, missing: true, invalid: false };
   if (/^-\*$/i.test(raw)) return { value: null, missing: true, invalid: true };
   if (raw === '*') return { value: null, missing: false, invalid: true };
   const m = raw.match(NUMERIC);
@@ -101,8 +102,8 @@ type SlotName = (typeof METRIC_SLOTS)[number];
 /**
  * KSL's table renderer shifts cells left when values are missing, leaving
  * empty filler cells at the end, and appends data-quality flags to the name
- * cell ("Chepeta  M") or overflows long names into the elev cell ("EF
- * Blacks Fork" + "GS"). Two shapes exist in the baseline capture:
+ * cell ("Chepeta  M" — the station's SWE reading is missing) or overflows
+ * long names into the elev cell ("EF Blacks Fork" + "GS").
  *
  * - name-overflow: the elev cell holds non-numeric text (the name tail);
  *   the last cell (precip % avg) is dropped. Data = cells[2..7].
@@ -110,9 +111,10 @@ type SlotName = (typeof METRIC_SLOTS)[number];
  *   value) and k trailing cells are empty filler; the first k metric slots
  *   (elev, then SWE) were dropped. k=2 is the observed shape.
  *
- * Discriminators: non-numeric elev cell → overflow; trailing empty cells →
- * shift (k of them); a flag with no empty cells is a plain marker on an
- * otherwise normal row.
+ * Discriminators, checked in this order: trailing flag + trailing empty
+ * cells → flag-shift FIRST (a shifted row's elev cell may hold "-M", which
+ * would otherwise look like overflow); non-numeric elev cell → overflow;
+ * a flag with no empty cells is a plain marker on an otherwise normal row.
  */
 export function reconstructKslRow(row: KslRow): ReconstructedRow {
   const cells = [
@@ -129,20 +131,6 @@ export function reconstructKslRow(row: KslRow): ReconstructedRow {
   const flag = trailingFlag(row.site);
   const trailingEmpty = countTrailingEmpty(cells);
 
-  if (elev !== '' && !/^[\d.]+$/.test(elev)) {
-    // Name tail shifted into the elev cell; everything shifts left one and
-    // the last cell (precip % avg) is dropped.
-    const rec = shiftedRow(
-      `${stripFlag(row.site)} ${elev}`.replace(/\s+/g, ' ').trim(),
-      2,
-      ['precipPct'],
-      cells,
-      'name-overflow',
-    );
-    if (trailingEmpty > 0)
-      rec.anomaly = `name-overflow row also has ${trailingEmpty} trailing empty cell(s) — unverified shape`;
-    return rec;
-  }
   if (flag !== null && trailingEmpty > 0) {
     const k = trailingEmpty;
     const rec = shiftedRow(
@@ -157,9 +145,23 @@ export function reconstructKslRow(row: KslRow): ReconstructedRow {
       rec.anomaly = `flag-shift with ${k} trailing empty cell(s) — only k=2 is verified against the baseline`;
     return rec;
   }
+  if (elev !== '' && !/^[\d.]+$/.test(elev)) {
+    // Name tail shifted into the elev cell; everything shifts left one and
+    // the last cell (precip % avg) is dropped.
+    const rec = shiftedRow(
+      `${stripFlag(row.site)} ${elev}`.replace(/\s+/g, ' ').trim(),
+      2,
+      ['precipPct'],
+      cells,
+      'name-overflow',
+    );
+    if (trailingEmpty > 0)
+      rec.anomaly = `name-overflow row also has ${trailingEmpty} trailing empty cell(s) — unverified shape`;
+    return rec;
+  }
   const rec: ReconstructedRow = {
     kind: 'normal',
-    name: row.site.replace(/\s+/g, ' ').trim(),
+    name: stripFlag(row.site).replace(/\s+/g, ' ').trim(),
     elevationFt: parseElevation(elev),
     swe: parseMetric(cells[2]),
     sweAvg: parseMetric(cells[3]),
@@ -212,16 +214,6 @@ function countTrailingEmpty(cells: string[]): number {
   return k;
 }
 
-/** Trailing missing-data flag on a name cell: "Chepeta M" → "M". */
-function trailingFlag(name: string): string | null {
-  const m = name.match(/\s[-*]?\s?[M*]$/);
-  return m ? m[0].trim() : null;
-}
-
-function stripFlag(name: string): string {
-  return name.replace(/\s*[-*]?\s?[M*]\s*$/, '').trim();
-}
-
 // ---------------------------------------------------------------------------
 // Indexes
 // ---------------------------------------------------------------------------
@@ -229,10 +221,13 @@ function stripFlag(name: string): string {
 interface WccIndex {
   /** WCC group name → normalized station name → rows. */
   byGroup: Map<string, Map<string, WccRow[]>>;
+  /** WCC group name → the group itself (for the basin index row). */
+  groups: Map<string, WccGroup>;
 }
 
 function buildWccIndex(wcc: WccSnapshot): WccIndex {
   const byGroup = new Map<string, Map<string, WccRow[]>>();
+  const groups = new Map<string, WccGroup>();
   for (const group of wcc.groups) {
     const names = byGroup.get(group.name) ?? new Map<string, WccRow[]>();
     for (const row of group.rows) {
@@ -240,16 +235,19 @@ function buildWccIndex(wcc: WccSnapshot): WccIndex {
       names.set(key, [...(names.get(key) ?? []), row]);
     }
     byGroup.set(group.name, names);
+    groups.set(group.name, group);
   }
-  return { byGroup };
+  return { byGroup, groups };
 }
 
-/** Registry lookup by normalized name (catalog name or KSL display name). */
+/** Registry lookup by normalized name (catalog name, KSL display name, or
+ * the display name with its data-quality flag stripped). */
 function buildStationIndex(registry: Registry): Map<string, RegistrySite> {
   const index = new Map<string, RegistrySite>();
   for (const site of registry.sites) {
     index.set(normalizeStationName(site.name), site);
     index.set(normalizeStationName(site.kslName), site);
+    index.set(normalizeStationName(stripFlag(site.kslName)), site);
   }
   return index;
 }
@@ -433,6 +431,7 @@ export function normalize(
   }
 
   // Cross-check: for stations that reported, KSL and WCC must agree.
+  const reportedMismatches = new Set<string>();
   for (const station of registry.sites) {
     const values = valuesByStation.get(station.stationTriplet);
     if (!values) continue;
@@ -461,7 +460,22 @@ export function normalize(
           `SWE avg disagreement for ${station.name} (${basin.id}): KSL ${values.sweAvg.value} vs WCC ${wMedian.value}`,
         );
       }
+      // Reported-status agreement: one source has a SWE reading, the other
+      // does not. A few stragglers are normal (the sources are fetched
+      // minutes apart); a flood means the pages are out of sync (e.g. the
+      // KSL page was rendered before the 08:00 SNOTEL report).
+      if ((values.swe.value !== null) !== (wSwe.value !== null)) {
+        reportedMismatches.add(station.name);
+      }
     }
+  }
+  const totalEntries = registry.sites.reduce((n, s) => n + s.basins.length, 0);
+  if (reportedMismatches.size > Math.max(5, Math.round(totalEntries * 0.1))) {
+    const examples = [...reportedMismatches].slice(0, 5).join(', ');
+    warnings.push(
+      `${reportedMismatches.size} station(s) have a SWE reading on one source but not the other ` +
+        `(e.g. ${examples}) — the sources may be out of sync (KSL ${ksl.lastUpdated} vs WCC ${wcc.reportDate})`,
+    );
   }
 
   // A tracked basin whose WCC group vanished from the report would silently
@@ -479,6 +493,12 @@ export function normalize(
     warnings.push(`could not parse WCC report date: "${wcc.reportDate}"`);
   const kslDate = ksl.lastUpdated ? kslStampToDate(ksl.lastUpdated) : null;
   if (ksl.lastUpdated && !kslDate) warnings.push(`could not parse KSL stamp: "${ksl.lastUpdated}"`);
+  if (kslDate && wccDate && kslDate !== wccDate) {
+    warnings.push(
+      `source dates differ — KSL page from ${kslDate}, WCC report from ${wccDate}; ` +
+        'reported-today flags follow the WCC date while values follow the KSL page',
+    );
+  }
 
   const basins: SnowpackBasin[] = BASINS.map((basin) =>
     buildBasin(basin, registry, valuesByStation, kslOrder, wccIndex, warnings),
@@ -521,7 +541,7 @@ function buildBasin(
 
   const sites: SnowpackSite[] = [...withValues, ...withoutValues].map((station) => {
     const values = valuesByStation.get(station.stationTriplet) ?? ALL_MISSING;
-    const reportedToday = wccRowsForStation(station, wccIndex, basin) !== null;
+    const reportedToday = wccReported(station, wccIndex, basin);
     return {
       stationId: station.stationId,
       stationTriplet: station.stationTriplet,
@@ -548,6 +568,29 @@ function buildBasin(
       ? Math.round((100 * pairs.reduce((sum, s) => sum + (s.sweIn ?? 0), 0)) / denom)
       : null;
 
+  // Cross-check the rollup against the WCC report's own basin index row.
+  const wccGroup = wccIndex.groups.get(basin.wccGroup);
+  const indexRow = wccGroup?.basinIndex ?? null;
+  if (indexRow) {
+    const idx = parseMetric(indexRow);
+    if (idx.value !== null && !idx.missing) {
+      if (swePctAvg === null) {
+        const why =
+          pairs.length === 0
+            ? 'no reported station has both SWE and SWE-avg'
+            : `${pairs.length} reported station(s) have both, but their SWE-avg sum is 0`;
+        warnings.push(
+          `${basin.id}: WCC basin index is ${indexRow} but no rollup is computable (${why})`,
+        );
+      } else if (Math.abs(swePctAvg - idx.value) > 2) {
+        warnings.push(
+          `${basin.id}: rollup ${swePctAvg}% diverges from the WCC basin index ${indexRow} by ` +
+            `${Math.abs(swePctAvg - idx.value)} pts — the sources may be out of sync`,
+        );
+      }
+    }
+  }
+
   return {
     id: basin.id,
     name: basin.kslName,
@@ -572,6 +615,17 @@ function wccRowsForStation(
     names.get(normalizeStationName(station.kslName)) ??
     null
   );
+}
+
+/**
+ * "Reported today": the WCC report lists every station, so presence alone
+ * says nothing — the station's SWE cell must be non-missing (`-M` means the
+ * station has not reported yet).
+ */
+function wccReported(station: RegistrySite, wccIndex: WccIndex, basin: BasinDef): boolean {
+  const rows = wccRowsForStation(station, wccIndex, basin);
+  if (!rows) return false;
+  return parseMetric(rows[0].swe).missing === false;
 }
 
 function flagsFor(v: SiteValues): SiteFlag[] {

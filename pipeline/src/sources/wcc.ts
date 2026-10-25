@@ -133,6 +133,8 @@ export interface WccRow {
 export interface WccGroup {
   name: string;
   rows: WccRow[];
+  /** The report's own basin-level index, e.g. `"230*"` (null if absent). */
+  basinIndex: string | null;
 }
 
 export interface WccSnapshot {
@@ -153,8 +155,13 @@ function cleanCell(cell: string): string {
 
 /**
  * Parse the report's `update_report_data` table: one-cell rows are basin
- * group headers, eight-cell rows are sites, two-cell rows are basin index
- * summaries (skipped).
+ * group headers, three-cell `Basin Index (%)` rows are the group's index,
+ * eight-cell rows are sites.
+ *
+ * Note: the report lists every station in the network — including stations
+ * that did not report (their SWE cell is `-M`). "Reported today" therefore
+ * means *SWE non-missing*, not mere presence in the report
+ * (docs/data-sources.md).
  */
 export function parseWccReport(html: string, sourceUrl: string, fetchedAt: string): WccSnapshot {
   const dateMatch = html.match(
@@ -189,7 +196,9 @@ export function parseWccReport(html: string, sourceUrl: string, fetchedAt: strin
       cleanCell(c[0]),
     );
     if (cells.length === 1) {
-      groups.push({ name: cells[0], rows: [] });
+      groups.push({ name: cells[0], rows: [], basinIndex: null });
+    } else if (cells.length === 3 && cells[0] === 'Basin Index (%)' && groups.length > 0) {
+      groups[groups.length - 1].basinIndex = cells[1] || null;
     } else if (cells.length === WCC_CELL_KEYS.length && groups.length > 0) {
       groups[groups.length - 1].rows.push(
         Object.fromEntries(cells.map((v, i) => [WCC_CELL_KEYS[i], v])) as unknown as WccRow,

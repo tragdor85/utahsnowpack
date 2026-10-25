@@ -5,6 +5,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import type { KslSnapshot } from './sources/ksl.js';
+import { stripFlag } from './sources/ksl.js';
 
 const BASELINE_PATH = fileURLToPath(
   new URL('../../data/ksl-baseline-2026-10-24.json', import.meta.url),
@@ -30,8 +31,13 @@ export interface CoverageReport {
 
 export function coverageReport(snapshot: KslSnapshot, roster?: string[]): CoverageReport {
   const names = roster ?? baselineRoster();
-  const seen = new Set(snapshot.sections.flatMap((s) => s.rows.map((r) => normalizeName(r.site))));
-  const missing = names.filter((n) => !seen.has(normalizeName(n)));
+  // KSL appends a trailing data-quality flag ("Atwater  M") to the site cell
+  // when a station has not reported yet; the flag is not part of the name.
+  // Strip it on both sides so flagged and unflagged renderings match.
+  const seen = new Set(
+    snapshot.sections.flatMap((s) => s.rows.map((r) => normalizeName(stripFlag(r.site)))),
+  );
+  const missing = names.filter((n) => !seen.has(normalizeName(stripFlag(n))));
   const matched = names.length - missing.length;
   return {
     rosterSize: names.length,

@@ -1,0 +1,86 @@
+name: daily-data
+
+# docs/PLAN.md task 5 — the daily data pipeline. Fetches the live sources
+# (KSL + WCC), normalizes them into data/snowpack.json, and commits the JSON
+# plus the raw captures (audit trail) to main. The deploy workflow (task 11)
+# redeploys on main pushes, so the deployed site picks up the new JSON
+# without any app code change.
+#
+# Failure policy: fetch:all fails loudly (and writes nothing) when a
+# required source is unreachable or unrecognizable, so stale or broken data
+# is never committed; the last good snowpack.json stays in place and the
+# app's staleness stamp (task 10) surfaces the gap.
+on:
+  # 18:30 UTC = 10:30 MST (winter) / 11:30 MDT (summer). The SNOTEL network
+  # reports at 08:00 Mountain, and the KSL page re-renders on its own
+  # schedule (observed: a ~02:15 pre-report render and a ~10:10 post-report
+  # render, local wall clock). Fetching before the ~10:10 render captures a
+  # stale pre-report page — 18:30 UTC sits after it in both DST states, so
+  # in steady state both sources are fresh.
+  schedule:
+    - cron: '30 18 * * *'
+  workflow_dispatch: {}
+
+concurrency:
+  group: daily-data
+  # Never cancel a running data run: it must finish its commit or fail.
+  cancel-in-progress: false
+
+permissions:
+  contents: write # push the committed data
+
+jobs:
+  update:
+    name: fetch + normalize + commit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Fetch live sources (KSL + WCC)
+        run: pnpm --filter @utahsnowpack/pipeline fetch:all
+
+      - name: Build snowpack.json
+        run: pnpm --filter @utahsnowpack/pipeline build:snowpack
+
+      - name: Surface run summary + warnings
+        if: always()
+        run: |
+          {
+            echo "### daily-data"
+            if [ -f data/snowpack.json ]; then
+              jq -r '"**water year** \(.waterYear) — **basins** \(.basins | length) — **warnings** \(.warnings | length)"' data/snowpack.json
+              if [ "$(jq '.warnings | length' data/snowpack.json)" -gt 0 ]; then
+                echo ""
+                echo '```'
+                jq -r '.warnings[]' data/snowpack.json
+                echo '```'
+              fi
+            else
+              echo "_snowpack.json missing — an earlier step failed; see logs above._"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit updated data
+        run: |
+          git config user.name "utahsnowpack-bot"
+          git config user.email "utahsnowpack-bot@users.noreply.github.com"
+          git add data/snowpack.json data/fixtures/
+          if git diff --cached --quiet; then
+            echo "no data changes — skipping commit"
+          else
+            git commit -m "data: daily snowpack update $(date -u +%Y-%m-%d)"
+            git push
+          fi
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: snowpack-data
+          path: data/snowpack.json
+          overwrite: true

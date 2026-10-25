@@ -27,6 +27,8 @@ const FETCHED_AT = '2026-10-25T00:00:00.000Z';
 const FIXTURES = fileURLToPath(new URL('../../data/fixtures', import.meta.url));
 const KSL_FIXTURE = readFileSync(`${FIXTURES}/ksl-2026-10-24.html`, 'utf8');
 const WCC_FIXTURE = readFileSync(`${FIXTURES}/wcc-ut-snotel-report-2026-10-24.html`, 'latin1');
+const KSL_FIXTURE_1025 = readFileSync(`${FIXTURES}/ksl-2026-10-25.html`, 'utf8');
+const WCC_FIXTURE_1025 = readFileSync(`${FIXTURES}/wcc-ut-snotel-report-2026-10-25.html`, 'latin1');
 const REGISTRY = loadRegistry();
 
 // ---------------------------------------------------------------------------
@@ -128,9 +130,38 @@ describe('reconstructKslRow', () => {
   it('keeps a flagged-but-unshifted row normal and flags it for review', () => {
     const rec = reconstructKslRow(row('Foo M', '8000', '-M', '.5', '*', '1', '2', '3'));
     expect(rec.kind).toBe('normal');
+    expect(rec.name).toBe('Foo');
     expect(rec.swe).toEqual({ value: null, missing: true, invalid: false });
     expect(rec.elevationFt).toBe(8000);
     expect(rec.anomaly).toMatch(/marker/);
+  });
+
+  it('classifies a flagged row with a non-numeric elev cell as flag-shift, not overflow (Atwater, 2026-10-25)', () => {
+    const rec = reconstructKslRow(row('Atwater  M', '-M', '*', '-M', '-M', '*', '', ''));
+    expect(rec.kind).toBe('flag-shift');
+    expect(rec.name).toBe('Atwater');
+    expect(rec.elevationFt).toBeNull();
+    expect(rec.swe).toEqual({ value: null, missing: true, invalid: false });
+    expect(rec.sweAvg).toEqual({ value: null, missing: true, invalid: false });
+    expect(rec.swePct.invalid).toBe(true);
+    expect(rec.precip).toEqual({ value: null, missing: true, invalid: false });
+    expect(rec.precipAvg).toEqual({ value: null, missing: true, invalid: false });
+    expect(rec.precipPct.invalid).toBe(true);
+    expect(rec.anomaly).toBeUndefined(); // k=2 is the verified shape
+  });
+
+  it('reconstructs a flagged row whose elev cell holds the shifted SWE-avg (Brighton, 2026-10-25)', () => {
+    const rec = reconstructKslRow(row('Brighton  M', '.0', '*', '-M', '2.2', '*', '', ''));
+    expect(rec.kind).toBe('flag-shift');
+    expect(rec.name).toBe('Brighton');
+    expect(rec.elevationFt).toBeNull(); // elev dropped; .0 is the SWE-avg
+    expect(rec.swe).toEqual({ value: null, missing: true, invalid: false });
+    expect(rec.sweAvg.value).toBe(0);
+    expect(rec.swePct.invalid).toBe(true);
+    expect(rec.precip).toEqual({ value: null, missing: true, invalid: false });
+    expect(rec.precipAvg.value).toBe(2.2);
+    expect(rec.precipPct.invalid).toBe(true);
+    expect(rec.anomaly).toBeUndefined();
   });
 });
 
@@ -203,16 +234,20 @@ describe('normalize (2026-10-24 fixtures)', () => {
     }
   });
 
-  it('reports the WCC reported-today counts and registry totals per basin', () => {
+  it('reports the WCC reported-today counts (SWE non-missing, not mere presence) per basin', () => {
     const expected: Record<string, [number, number]> = {
       raft_river: [2, 2],
       bear_river: [26, 26],
       weber_ogden: [23, 23],
-      provo_river: [26, 29],
-      green_river: [13, 13],
-      duchesne: [15, 41],
+      // Louis Meadow is in the report but its SWE is -M
+      provo_river: [25, 29],
+      // Chepeta, Henrys Fork, Mosby Mtn. are -M
+      green_river: [10, 13],
+      // Chepeta + Mosby Mtn. are -M (each is a member of two basins)
+      duchesne: [13, 41],
       sevier_river: [23, 36],
-      beaver_river: [3, 21],
+      // Merchant Valley is -M
+      beaver_river: [2, 21],
     };
     for (const basin of data.basins) {
       expect([basin.sitesReporting, basin.sitesTotal], basin.id).toEqual(expected[basin.id]);
@@ -238,7 +273,7 @@ describe('normalize (2026-10-24 fixtures)', () => {
   it('keeps the reconstructed names and flags for the two corrupt KSL rows', () => {
     const duchesne = data.basins.find((b) => b.id === 'duchesne')!;
     const chepeta = duchesne.sites.find((s) => s.name === 'Chepeta')!;
-    expect(chepeta.reportedToday).toBe(true);
+    expect(chepeta.reportedToday).toBe(false); // in the report, but its SWE is -M
     expect(chepeta.sweIn).toBeNull(); // -M
     expect(chepeta.sweAvgIn).toBe(0.7);
     expect(chepeta.flags).toContain('swe-missing');
@@ -330,6 +365,71 @@ describe('normalize (2026-10-24 fixtures)', () => {
 });
 
 // ---------------------------------------------------------------------------
+// 2026-10-25 fixtures — the stale-KSL-page scenario
+// ---------------------------------------------------------------------------
+// The KSL page was rendered 02:15am (before the 08:00 SNOTEL report) and 133
+// of its 148 registry stations show -M SWE, while the WCC report (generated
+// after the report) has values for 142 stations. The normalizer must keep the
+// KSL values (mostly missing), take reported-today from WCC (SWE non-missing),
+// and surface the staleness loudly instead of silently.
+
+describe('normalize (2026-10-25 fixtures, stale KSL page)', () => {
+  const data = normalize(
+    parseKslHtml(KSL_FIXTURE_1025, KSL_URL, FETCHED_AT),
+    parseWccReport(WCC_FIXTURE_1025, WCC_REPORT_URL, FETCHED_AT),
+    REGISTRY,
+    { fetchedAt: FETCHED_AT },
+  );
+
+  it('carries both source stamps (same calendar date, no date-mismatch warning)', () => {
+    expect(data.lastUpdated.ksl).toBe('02:15am Sun 25 October 2026');
+    expect(data.lastUpdated.kslDate).toBe('2026-10-25');
+    expect(data.lastUpdated.wcc).toBe('Sunday, October 25, 2026');
+    expect(data.lastUpdated.wccDate).toBe('2026-10-25');
+    expect(data.waterYear).toBe(2027);
+    expect(data.warnings.some((w) => w.includes('source dates differ'))).toBe(false);
+  });
+
+  it('takes reported-today from the WCC report (SWE non-missing), not KSL', () => {
+    const expected: Record<string, [number, number]> = {
+      raft_river: [2, 2],
+      bear_river: [26, 26],
+      weber_ogden: [23, 23],
+      provo_river: [25, 29],
+      green_river: [10, 13],
+      duchesne: [13, 41],
+      sevier_river: [23, 36],
+      beaver_river: [2, 21],
+    };
+    for (const basin of data.basins) {
+      expect([basin.sitesReporting, basin.sitesTotal], basin.id).toEqual(expected[basin.id]);
+    }
+  });
+
+  it('keeps the (mostly missing) KSL values and emits null rollups', () => {
+    for (const basin of data.basins) {
+      expect(basin.swePctAvg, basin.id).toBeNull();
+      expect(basin.colorBand, basin.id).toBe('none');
+    }
+    const slug = data.basins
+      .find((b) => b.id === 'bear_river')!
+      .sites.find((s) => s.name === 'Slug Creek Divide')!;
+    expect(slug.sweIn).toBe(0); // one of the few KSL values on the stale page
+    expect(slug.reportedToday).toBe(true);
+  });
+
+  it('surfaces the staleness: one aggregate out-of-sync warning + 8 basin-index warnings', () => {
+    expect(data.warnings).toHaveLength(9);
+    const outOfSync = data.warnings.filter((w) => w.includes('out of sync'));
+    expect(outOfSync).toHaveLength(1);
+    expect(outOfSync[0]).toMatch(
+      /95 station\(s\) have a SWE reading on one source but not the other/,
+    );
+    expect(data.warnings.filter((w) => w.includes('WCC basin index is'))).toHaveLength(8); // one per tracked basin
+  });
+});
+
+// ---------------------------------------------------------------------------
 // Synthetic edge cases
 // ---------------------------------------------------------------------------
 
@@ -376,7 +476,11 @@ const kslOf = (sections: { name: string; rows: KslRow[] }[]): KslSnapshot =>
   }) as KslSnapshot;
 
 const wccOf = (
-  groups: { name: string; rows: { site: string; swe: string; median: string }[] }[],
+  groups: {
+    name: string;
+    rows: { site: string; swe: string; median: string }[];
+    index?: string | null;
+  }[],
 ): WccSnapshot =>
   ({
     sourceUrl: 'synthetic',
@@ -394,12 +498,13 @@ const wccOf = (
         pctMedian: '*',
         pctPeak: '*',
       })),
+      basinIndex: g.index ?? null,
     })),
     rowCount: groups.reduce((n, g) => n + g.rows.length, 0),
   }) as WccSnapshot;
 
 describe('normalize (synthetic)', () => {
-  it('excludes -M SWE stations from the rollup but counts them as reporting', () => {
+  it('treats a -M SWE in the WCC report as not reporting (the report lists every station)', () => {
     const data = normalize(
       kslOf([
         {
@@ -422,7 +527,11 @@ describe('normalize (synthetic)', () => {
       registry([site('1', 'Alpha', ['duchesne']), site('2', 'Beta', ['duchesne'])]),
     );
     const basin = data.basins.find((b) => b.id === 'duchesne')!;
-    expect(basin.sitesReporting).toBe(2);
+    const alpha = basin.sites.find((s) => s.name === 'Alpha')!;
+    const beta = basin.sites.find((s) => s.name === 'Beta')!;
+    expect(alpha.reportedToday).toBe(false); // present in the report, but SWE is -M
+    expect(beta.reportedToday).toBe(true);
+    expect(basin.sitesReporting).toBe(1);
     expect(basin.swePctAvg).toBe(50); // 100 * 5 / 10 — Alpha's -M excluded from both sums
   });
 
@@ -483,6 +592,22 @@ describe('normalize (synthetic)', () => {
     expect(basin.sites.map((s) => s.name)).toEqual(['Alpha']);
   });
 
+  it('warns when the KSL and WCC source dates differ', () => {
+    const ksl = kslOf([
+      {
+        name: 'DUCHESNE',
+        rows: [row('Alpha', '8000', '5', '10', '50', '1', '1', '1')],
+      },
+    ]);
+    ksl.lastUpdated = '10:10am Sun 25 October 2026'; // a day after the WCC report
+    const data = normalize(
+      ksl,
+      wccOf([{ name: 'DUCHESNE RIVER', rows: [{ site: 'Alpha', swe: '5', median: '10' }] }]),
+      registry([site('1', 'Alpha', ['duchesne'])]),
+    );
+    expect(data.warnings.join(' ')).toMatch(/source dates differ/);
+  });
+
   it('keeps first occurrence and warns when a multi-basin station disagrees across sections', () => {
     const rowsA = [row('Trial Lake', '8000', '5', '10', '50', '1', '1', '1')];
     const rowsB = [row('Trial Lake', '8000', '9', '10', '90', '1', '1', '1')];
@@ -502,5 +627,94 @@ describe('normalize (synthetic)', () => {
     expect(bear.sites[0].sweIn).toBe(5); // first occurrence kept
     expect(duchesne.sites[0].sweIn).toBe(5); // shared, not 9
     expect(data.warnings.some((w) => w.includes('multiple KSL sections'))).toBe(true);
+  });
+
+  it('warns when the rollup diverges from the WCC basin index', () => {
+    const data = normalize(
+      kslOf([{ name: 'DUCHESNE', rows: [row('Alpha', '8000', '5', '10', '50', '1', '1', '1')] }]),
+      wccOf([
+        {
+          name: 'DUCHESNE RIVER',
+          rows: [{ site: 'Alpha', swe: '5', median: '10' }],
+          index: '90*',
+        },
+      ]),
+      registry([site('1', 'Alpha', ['duchesne'])]),
+    );
+    const basin = data.basins.find((b) => b.id === 'duchesne')!;
+    expect(basin.swePctAvg).toBe(50);
+    expect(data.warnings.join(' ')).toMatch(/duchesne.*diverges from the WCC basin index 90\*/);
+  });
+
+  it('stays quiet when the rollup matches the WCC basin index', () => {
+    const data = normalize(
+      kslOf([{ name: 'DUCHESNE', rows: [row('Alpha', '8000', '5', '10', '50', '1', '1', '1')] }]),
+      wccOf([
+        {
+          name: 'DUCHESNE RIVER',
+          rows: [{ site: 'Alpha', swe: '5', median: '10' }],
+          index: '50*',
+        },
+      ]),
+      registry([site('1', 'Alpha', ['duchesne'])]),
+    );
+    // (The synthetic report lacks the other 7 tracked groups, so their
+    // "missing group" warnings are expected and ignored here.)
+    expect(data.warnings.filter((w) => w.includes('basin index'))).toEqual([]);
+  });
+
+  it('warns when the WCC basin index exists but no rollup is computable', () => {
+    const data = normalize(
+      kslOf([{ name: 'DUCHESNE', rows: [row('Alpha', '8000', '-M', '10', '*', '1', '1', '1')] }]),
+      wccOf([
+        {
+          name: 'DUCHESNE RIVER',
+          rows: [{ site: 'Alpha', swe: '5', median: '10' }],
+          index: '50*',
+        },
+      ]),
+      registry([site('1', 'Alpha', ['duchesne'])]),
+    );
+    const basin = data.basins.find((b) => b.id === 'duchesne')!;
+    expect(basin.swePctAvg).toBeNull(); // Alpha reported per WCC, but KSL SWE is -M
+    expect(data.warnings.join(' ')).toMatch(/WCC basin index is 50\* but no rollup is computable/);
+  });
+
+  it('warns once, in aggregate, when many stations disagree on reported status', () => {
+    // KSL has values for all 12; WCC shows -M for 11 of them (a stale KSL
+    // page rendered before the 08:00 report, against a fresh WCC report).
+    const kslRows = Array.from({ length: 12 }, (_, i) =>
+      row(`S${i}`, '8000', '5', '10', '50', '1', '1', '1'),
+    );
+    const wccRows = Array.from({ length: 12 }, (_, i) => ({
+      site: `S${i}`,
+      swe: i === 0 ? '5' : '-M',
+      median: '10',
+    }));
+    const data = normalize(
+      kslOf([{ name: 'DUCHESNE', rows: kslRows }]),
+      wccOf([{ name: 'DUCHESNE RIVER', rows: wccRows }]),
+      registry(Array.from({ length: 12 }, (_, i) => site(String(i + 1), `S${i}`, ['duchesne']))),
+    );
+    const mismatchWarnings = data.warnings.filter((w) => w.includes('out of sync'));
+    expect(mismatchWarnings).toHaveLength(1); // one aggregate line, not 11
+    expect(mismatchWarnings[0]).toMatch(/11 station\(s\)/);
+  });
+
+  it('stays quiet on a handful of reported-status stragglers', () => {
+    const kslRows = Array.from({ length: 12 }, (_, i) =>
+      row(`S${i}`, '8000', '5', '10', '50', '1', '1', '1'),
+    );
+    const wccRows = Array.from({ length: 12 }, (_, i) => ({
+      site: `S${i}`,
+      swe: i < 11 ? '5' : '-M', // one straggler
+      median: '10',
+    }));
+    const data = normalize(
+      kslOf([{ name: 'DUCHESNE', rows: kslRows }]),
+      wccOf([{ name: 'DUCHESNE RIVER', rows: wccRows }]),
+      registry(Array.from({ length: 12 }, (_, i) => site(String(i + 1), `S${i}`, ['duchesne']))),
+    );
+    expect(data.warnings.filter((w) => w.includes('out of sync'))).toHaveLength(0);
   });
 });

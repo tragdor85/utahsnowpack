@@ -66,6 +66,13 @@ describe('parseWccReport', () => {
   it('carries the report timestamp', () => {
     expect(report.fetchedAt).toBe('2026-10-24T00:00:00.000Z');
   });
+
+  it('parses the basin index rows', () => {
+    expect(report.groups[0].basinIndex).toBe('230 *'); // RAFT RIVER
+    expect(report.groups[1].basinIndex).toBe('84 *'); // BEAR RIVER
+    const withIndex = report.groups.filter((g) => g.basinIndex !== null);
+    expect(withIndex).toHaveLength(report.groups.length); // every group has one
+  });
 });
 
 describe('kslStationName', () => {
