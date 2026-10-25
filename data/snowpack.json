@@ -4,9 +4,9 @@
     "ksl": "https://www.ksl.com/weather/snowpack",
     "wcc": "https://wcc.sc.egov.usda.gov/reports/UpdateReport.html?report=Utah&format=SNOTEL+Snowpack+Update+Report"
   },
-  "fetchedAt": "2026-10-25T11:55:38.147Z",
+  "fetchedAt": "2026-10-25T12:00:00.494Z",
   "lastUpdated": {
-    "ksl": "02:15am Sun 25 October 2026",
+    "ksl": "04:15am Sun 25 October 2026",
     "kslDate": "2026-10-25",
     "wcc": "Sunday, October 25, 2026",
     "wccDate": "2026-10-25"
@@ -16,8 +16,8 @@
     {
       "id": "raft_river",
       "name": "RAFT RIVER",
-      "swePctAvg": null,
-      "colorBand": "none",
+      "swePctAvg": 180,
+      "colorBand": "blue3",
       "sitesReporting": 2,
       "sitesTotal": 2,
       "sites": [
@@ -29,17 +29,14 @@
           "latitude": 42.32029,
           "longitude": -113.61587,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.7,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4,
           "precipAvgIn": 1.6,
-          "precipPctAvg": null,
+          "precipPctAvg": 250,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -50,17 +47,14 @@
           "latitude": 41.91562,
           "longitude": -113.41154,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 1.1,
           "sweAvgIn": 1,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 110,
+          "precipIn": 6.5,
           "precipAvgIn": 2.2,
-          "precipPctAvg": null,
+          "precipPctAvg": 295,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         }
       ]
@@ -68,8 +62,8 @@
     {
       "id": "bear_river",
       "name": "BEAR RIVER",
-      "swePctAvg": null,
-      "colorBand": "none",
+      "swePctAvg": 54,
+      "colorBand": "orange",
       "sitesReporting": 26,
       "sitesTotal": 26,
       "sites": [
@@ -81,17 +75,14 @@
           "latitude": 41.88573,
           "longitude": -111.56918,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 2.7,
           "precipAvgIn": 2.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 112,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -102,17 +93,14 @@
           "latitude": 41.40562,
           "longitude": -111.82607,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.8,
           "precipAvgIn": 2,
-          "precipPctAvg": null,
+          "precipPctAvg": 190,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -123,17 +111,14 @@
           "latitude": 42.26024,
           "longitude": -112.12523,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.1,
           "precipAvgIn": 1.2,
-          "precipPctAvg": null,
+          "precipPctAvg": 258,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -144,17 +129,14 @@
           "latitude": 42.4132,
           "longitude": -111.1663,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 2.8,
           "precipAvgIn": 1.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 200,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -183,17 +165,14 @@
           "latitude": 41.96769,
           "longitude": -111.59713,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.2,
           "precipAvgIn": 3.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 124,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -204,17 +183,14 @@
           "latitude": 42.36055,
           "longitude": -111.56085,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.2,
           "precipAvgIn": 2.1,
-          "precipPctAvg": null,
+          "precipPctAvg": 152,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -225,17 +201,14 @@
           "latitude": 41.793,
           "longitude": -111.54605,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.4,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 2.1,
           "precipAvgIn": 1.6,
-          "precipPctAvg": null,
+          "precipPctAvg": 131,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -246,17 +219,14 @@
           "latitude": 42.5075,
           "longitude": -110.9099,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 1.7,
           "precipAvgIn": 1.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 121,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -285,17 +255,14 @@
           "latitude": 42.52463,
           "longitude": -111.95632,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.9,
           "precipAvgIn": 1.3,
-          "precipPctAvg": null,
+          "precipPctAvg": 377,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -306,17 +273,14 @@
           "latitude": 41.68541,
           "longitude": -111.41987,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 2.6,
           "precipAvgIn": 1.5,
-          "precipPctAvg": null,
+          "precipPctAvg": 173,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -327,17 +291,14 @@
           "latitude": 40.98492,
           "longitude": -110.85075,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 1.5,
           "precipAvgIn": 0.9,
-          "precipPctAvg": null,
+          "precipPctAvg": 167,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -348,17 +309,14 @@
           "latitude": 42.0505,
           "longitude": -111.6012,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0.2,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 0,
+          "precipIn": 3.9,
           "precipAvgIn": 2.8,
-          "precipPctAvg": null,
+          "precipPctAvg": 139,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -369,17 +327,14 @@
           "latitude": 42.26554,
           "longitude": -110.80181,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0.3,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 0,
+          "precipIn": 1.8,
           "precipAvgIn": 1.6,
-          "precipPctAvg": null,
+          "precipPctAvg": 112,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -390,17 +345,14 @@
           "latitude": 41.86425,
           "longitude": -111.50603,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0.9,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 0,
+          "precipIn": 3.1,
           "precipAvgIn": 2.3,
-          "precipPctAvg": null,
+          "precipPctAvg": 135,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -411,17 +363,14 @@
           "latitude": 41.41289,
           "longitude": -111.5377,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.4,
           "precipAvgIn": 1.8,
-          "precipPctAvg": null,
+          "precipPctAvg": 189,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -432,17 +381,14 @@
           "latitude": 41.89833,
           "longitude": -111.62957,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0.4,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 0,
+          "precipIn": 4.1,
           "precipAvgIn": 2.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 171,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -453,17 +399,15 @@
           "latitude": 41.37428,
           "longitude": -111.76673,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -476,17 +420,14 @@
           "latitude": 40.8852,
           "longitude": -110.8277,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 1.8,
           "precipAvgIn": 1,
-          "precipPctAvg": null,
+          "precipPctAvg": 180,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -497,17 +438,14 @@
           "latitude": 41.46547,
           "longitude": -111.49688,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.2,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.4,
           "precipAvgIn": 2,
-          "precipPctAvg": null,
+          "precipPctAvg": 170,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -518,17 +456,14 @@
           "latitude": 42.52516,
           "longitude": -110.66148,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": 0.8,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 12,
+          "precipIn": 2.7,
           "precipAvgIn": 1.8,
-          "precipPctAvg": null,
+          "precipPctAvg": 150,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -539,17 +474,14 @@
           "latitude": 40.79669,
           "longitude": -110.88472,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.4,
           "precipAvgIn": 1.9,
-          "precipPctAvg": null,
+          "precipPctAvg": 179,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -560,17 +492,14 @@
           "latitude": 40.86493,
           "longitude": -110.79813,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 1.8,
           "precipAvgIn": 1.5,
-          "precipPctAvg": null,
+          "precipPctAvg": 120,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -581,17 +510,14 @@
           "latitude": 40.85464,
           "longitude": -111.04765,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.2,
           "sweAvgIn": 0.8,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 25,
+          "precipIn": 4.6,
           "precipAvgIn": 2.1,
-          "precipPctAvg": null,
+          "precipPctAvg": 219,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -602,17 +528,14 @@
           "latitude": 40.678,
           "longitude": -110.94873,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 1,
           "sweAvgIn": 0.5,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 200,
+          "precipIn": 3.8,
           "precipAvgIn": 2,
-          "precipPctAvg": null,
+          "precipPctAvg": 190,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         }
       ]
@@ -620,8 +543,8 @@
     {
       "id": "weber_ogden",
       "name": "WEBER-OGDEN",
-      "swePctAvg": null,
-      "colorBand": "none",
+      "swePctAvg": 112,
+      "colorBand": "blue1",
       "sitesReporting": 23,
       "sitesTotal": 23,
       "sites": [
@@ -633,17 +556,14 @@
           "latitude": 41.41289,
           "longitude": -111.5377,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.4,
           "precipAvgIn": 1.8,
-          "precipPctAvg": null,
+          "precipPctAvg": 189,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -654,17 +574,15 @@
           "latitude": 41.37428,
           "longitude": -111.76673,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -677,17 +595,14 @@
           "latitude": 41.46547,
           "longitude": -111.49688,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.2,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.4,
           "precipAvgIn": 2,
-          "precipPctAvg": null,
+          "precipPctAvg": 170,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -698,17 +613,14 @@
           "latitude": 40.85464,
           "longitude": -111.04765,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.2,
           "sweAvgIn": 0.8,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 25,
+          "precipIn": 4.6,
           "precipAvgIn": 2.1,
-          "precipPctAvg": null,
+          "precipPctAvg": 219,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -719,17 +631,14 @@
           "latitude": 40.678,
           "longitude": -110.94873,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 1,
           "sweAvgIn": 0.5,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 200,
+          "precipIn": 3.8,
           "precipAvgIn": 2,
-          "precipPctAvg": null,
+          "precipPctAvg": 190,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -740,17 +649,14 @@
           "latitude": 41.38291,
           "longitude": -111.92103,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5.9,
           "precipAvgIn": 2.3,
-          "precipPctAvg": null,
+          "precipPctAvg": 257,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -761,17 +667,14 @@
           "latitude": 41.22155,
           "longitude": -111.35947,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 2.3,
           "precipAvgIn": 1.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 164,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -782,17 +685,14 @@
           "latitude": 40.992,
           "longitude": -111.81702,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 6,
           "precipAvgIn": 3.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 176,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -803,17 +703,14 @@
           "latitude": 41.24764,
           "longitude": -111.41249,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 2.7,
           "precipAvgIn": 1.6,
-          "precipPctAvg": null,
+          "precipPctAvg": 169,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -824,17 +721,14 @@
           "latitude": 40.86833,
           "longitude": -111.71865,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 6.1,
           "precipAvgIn": 2.6,
-          "precipPctAvg": null,
+          "precipPctAvg": 235,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -845,17 +739,14 @@
           "latitude": 40.76184,
           "longitude": -111.62917,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.8,
           "precipAvgIn": 1.8,
-          "precipPctAvg": null,
+          "precipPctAvg": 211,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -866,17 +757,14 @@
           "latitude": 40.78931,
           "longitude": -111.09192,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.2,
           "precipAvgIn": 1.5,
-          "precipPctAvg": null,
+          "precipPctAvg": 213,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -887,17 +775,14 @@
           "latitude": 41.37603,
           "longitude": -111.94405,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 7.7,
           "precipAvgIn": 2.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 321,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -908,17 +793,14 @@
           "latitude": 40.93417,
           "longitude": -111.81372,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.8,
           "precipAvgIn": 1.9,
-          "precipPctAvg": null,
+          "precipPctAvg": 253,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -929,17 +811,14 @@
           "latitude": 40.97462,
           "longitude": -111.80975,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.2,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5.7,
           "precipAvgIn": 2.5,
-          "precipPctAvg": null,
+          "precipPctAvg": 228,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -950,17 +829,14 @@
           "latitude": 40.83731,
           "longitude": -111.70965,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.8,
           "precipAvgIn": 2.2,
-          "precipPctAvg": null,
+          "precipPctAvg": 173,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -971,17 +847,14 @@
           "latitude": 41.31372,
           "longitude": -111.44624,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 2.6,
           "precipAvgIn": 1.8,
-          "precipPctAvg": null,
+          "precipPctAvg": 144,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -992,17 +865,14 @@
           "latitude": 40.88529,
           "longitude": -111.06954,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.2,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.6,
           "precipAvgIn": 1.7,
-          "precipPctAvg": null,
+          "precipPctAvg": 212,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1013,17 +883,14 @@
           "latitude": 41.35891,
           "longitude": -111.48749,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3,
           "precipAvgIn": 2.8,
-          "precipPctAvg": null,
+          "precipPctAvg": 107,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1034,17 +901,14 @@
           "latitude": 40.61233,
           "longitude": -111.09782,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 2.8,
           "precipAvgIn": 1.5,
-          "precipPctAvg": null,
+          "precipPctAvg": 187,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1055,17 +919,15 @@
           "latitude": 40.70194,
           "longitude": -111.60619,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.7,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -1078,17 +940,15 @@
           "latitude": 40.67505,
           "longitude": -111.21765,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.9,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -1101,17 +961,14 @@
           "latitude": 40.6235,
           "longitude": -111.53322,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0.4,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 0,
+          "precipIn": 6.1,
           "precipAvgIn": 2,
-          "precipPctAvg": null,
+          "precipPctAvg": 305,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         }
       ]
@@ -1119,8 +976,8 @@
     {
       "id": "provo_river",
       "name": "PROVO RIVER",
-      "swePctAvg": null,
-      "colorBand": "none",
+      "swePctAvg": 185,
+      "colorBand": "blue3",
       "sitesReporting": 25,
       "sitesTotal": 29,
       "sites": [
@@ -1132,17 +989,14 @@
           "latitude": 40.678,
           "longitude": -110.94873,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 1,
           "sweAvgIn": 0.5,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 200,
+          "precipIn": 3.8,
           "precipAvgIn": 2,
-          "precipPctAvg": null,
+          "precipPctAvg": 190,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1153,17 +1007,14 @@
           "latitude": 40.86833,
           "longitude": -111.71865,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 6.1,
           "precipAvgIn": 2.6,
-          "precipPctAvg": null,
+          "precipPctAvg": 235,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1174,17 +1025,14 @@
           "latitude": 40.76184,
           "longitude": -111.62917,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.8,
           "precipAvgIn": 1.8,
-          "precipPctAvg": null,
+          "precipPctAvg": 211,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1195,17 +1043,14 @@
           "latitude": 40.83731,
           "longitude": -111.70965,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.8,
           "precipAvgIn": 2.2,
-          "precipPctAvg": null,
+          "precipPctAvg": 173,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1216,17 +1061,14 @@
           "latitude": 40.61233,
           "longitude": -111.09782,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 2.8,
           "precipAvgIn": 1.5,
-          "precipPctAvg": null,
+          "precipPctAvg": 187,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1237,17 +1079,15 @@
           "latitude": 40.70194,
           "longitude": -111.60619,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.7,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -1260,17 +1100,15 @@
           "latitude": 40.67505,
           "longitude": -111.21765,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.9,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -1283,17 +1121,14 @@
           "latitude": 40.6235,
           "longitude": -111.53322,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0.4,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 0,
+          "precipIn": 6.1,
           "precipAvgIn": 2,
-          "precipPctAvg": null,
+          "precipPctAvg": 305,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1307,14 +1142,12 @@
           "sweIn": null,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.1,
           "precipAvgIn": 1.8,
-          "precipPctAvg": null,
+          "precipPctAvg": 228,
           "flags": [
             "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1325,17 +1158,15 @@
           "latitude": 40.69656,
           "longitude": -111.67712,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5.1,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -1366,17 +1197,15 @@
           "latitude": 40.18538,
           "longitude": -111.35971,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.3,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -1389,17 +1218,14 @@
           "latitude": 40.283,
           "longitude": -111.60992,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.5,
           "precipAvgIn": 1.9,
-          "precipPctAvg": null,
+          "precipPctAvg": 237,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1410,17 +1236,15 @@
           "latitude": 39.92076,
           "longitude": -111.71802,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.4,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -1451,17 +1275,14 @@
           "latitude": 40.2953,
           "longitude": -111.25677,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.3,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5.2,
           "precipAvgIn": 1.3,
-          "precipPctAvg": null,
+          "precipPctAvg": 400,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1472,17 +1293,14 @@
           "latitude": 39.92976,
           "longitude": -111.63109,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.2,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.3,
           "precipAvgIn": 1.5,
-          "precipPctAvg": null,
+          "precipPctAvg": 220,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1493,17 +1311,14 @@
           "latitude": 40.16483,
           "longitude": -111.20665,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.2,
           "precipAvgIn": 1.5,
-          "precipPctAvg": null,
+          "precipPctAvg": 280,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1514,17 +1329,14 @@
           "latitude": 40.42817,
           "longitude": -111.61633,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 9,
           "precipAvgIn": 2.2,
-          "precipPctAvg": null,
+          "precipPctAvg": 409,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1535,17 +1347,14 @@
           "latitude": 40.44293,
           "longitude": -112.22377,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5.2,
           "precipAvgIn": 1.8,
-          "precipPctAvg": null,
+          "precipPctAvg": 289,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1556,17 +1365,15 @@
           "latitude": 40.59124,
           "longitude": -111.63775,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 8.9,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -1579,17 +1386,14 @@
           "latitude": 40.59936,
           "longitude": -111.58167,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.2,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 7.8,
           "precipAvgIn": 2.2,
-          "precipPctAvg": null,
+          "precipPctAvg": 355,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1600,17 +1404,14 @@
           "latitude": 40.65883,
           "longitude": -111.63683,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.7,
           "precipAvgIn": 2,
-          "precipPctAvg": null,
+          "precipPctAvg": 235,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1621,17 +1422,14 @@
           "latitude": 39.86671,
           "longitude": -111.28363,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.8,
           "precipAvgIn": 1.8,
-          "precipPctAvg": null,
+          "precipPctAvg": 211,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1642,17 +1440,14 @@
           "latitude": 40.56914,
           "longitude": -111.65852,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.5,
           "sweAvgIn": 0.4,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 125,
+          "precipIn": 12,
           "precipAvgIn": 3.2,
-          "precipPctAvg": null,
+          "precipPctAvg": 375,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1663,17 +1458,15 @@
           "latitude": 40.47733,
           "longitude": -111.04469,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -1686,17 +1479,15 @@
           "latitude": 40.46182,
           "longitude": -112.25233,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.6,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -1709,17 +1500,14 @@
           "latitude": 39.93667,
           "longitude": -112.41478,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.5,
           "precipAvgIn": 1.2,
-          "precipPctAvg": null,
+          "precipPctAvg": 375,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1730,17 +1518,14 @@
           "latitude": 40.49384,
           "longitude": -112.61141,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 6.4,
           "precipAvgIn": 1.8,
-          "precipPctAvg": null,
+          "precipPctAvg": 356,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         }
       ]
@@ -1748,8 +1533,8 @@
     {
       "id": "green_river",
       "name": "NE UINTAHS",
-      "swePctAvg": null,
-      "colorBand": "none",
+      "swePctAvg": 50,
+      "colorBand": "orange",
       "sitesReporting": 10,
       "sitesTotal": 13,
       "sites": [
@@ -1780,17 +1565,14 @@
           "latitude": 40.83868,
           "longitude": -110.00527,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": 0.2,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 50,
+          "precipIn": 6.6,
           "precipAvgIn": 2,
-          "precipPctAvg": null,
+          "precipPctAvg": 330,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1804,14 +1586,13 @@
           "sweIn": null,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.2,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
             "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -1824,17 +1605,14 @@
           "latitude": 40.90862,
           "longitude": -110.50462,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0.8,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 0,
+          "precipIn": 2.3,
           "precipAvgIn": 1.7,
-          "precipPctAvg": null,
+          "precipPctAvg": 135,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1845,17 +1623,15 @@
           "latitude": 40.84456,
           "longitude": -110.66068,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.3,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -1871,14 +1647,12 @@
           "sweIn": null,
           "sweAvgIn": 0.2,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5.5,
           "precipAvgIn": 1.7,
-          "precipPctAvg": null,
+          "precipPctAvg": 324,
           "flags": [
             "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1889,17 +1663,14 @@
           "latitude": 40.739,
           "longitude": -109.6728,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 6.2,
           "precipAvgIn": 1.7,
-          "precipPctAvg": null,
+          "precipPctAvg": 365,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1910,17 +1681,14 @@
           "latitude": 40.95009,
           "longitude": -110.48419,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 1.7,
           "precipAvgIn": 1.7,
-          "precipPctAvg": null,
+          "precipPctAvg": 100,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1950,17 +1718,14 @@
           "latitude": 40.92167,
           "longitude": -110.18623,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 2.4,
           "precipAvgIn": 1.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 171,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1971,17 +1736,14 @@
           "latitude": 40.90663,
           "longitude": -109.96287,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 2.2,
           "precipAvgIn": 1.1,
-          "precipPctAvg": null,
+          "precipPctAvg": 200,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -1992,17 +1754,14 @@
           "latitude": 40.95814,
           "longitude": -110.5828,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 1.4,
           "precipAvgIn": 1.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 100,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2028,8 +1787,8 @@
     {
       "id": "duchesne",
       "name": "DUCHESNE",
-      "swePctAvg": null,
-      "colorBand": "none",
+      "swePctAvg": 158,
+      "colorBand": "blue3",
       "sitesReporting": 13,
       "sitesTotal": 41,
       "sites": [
@@ -2041,17 +1800,14 @@
           "latitude": 40.678,
           "longitude": -110.94873,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 1,
           "sweAvgIn": 0.5,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 200,
+          "precipIn": 3.8,
           "precipAvgIn": 2,
-          "precipPctAvg": null,
+          "precipPctAvg": 190,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2062,17 +1818,14 @@
           "latitude": 40.2953,
           "longitude": -111.25677,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.3,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5.2,
           "precipAvgIn": 1.3,
-          "precipPctAvg": null,
+          "precipPctAvg": 400,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2083,17 +1836,14 @@
           "latitude": 40.16483,
           "longitude": -111.20665,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.2,
           "precipAvgIn": 1.5,
-          "precipPctAvg": null,
+          "precipPctAvg": 280,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2104,17 +1854,14 @@
           "latitude": 39.86671,
           "longitude": -111.28363,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.8,
           "precipAvgIn": 1.8,
-          "precipPctAvg": null,
+          "precipPctAvg": 211,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2125,17 +1872,15 @@
           "latitude": 40.47733,
           "longitude": -111.04469,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -2170,14 +1915,12 @@
           "sweIn": null,
           "sweAvgIn": 0.2,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5.5,
           "precipAvgIn": 1.7,
-          "precipPctAvg": null,
+          "precipPctAvg": 324,
           "flags": [
             "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2188,17 +1931,14 @@
           "latitude": 40.54875,
           "longitude": -110.69292,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 6,
           "precipAvgIn": 1.2,
-          "precipPctAvg": null,
+          "precipPctAvg": 500,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2227,17 +1967,14 @@
           "latitude": 40.5502,
           "longitude": -110.3529,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.2,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.2,
           "precipAvgIn": 1.2,
-          "precipPctAvg": null,
+          "precipPctAvg": 350,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2248,17 +1985,14 @@
           "latitude": 39.9645,
           "longitude": -110.98845,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5.5,
           "precipAvgIn": 0.9,
-          "precipPctAvg": null,
+          "precipPctAvg": 611,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2269,17 +2003,14 @@
           "latitude": 39.89166,
           "longitude": -110.74604,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5.6,
           "precipAvgIn": 1.1,
-          "precipPctAvg": null,
+          "precipPctAvg": 509,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2290,17 +2021,14 @@
           "latitude": 40.59709,
           "longitude": -110.43316,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.2,
           "sweAvgIn": 0.1,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 200,
+          "precipIn": 5.9,
           "precipAvgIn": 1.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 421,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2311,17 +2039,14 @@
           "latitude": 40.58102,
           "longitude": -110.58587,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.9,
           "sweAvgIn": 0.6,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 150,
+          "precipIn": 6.9,
           "precipAvgIn": 1.8,
-          "precipPctAvg": null,
+          "precipPctAvg": 383,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2332,17 +2057,14 @@
           "latitude": 40.73785,
           "longitude": -110.62121,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0.5,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 0,
+          "precipIn": 5,
           "precipAvgIn": 1.9,
-          "precipPctAvg": null,
+          "precipPctAvg": 263,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2353,17 +2075,14 @@
           "latitude": 40.71785,
           "longitude": -110.46721,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.7,
           "sweAvgIn": 0.7,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 100,
+          "precipIn": 6.3,
           "precipAvgIn": 1.9,
-          "precipPctAvg": null,
+          "precipPctAvg": 332,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2395,17 +2114,15 @@
           "latitude": 39.4155,
           "longitude": -111.2491,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -2418,17 +2135,14 @@
           "latitude": 39.68338,
           "longitude": -111.31818,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.6,
           "precipAvgIn": 1.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 257,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2439,17 +2153,14 @@
           "latitude": 39.67712,
           "longitude": -110.43395,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.8,
           "precipAvgIn": 1.5,
-          "precipPctAvg": null,
+          "precipPctAvg": 320,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2460,17 +2171,14 @@
           "latitude": 39.45197,
           "longitude": -111.27221,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.8,
           "precipAvgIn": 1.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 271,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2481,17 +2189,15 @@
           "latitude": 39.13233,
           "longitude": -111.35685,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.5,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.9,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -2504,17 +2210,14 @@
           "latitude": 39.134,
           "longitude": -111.43722,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.9,
           "precipAvgIn": 1.8,
-          "precipPctAvg": null,
+          "precipPctAvg": 217,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2525,17 +2228,15 @@
           "latitude": 39.13648,
           "longitude": -111.50527,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.2,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -2548,17 +2249,15 @@
           "latitude": 39.61774,
           "longitude": -111.30576,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.1,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -2571,17 +2270,15 @@
           "latitude": 39.30229,
           "longitude": -111.45383,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.6,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -2594,17 +2291,14 @@
           "latitude": 39.31042,
           "longitude": -111.43297,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.7,
           "precipAvgIn": 1.6,
-          "precipPctAvg": null,
+          "precipPctAvg": 231,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2615,17 +2309,14 @@
           "latitude": 38.50455,
           "longitude": -111.76693,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 2.4,
           "precipAvgIn": 0.7,
-          "precipPctAvg": null,
+          "precipPctAvg": 343,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2654,17 +2345,15 @@
           "latitude": 38.07,
           "longitude": -110.77241,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 8.7,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -2677,17 +2366,14 @@
           "latitude": 38.6799,
           "longitude": -111.59765,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.2,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.1,
           "precipAvgIn": 1,
-          "precipPctAvg": null,
+          "precipPctAvg": 310,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2698,17 +2384,14 @@
           "latitude": 38.2084,
           "longitude": -111.47412,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.3,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 6.6,
           "precipAvgIn": 1,
-          "precipPctAvg": null,
+          "precipPctAvg": 660,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2719,17 +2402,15 @@
           "latitude": 38.048,
           "longitude": -111.33981,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.4,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 9,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -2742,17 +2423,14 @@
           "latitude": 39.31213,
           "longitude": -109.53179,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.5,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5.3,
           "precipAvgIn": 1.1,
-          "precipPctAvg": null,
+          "precipPctAvg": 482,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2763,17 +2441,15 @@
           "latitude": 37.82308,
           "longitude": -109.77156,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 7.4,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -2786,17 +2462,15 @@
           "latitude": 38.48167,
           "longitude": -109.29164,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 7.5,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -2850,17 +2524,15 @@
           "latitude": 37.97793,
           "longitude": -110.7933,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 8.3,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -2873,17 +2545,14 @@
           "latitude": 38.48226,
           "longitude": -109.27198,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.2,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 8.6,
           "precipAvgIn": 1.8,
-          "precipPctAvg": null,
+          "precipPctAvg": 478,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2894,17 +2563,15 @@
           "latitude": 38.46516,
           "longitude": -109.26332,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 1.1,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 10.2,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -2914,8 +2581,8 @@
     {
       "id": "sevier_river",
       "name": "UPPER SEVIER",
-      "swePctAvg": null,
-      "colorBand": "none",
+      "swePctAvg": 150,
+      "colorBand": "blue3",
       "sitesReporting": 23,
       "sitesTotal": 36,
       "sites": [
@@ -2927,17 +2594,14 @@
           "latitude": 39.93667,
           "longitude": -112.41478,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.5,
           "precipAvgIn": 1.2,
-          "precipPctAvg": null,
+          "precipPctAvg": 375,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2948,17 +2612,14 @@
           "latitude": 39.68338,
           "longitude": -111.31818,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.6,
           "precipAvgIn": 1.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 257,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2969,17 +2630,14 @@
           "latitude": 39.45197,
           "longitude": -111.27221,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.8,
           "precipAvgIn": 1.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 271,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -2990,17 +2648,14 @@
           "latitude": 39.134,
           "longitude": -111.43722,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.9,
           "precipAvgIn": 1.8,
-          "precipPctAvg": null,
+          "precipPctAvg": 217,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3011,17 +2666,15 @@
           "latitude": 39.13648,
           "longitude": -111.50527,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.2,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -3034,17 +2687,15 @@
           "latitude": 39.61774,
           "longitude": -111.30576,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.1,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -3057,17 +2708,15 @@
           "latitude": 39.30229,
           "longitude": -111.45383,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.6,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -3080,17 +2729,14 @@
           "latitude": 39.31042,
           "longitude": -111.43297,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.7,
           "precipAvgIn": 1.6,
-          "precipPctAvg": null,
+          "precipPctAvg": 231,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3101,17 +2747,14 @@
           "latitude": 38.50455,
           "longitude": -111.76693,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 2.4,
           "precipAvgIn": 0.7,
-          "precipPctAvg": null,
+          "precipPctAvg": 343,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3122,17 +2765,14 @@
           "latitude": 37.48756,
           "longitude": -112.51458,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5.3,
           "precipAvgIn": 1,
-          "precipPctAvg": null,
+          "precipPctAvg": 530,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3143,17 +2783,14 @@
           "latitude": 37.48997,
           "longitude": -112.57602,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.5,
           "precipAvgIn": 1.1,
-          "precipPctAvg": null,
+          "precipPctAvg": 409,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3164,17 +2801,14 @@
           "latitude": 38.80034,
           "longitude": -111.68333,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.3,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 2.3,
           "precipAvgIn": 1.3,
-          "precipPctAvg": null,
+          "precipPctAvg": 177,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3185,17 +2819,15 @@
           "latitude": 37.70463,
           "longitude": -112.65037,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.8,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -3229,17 +2861,15 @@
           "latitude": 37.74797,
           "longitude": -112.77495,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.2,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -3252,17 +2882,14 @@
           "latitude": 38.88185,
           "longitude": -112.24915,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.8,
           "precipAvgIn": 1.8,
-          "precipPctAvg": null,
+          "precipPctAvg": 211,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3273,17 +2900,14 @@
           "latitude": 37.52217,
           "longitude": -112.27118,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 7.3,
           "precipAvgIn": 1,
-          "precipPctAvg": null,
+          "precipPctAvg": 730,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3294,17 +2918,14 @@
           "latitude": 39.01219,
           "longitude": -111.58259,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 2.7,
           "precipAvgIn": 1.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 193,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3315,17 +2936,14 @@
           "latitude": 38.48383,
           "longitude": -112.39273,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.4,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.8,
           "precipAvgIn": 2,
-          "precipPctAvg": null,
+          "precipPctAvg": 240,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3336,17 +2954,14 @@
           "latitude": 37.575,
           "longitude": -112.90155,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 6.3,
           "precipAvgIn": 1.6,
-          "precipPctAvg": null,
+          "precipPctAvg": 394,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3375,17 +2990,15 @@
           "latitude": 38.94569,
           "longitude": -112.15349,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 2.5,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -3416,17 +3029,14 @@
           "latitude": 38.77246,
           "longitude": -111.67662,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.7,
           "sweAvgIn": 0.4,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 175,
+          "precipIn": 3.8,
           "precipAvgIn": 1.7,
-          "precipPctAvg": null,
+          "precipPctAvg": 224,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3437,17 +3047,14 @@
           "latitude": 37.83633,
           "longitude": -111.88163,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 7.2,
           "precipAvgIn": 1.2,
-          "precipPctAvg": null,
+          "precipPctAvg": 600,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3458,17 +3065,14 @@
           "latitude": 38.07125,
           "longitude": -112.16788,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.3,
           "precipAvgIn": 1.2,
-          "precipPctAvg": null,
+          "precipPctAvg": 358,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3479,17 +3083,14 @@
           "latitude": 37.56933,
           "longitude": -112.83849,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5.1,
           "precipAvgIn": 1.6,
-          "precipPctAvg": null,
+          "precipPctAvg": 319,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3500,18 +3101,15 @@
           "latitude": 38.50809,
           "longitude": -112.01856,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.6,
           "precipAvgIn": 1.2,
-          "precipPctAvg": null,
+          "precipPctAvg": 383,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3522,17 +3120,15 @@
           "latitude": 37.67994,
           "longitude": -112.85674,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.7,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -3545,17 +3141,14 @@
           "latitude": 37.9725,
           "longitude": -111.83355,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.3,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 7.1,
           "precipAvgIn": 1.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 507,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3566,17 +3159,14 @@
           "latitude": 38.30183,
           "longitude": -112.35672,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.4,
           "sweAvgIn": 1.2,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 33,
+          "precipIn": 4.5,
           "precipAvgIn": 1.7,
-          "precipPctAvg": null,
+          "precipPctAvg": 265,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3587,17 +3177,15 @@
           "latitude": 39.49667,
           "longitude": -111.72508,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3.8,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -3610,17 +3198,14 @@
           "latitude": 39.13683,
           "longitude": -111.55813,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 2.1,
           "precipAvgIn": 1.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 150,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3631,17 +3216,15 @@
           "latitude": 39.23803,
           "longitude": -111.51998,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.2,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 2.8,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -3654,17 +3237,15 @@
           "latitude": 39.32019,
           "longitude": -111.48827,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 3,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -3695,8 +3276,8 @@
     {
       "id": "beaver_river",
       "name": "BEAVER RIVER",
-      "swePctAvg": null,
-      "colorBand": "none",
+      "swePctAvg": 67,
+      "colorBand": "orange",
       "sitesReporting": 2,
       "sitesTotal": 21,
       "sites": [
@@ -3708,17 +3289,14 @@
           "latitude": 38.2084,
           "longitude": -111.47412,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.3,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 6.6,
           "precipAvgIn": 1,
-          "precipPctAvg": null,
+          "precipPctAvg": 660,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3729,17 +3307,15 @@
           "latitude": 38.048,
           "longitude": -111.33981,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.4,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 9,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -3752,17 +3328,14 @@
           "latitude": 37.48756,
           "longitude": -112.51458,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5.3,
           "precipAvgIn": 1,
-          "precipPctAvg": null,
+          "precipPctAvg": 530,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3773,17 +3346,14 @@
           "latitude": 37.48997,
           "longitude": -112.57602,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.5,
           "precipAvgIn": 1.1,
-          "precipPctAvg": null,
+          "precipPctAvg": 409,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3794,17 +3364,15 @@
           "latitude": 37.74797,
           "longitude": -112.77495,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.2,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -3817,17 +3385,14 @@
           "latitude": 37.52217,
           "longitude": -112.27118,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 7.3,
           "precipAvgIn": 1,
-          "precipPctAvg": null,
+          "precipPctAvg": 730,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3838,17 +3403,14 @@
           "latitude": 38.48383,
           "longitude": -112.39273,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.4,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.8,
           "precipAvgIn": 2,
-          "precipPctAvg": null,
+          "precipPctAvg": 240,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3859,17 +3421,14 @@
           "latitude": 37.575,
           "longitude": -112.90155,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 6.3,
           "precipAvgIn": 1.6,
-          "precipPctAvg": null,
+          "precipPctAvg": 394,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3898,17 +3457,14 @@
           "latitude": 37.83633,
           "longitude": -111.88163,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 7.2,
           "precipAvgIn": 1.2,
-          "precipPctAvg": null,
+          "precipPctAvg": 600,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3919,17 +3475,14 @@
           "latitude": 37.56933,
           "longitude": -112.83849,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5.1,
           "precipAvgIn": 1.6,
-          "precipPctAvg": null,
+          "precipPctAvg": 319,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3940,17 +3493,15 @@
           "latitude": 37.67994,
           "longitude": -112.85674,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.1,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 4.7,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -3963,17 +3514,14 @@
           "latitude": 37.9725,
           "longitude": -111.83355,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.3,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 7.1,
           "precipAvgIn": 1.4,
-          "precipPctAvg": null,
+          "precipPctAvg": 507,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -3984,17 +3532,14 @@
           "latitude": 38.30183,
           "longitude": -112.35672,
           "reportedToday": true,
-          "sweIn": null,
+          "sweIn": 0.4,
           "sweAvgIn": 1.2,
-          "swePctAvg": null,
-          "precipIn": null,
+          "swePctAvg": 33,
+          "precipIn": 4.5,
           "precipAvgIn": 1.7,
-          "precipPctAvg": null,
+          "precipPctAvg": 265,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -4062,17 +3607,14 @@
           "latitude": 37.51255,
           "longitude": -113.39661,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5.9,
           "precipAvgIn": 1.1,
-          "precipPctAvg": null,
+          "precipPctAvg": 536,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -4083,17 +3625,15 @@
           "latitude": 37.59711,
           "longitude": -112.92949,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 7.1,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -4106,17 +3646,14 @@
           "latitude": 37.40083,
           "longitude": -113.45988,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.5,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 8.7,
           "precipAvgIn": 1.7,
-          "precipPctAvg": null,
+          "precipPctAvg": 512,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         },
         {
@@ -4127,31 +3664,18 @@
           "latitude": 37.52664,
           "longitude": -113.05386,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 8.5,
           "precipAvgIn": 1.3,
-          "precipPctAvg": null,
+          "precipPctAvg": 654,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         }
       ]
     }
   ],
-  "warnings": [
-    "95 station(s) have a SWE reading on one source but not the other (e.g. Tony Grove RS, Little Bear, Oxford Spring, Giveout, Klondike Narrows) — the sources may be out of sync (KSL 02:15am Sun 25 October 2026 vs WCC Sunday, October 25, 2026)",
-    "raft_river: WCC basin index is 180 * but no rollup is computable (no reported station has both SWE and SWE-avg)",
-    "bear_river: WCC basin index is 54 * but no rollup is computable (2 reported station(s) have both, but their SWE-avg sum is 0)",
-    "weber_ogden: WCC basin index is 112 * but no rollup is computable (no reported station has both SWE and SWE-avg)",
-    "provo_river: WCC basin index is 185 * but no rollup is computable (2 reported station(s) have both, but their SWE-avg sum is 0)",
-    "green_river: WCC basin index is 50 * but no rollup is computable (2 reported station(s) have both, but their SWE-avg sum is 0)",
-    "duchesne: WCC basin index is 158 * but no rollup is computable (1 reported station(s) have both, but their SWE-avg sum is 0)",
-    "sevier_river: WCC basin index is 150 * but no rollup is computable (2 reported station(s) have both, but their SWE-avg sum is 0)",
-    "beaver_river: WCC basin index is 67 * but no rollup is computable (no reported station has both SWE and SWE-avg)"
-  ]
+  "warnings": []
 }
