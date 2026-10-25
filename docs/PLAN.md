@@ -4,7 +4,7 @@ Each task is sized 1–4 agent turns. Critical path: **2 → 3 → 4 → 5** (da
 pipeline) can run in parallel with **6–8** (UI on mock data). Task 2 is the
 main risk — see "Risk notes".
 
-## Task 1 — Scaffold app + toolchain (est. 1–2 turns)
+## Task 1 — Scaffold app + toolchain (est. 1–2 turns) — ✅ done (2026-10-24, `a83f4e6`)
 
 Create the application skeleton: pnpm workspace, Vite + TypeScript, Vitest,
 ESLint/Prettier, GitHub repo push, CI (lint + test + build on PR), and a
@@ -13,7 +13,7 @@ minimal dashboard shell that renders a "Utah Snowpack — loading data" screen.
 - **Accept:** `pnpm lint && pnpm test && pnpm build` green locally _and_ in CI;
   `dist/index.html` serves the shell; README build/run steps verified.
 
-## Task 2 — Validate the SNOTEL data endpoint (est. 3–4 turns, RISK)
+## Task 2 — Validate the SNOTEL data endpoint (est. 3–4 turns, RISK) — ✅ done (2026-10-24/25, `de8adab`…`4949146`)
 
 From multiple network contexts, test the public SNOTEL feeds (NRCS SNOTEL
 station data, NWPC snow portal, Utah DWR, ACIS `data.rcc-acis.org`) for:
@@ -26,7 +26,7 @@ primary source; record the exact endpoints, parameters, and auth (if any) in
   `data/raw/` fixtures, with a written decision record for the chosen source and
   documented fallback (KSL page parser) if the official feed is flaky.
 
-## Task 3 — Site registry: KSL sites → SNOTEL IDs (est. 2–3 turns)
+## Task 3 — Site registry: KSL sites → SNOTEL IDs (est. 2–3 turns) — ✅ done (2026-10-25)
 
 Build `data/sites.json`: for all 206 KSL sites (from
 `data/ksl-baseline-2026-10-24.json`), resolve the NRCS SNOTEL station ID,
@@ -126,6 +126,11 @@ final pass (source attribution, data license, how to add basins/sites).
 - **R2 — station ID mapping (Task 3).** Names like "Bear River RS" / "Kelley R.S."
   may not 1:1 with catalog names; mitigation: elevation + basin disambiguation,
   manual review list, and a pinned mapping file (never auto-rematched).
+  **Landed 2026-10-25:** the registry resolved 100% of the baseline (148 unique
+  stations; the only same-named set was Chepeta ×3, disambiguated by
+  active/SNTL/elevation); the two KSL cell-shift quirks and the catalog's
+  double-space name needed explicit reconstruction rules; `data/sites.json` is
+  pinned and reproduces from committed fixtures (test-enforced).
 - **R3 — normals basis.** "% of average" must use the same normals period KSL
   uses (long-term, site-specific); if the SNOTEL feed's normals differ, document
   the basis in the UI and keep the parity test as the arbiter.

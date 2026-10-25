@@ -129,9 +129,58 @@ HTTP 200, identical 421,327-byte bodies, no CAPTCHA/bot wall).
 - **Gaps vs KSL**: no precipitation column (KSL has 3 precip cells; the baseline
   records them); some station names appear in multiple basins (e.g. `Trial
 Lake` ×4), so name joins should carry the basin for disambiguation.
-- **Implementation status**: not yet implemented in `pipeline/`. When built it
-  lands as a second source (`pipeline/src/sources/wcc.ts`) behind the existing
-  coverage gate, used as the automatic fallback if the KSL fetch/parse fails.
+- **Implementation status**: implemented in `pipeline/src/sources/wcc.ts`
+  (2026-10-25) — `fetchWccReport` (two-step jsessionid follow, latin-1
+  decode) and `parseWccReport` (17 groups / 207 rows), plus
+  `fetchWccStations` for the station catalog API below. Used by the site
+  registry builder (`pnpm build:registry`); the automatic KSL→WCC fallback in
+  `fetch.ts` is still not wired (task 5 territory).
+
+### WCC — the station catalog (AWDB REST API)
+
+`GET https://wcc.sc.egov.usda.gov/awdbRestApi/services/v1/stations` returns
+JSON station metadata — discovered 2026-10-25 by mining the new WCC site's JS
+bundle (the site is mid-migration; the homepage was erroring, but the report
+and this API work). Query params: `stationNames=a,b,c` (comma-batched, exact
+match, **whitespace-sensitive**), `activeOnly=false` to include
+decommissioned stations. Each entry carries `stationId`, `stateCode`,
+`networkCode` (SNTL/SNTLT/SNOW/MPRC/…), `name`, `elevation` (ft),
+`latitude`/`longitude`, `beginDate`/`endDate` (`2100-01-01` = active),
+`countyName`, `huc`. A single plain request works — no session dance. This is
+what turns a station **name** into a station **ID** with coordinates:
+the join key for everything downstream (task 3's registry, and later the
+SNOTEL daily data fetch, which is keyed by `stationId:stateCode:networkCode`.
+)
+
+### The site registry (`data/sites.json`)
+
+`pnpm build:registry` (offline: `--fixture data/fixtures`) builds the pinned
+site registry from three inputs: the committed KSL baseline roster, the WCC
+report (cross-check), and the station catalog (metadata). Matching is
+normalized-name (lowercase, strip non-alphanumerics) with preference scoring
+(active +4, SNTL network +2, elevation within 10 ft +1); ties are flagged
+ambiguous, never guessed.
+
+Result for the 2026-10-24 baseline: **206 rows → 191 unique (site, basin)
+pairs → 148 unique stations, 100% resolved** (147 SNTL + 1 SNTLT; 138 UT,
+7 ID, 3 WY stations — KSL's roster includes a few out-of-state sites in its
+Utah basins). Two KSL display quirks required reconstruction: `EF Blacks
+Fork` + `GS` (name tail shifted into the elev cell) and `Chepeta M` (missing
+data flag appended to the name; the elev cell holds a shifted SWE value).
+The catalog stores `Smith  Morehouse` with a double space, so the live
+builder issues a first-token wildcard probe (`Smith*`) for any baseline name
+the exact query misses. The KSL baseline also contains 15 fully duplicated
+rows (same site listed twice in one section); the registry dedupes to unique
+(stations, basin) membership.
+
+The file is **pinned, not auto-rematched** (risk R2): re-running the build
+against the committed fixtures reproduces it byte-for-byte (modulo the
+generated timestamp — enforced by test), and live drift surfaces as
+`unmatched`/`ambiguous`/`warnings` entries for review. Acceptance checks in
+`pipeline/test/sites.test.ts`: schema validation, full baseline coverage,
+catalog membership, and a leave-one-out convex-hull **map check** (each site
+must sit within its basin's other sites, tolerance scaled to basin extent —
+catches a station mis-resolved to a far-away same-named station).
 
 ### Why the others lose
 
@@ -174,9 +223,10 @@ guard compares the `lastUpdated` stamp against the expected daily cadence.
 
 There **is** now an official fallback — the WCC report (see above) — so the
 strategy is: **fetch KSL; on a hard KSL failure (unreachable, redesign, or
-coverage-gate trip), fall back to WCC.** (WCC fetch/parse is documented but not
-yet implemented in `pipeline/`; until it lands, the guard below fails loudly.
-) The KSL path keeps these guards:
+coverage-gate trip), fall back to WCC.** The WCC fetch/parse module now exists
+(`pipeline/src/sources/wcc.ts`, used by the registry builder); the automatic
+fallback wiring in `fetch.ts` is not yet done, so until it lands the guard
+below fails loudly. The KSL path keeps these guards:
 
 1. **Structural guard**: no `Last Updated` stamp or no highlight rows → hard
    error (KSL redesign detected).
@@ -198,12 +248,15 @@ Committed fixtures (generated `data/raw/` output stays gitignored):
 ```
 data/fixtures/ksl-2026-10-24.html  # full 206-site page, Oct 24 2026 snapshot
  data/fixtures/ksl-sample.html     # 2-basin/15-row slice (fast parser unit tests)
+ data/fixtures/wcc-ut-snotel-report-2026-10-24.html  # full WCC report (latin-1)
+ data/fixtures/wcc-ut-stations-2026-10-24.json      # station catalog (260 entries)
 ```
 
 ```bash
 pnpm fetch:dry                                             # live fetch → data/raw/ksl-<YYYY-MM-DD>.json
 pnpm fetch:dry --fixture data/fixtures/ksl-2026-10-24.html # full offline run (100%, passes)
 pnpm fetch:dry --fixture data/fixtures/ksl-sample.html    # PARTIAL → coverage gate FAILS by design
+pnpm --filter @utahsnowpack/pipeline exec tsx src/build-registry.ts --fixture data/fixtures  # rebuild data/sites.json offline
 ```
 
 The full fixture lets the entire pipeline run offline (no network needed in

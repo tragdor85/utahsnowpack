@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "test": "vitest run",
-    "fetch:dry": "tsx src/fetch.ts"
+    "fetch:dry": "tsx src/fetch.ts",
+    "build:registry": "tsx src/build-registry.ts"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
