@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   COLOR_BAND_META,
   formatElevCell,
@@ -9,7 +9,11 @@ import {
   type SiteFlag,
   type SnowpackBasin,
   type SnowpackSite,
+  type TimeseriesData,
 } from '../types';
+import { basinDailyPoints, dailyPoints, stationSeries } from '../data/timeseries';
+import { fetchStationHistory, type MonthlyPoint } from '../data/history';
+import { SeriesChart } from './SeriesChart';
 
 /** Human-readable explanation for each data-quality flag (screen-reader text). */
 const FLAG_TITLES: Record<SiteFlag, string> = {
@@ -35,7 +39,7 @@ function siteAriaLabel(site: SnowpackSite): string {
 }
 
 /**
- * Basin/site detail panel (docs/PLAN.md task 8).
+ * Basin/site detail panel (docs/PLAN.md tasks 8 + 9).
  *
  * The site table matches KSL's column-for-column: Site, Elev., SWE, SWE
  * Avg, SWE % Avg, Precip, Precip Avg, Precip % Avg — with KSL's cell
@@ -43,9 +47,54 @@ function siteAriaLabel(site: SnowpackSite): string {
  * and its two-row header. Verified against the 10-24 capture: 192 of 194
  * matched sites cell-for-cell (the 2 exceptions are KSL's own column-shift
  * bug), all 8 basins' rollups identical.
+ *
+ * Task 9 adds the time series charts: a basin aggregate (mean SWE over
+ * reporting sites + summed daily precip) and, for the selected site, its
+ * own SWE curve + WY precip, with an on-demand multi-year monthly context
+ * fetched from the WCC AWDB API.
  */
-export function DetailPanel({ basin }: { basin: SnowpackBasin | null }) {
+export function DetailPanel({
+  basin,
+  timeseries = null,
+}: {
+  basin: SnowpackBasin | null;
+  timeseries?: TimeseriesData | null;
+}) {
   const [query, setQuery] = useState('');
+  const [selectedTriplet, setSelectedTriplet] = useState<string | null>(null);
+  const [historyMode, setHistoryMode] = useState<'wy' | 'multi'>('wy');
+  const [history, setHistory] = useState<MonthlyPoint[] | null>(null);
+  const [historyState, setHistoryState] = useState<'idle' | 'loading' | 'error'>('idle');
+
+  // A new basin means a new site selection context.
+  useEffect(() => {
+    setSelectedTriplet(null);
+    setHistoryMode('wy');
+    setHistory(null);
+    setHistoryState('idle');
+  }, [basin?.id]);
+
+  // Multi-year context is fetched on demand (open CORS, ~20 KB, cached in
+  // data/history.ts) when the user toggles it for the selected site.
+  const selectedSite = basin?.sites.find((s) => s.stationTriplet === selectedTriplet) ?? null;
+  useEffect(() => {
+    if (historyMode !== 'multi' || selectedSite === null) return;
+    let cancelled = false;
+    setHistoryState('loading');
+    fetchStationHistory(selectedSite.stationTriplet)
+      .then((points) => {
+        if (cancelled) return;
+        setHistory(points);
+        setHistoryState('idle');
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setHistoryState('error');
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [historyMode, selectedSite]);
 
   // KSL orders sites by elevation, highest first.
   const visibleSites = useMemo(() => {
@@ -55,6 +104,23 @@ export function DetailPanel({ basin }: { basin: SnowpackBasin | null }) {
     if (q === '') return sorted;
     return sorted.filter((s) => s.name.toLowerCase().includes(q) || s.stationId === q);
   }, [basin, query]);
+
+  // Time series (task 9): basin aggregate always; the selected site's own
+  // series when a row is chosen. `timeseries` is null when the file could
+  // not be loaded — the chart section then shows a note, not a blank.
+  // (Hooks stay above the early return below.)
+  const dates = useMemo(() => timeseries?.dates ?? [], [timeseries]);
+  const basinSites = useMemo(() => basin?.sites ?? [], [basin]);
+  const basinPoints = useMemo(
+    () => basinDailyPoints(timeseries, basinSites, dates),
+    [timeseries, basinSites, dates],
+  );
+  const selectedSeries =
+    selectedSite !== null ? stationSeries(timeseries, selectedSite.stationTriplet) : undefined;
+  const sitePoints = useMemo(
+    () => (selectedSeries !== undefined ? dailyPoints(selectedSeries, dates) : []),
+    [selectedSeries, dates],
+  );
 
   if (basin === null) {
     return (
@@ -84,6 +150,40 @@ export function DetailPanel({ basin }: { basin: SnowpackBasin | null }) {
   };
   const sweTotal = sum((s) => s.sweIn);
   const precipTotal = sum((s) => s.precipIn);
+
+  const selectSite = (site: SnowpackSite) => {
+    setSelectedTriplet((cur) => (cur === site.stationTriplet ? null : site.stationTriplet));
+    setHistoryMode('wy');
+    setHistory(null);
+    setHistoryState('idle');
+  };
+
+  const chartSection =
+    timeseries === null ? (
+      <p className="chart__note">Time series unavailable for this capture.</p>
+    ) : (
+      <div className="panel__charts">
+        <SeriesChart
+          title={`${basin.name} basin`}
+          label={`Snow water equivalent for the ${basin.name} basin, mean of reporting sites, water year ${timeseries.waterYear}`}
+          points={basinPoints}
+          history={null}
+          historyMode="wy"
+          historyState="idle"
+        />
+        {selectedSite !== null && (
+          <SeriesChart
+            title={selectedSite.name}
+            label={`Snow water equivalent and water-year precipitation for ${selectedSite.name}, station ${selectedSite.stationId}`}
+            points={sitePoints}
+            history={history}
+            historyMode={historyMode}
+            historyState={historyState}
+            onToggleHistory={() => setHistoryMode((m) => (m === 'wy' ? 'multi' : 'wy'))}
+          />
+        )}
+      </div>
+    );
 
   return (
     <aside className="panel" aria-label={`Basin detail: ${basin.name}`}>
@@ -117,6 +217,8 @@ export function DetailPanel({ basin }: { basin: SnowpackBasin | null }) {
           <dd>{formatInches(precipTotal)}</dd>
         </div>
       </dl>
+
+      {chartSection}
 
       <div className="panel__search">
         <input
@@ -160,28 +262,48 @@ export function DetailPanel({ basin }: { basin: SnowpackBasin | null }) {
             </tr>
           </thead>
           <tbody>
-            {visibleSites.map((site) => (
-              <tr
-                key={site.stationTriplet}
-                className={site.reportedToday ? undefined : 'detail-table__row--stale'}
-                aria-label={siteAriaLabel(site)}
-              >
-                <td className="detail-table__name" title={`station ${site.stationId}`}>
-                  {site.name}
-                </td>
-                <td className="detail-table__num">{formatElevCell(site.elevationFt)}</td>
-                <td className="detail-table__num">{formatInchesCell(site.sweIn)}</td>
-                <td className="detail-table__num">{formatInchesCell(site.sweAvgIn)}</td>
-                <td className="detail-table__num">
-                  {formatPctCell(site.swePctAvg, site.flags.includes('swe-pct-invalid'))}
-                </td>
-                <td className="detail-table__num">{formatInchesCell(site.precipIn)}</td>
-                <td className="detail-table__num">{formatInchesCell(site.precipAvgIn)}</td>
-                <td className="detail-table__num">
-                  {formatPctCell(site.precipPctAvg, site.flags.includes('precip-pct-invalid'))}
-                </td>
-              </tr>
-            ))}
+            {visibleSites.map((site) => {
+              const selected = site.stationTriplet === selectedTriplet;
+              return (
+                <tr
+                  key={site.stationTriplet}
+                  className={[
+                    site.reportedToday ? undefined : 'detail-table__row--stale',
+                    selected ? 'detail-table__row--selected' : undefined,
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
+                  aria-label={siteAriaLabel(site)}
+                  onClick={() => selectSite(site)}
+                >
+                  <td className="detail-table__name" title={`station ${site.stationId}`}>
+                    <button
+                      type="button"
+                      className="row-select"
+                      aria-pressed={selected}
+                      aria-label={`${site.name} — show time series`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        selectSite(site);
+                      }}
+                    >
+                      {site.name}
+                    </button>
+                  </td>
+                  <td className="detail-table__num">{formatElevCell(site.elevationFt)}</td>
+                  <td className="detail-table__num">{formatInchesCell(site.sweIn)}</td>
+                  <td className="detail-table__num">{formatInchesCell(site.sweAvgIn)}</td>
+                  <td className="detail-table__num">
+                    {formatPctCell(site.swePctAvg, site.flags.includes('swe-pct-invalid'))}
+                  </td>
+                  <td className="detail-table__num">{formatInchesCell(site.precipIn)}</td>
+                  <td className="detail-table__num">{formatInchesCell(site.precipAvgIn)}</td>
+                  <td className="detail-table__num">
+                    {formatPctCell(site.precipPctAvg, site.flags.includes('precip-pct-invalid'))}
+                  </td>
+                </tr>
+              );
+            })}
             {visibleSites.length === 0 && (
               <tr>
                 <td colSpan={8} className="detail-table__empty">
@@ -196,7 +318,8 @@ export function DetailPanel({ basin }: { basin: SnowpackBasin | null }) {
       <p className="panel__footnote">
         SWE: snow water equivalent at SNOTEL sites, in inches. Precip: water year (Oct 1 – Sep 30)
         precipitation, in inches. Elev: site elevation, in feet. −M: missing data. *: data may not
-        provide a valid measure of conditions.
+        provide a valid measure of conditions. Charts: daily SWE (area) and precip (bars) for the
+        current water year; the multi-year view uses monthly values from the WCC SNOTEL archive.
       </p>
     </aside>
   );

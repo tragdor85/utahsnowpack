@@ -14,7 +14,8 @@
   "dependencies": {
     "maplibre-gl": "^6.15.0",
     "react": "^19.3.1",
-    "react-dom": "^19.3.1"
+    "react-dom": "^19.3.1",
+    "recharts": "^3.10.1"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",

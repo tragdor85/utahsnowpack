@@ -4,20 +4,30 @@ import { Legend } from './components/Legend';
 import { BasinMap } from './components/BasinMap';
 import { BasinList } from './components/BasinList';
 import { DetailPanel } from './components/DetailPanel';
-import type { SnowpackData } from './types';
+import { fetchTimeseries } from './data/timeseries';
+import type { SnowpackData, TimeseriesData } from './types';
 
 /**
  * Dashboard shell (docs/PLAN.md task 6).
  *
  * Data comes from `snowpack.json` (fetched at `/snowpack.json`), the
  * canonical contract produced by the pipeline. Tests and the mock render
- * inject `data` directly, which skips the fetch.
+ * inject `data` directly, which skips the fetch. The time series
+ * (`/timeseries.json`, task 9) is optional: a failure degrades the charts,
+ * never the dashboard.
  */
-export default function App({ data: injected }: { data?: SnowpackData | null }) {
+export default function App({
+  data: injected,
+  timeseries: injectedTimeseries,
+}: {
+  data?: SnowpackData | null;
+  timeseries?: TimeseriesData | null;
+}) {
   const [fetched, setFetched] = useState<SnowpackData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(injected === undefined);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [timeseries, setTimeseries] = useState<TimeseriesData | null>(injectedTimeseries ?? null);
 
   useEffect(() => {
     if (injected !== undefined) return;
@@ -41,6 +51,18 @@ export default function App({ data: injected }: { data?: SnowpackData | null }) 
       cancelled = true;
     };
   }, [injected]);
+
+  useEffect(() => {
+    if (injectedTimeseries !== undefined) return;
+    let cancelled = false;
+    fetchTimeseries().then((data) => {
+      if (cancelled) return;
+      setTimeseries(data);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [injectedTimeseries]);
 
   const data = injected !== undefined ? injected : fetched;
 
@@ -85,7 +107,7 @@ export default function App({ data: injected }: { data?: SnowpackData | null }) 
             onSelect={setSelectedId}
           />
         </main>
-        <DetailPanel basin={selected} />
+        <DetailPanel basin={selected} timeseries={timeseries} />
       </div>
       <ShellFooter data={data} />
     </div>

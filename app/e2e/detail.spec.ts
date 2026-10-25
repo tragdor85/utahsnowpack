@@ -163,3 +163,177 @@ test('real data: every cell matches the served snowpack.json (KSL parity)', asyn
     expect(rows, `${basin.name}: rendered rows diverge from snowpack.json`).toEqual(expected);
   }
 });
+
+// ---------------------------------------------------------------------------
+// Time series charts (docs/PLAN.md task 9 acceptance)
+// ---------------------------------------------------------------------------
+
+const MOCK_TIMESERIES = {
+  schemaVersion: 1,
+  source: 'https://wcc.sc.egov.usda.gov/awdbRestApi/services/v1/data',
+  waterYear: 2027,
+  fetchedAt: '2026-10-25T18:30:00.000Z',
+  dates: ['2026-10-01', '2026-10-02', '2026-10-03', '2026-10-04', '2026-10-05'],
+  stations: [
+    {
+      t: '0805231007',
+      w: [0.1, 0.2, 0.3, 0.5, 0.6],
+      p: [0.1, 0.1, 0.1, 0.2, 0.1],
+    },
+    {
+      t: '0805231008',
+      w: [0.2, 0.3, 0.4, 0.6, 0.8],
+      p: [0.2, 0.1, 0.1, 0.1, 0.2],
+    },
+  ],
+  warnings: [],
+};
+
+test.describe('time series charts', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.route('**/timeseries.json', (route) =>
+      route.fulfill({
+        contentType: 'application/json',
+        body: JSON.stringify(MOCK_TIMESERIES),
+      }),
+    );
+  });
+
+  test('renders the basin chart with labeled axes', async ({ page }) => {
+    await page.goto('/');
+    await selectBasin(page, 'BEAR RIVER');
+
+    const chart = page.locator('.panel__charts .chart').first();
+    await expect(chart).toBeVisible();
+    await expect(chart.getByText('BEAR RIVER basin')).toBeVisible();
+
+    // The SVG appears once the ResponsiveContainer measures; the tick
+    // labels land a moment after. Poll rather than snapshot.
+    //
+    // Note: Recharts 3 portals the tick-labels group into a chart-level z
+    // layer, so the labels are NOT descendants of the axis group — select
+    // on the text elements' own class tokens instead.
+    await expect
+      .poll(async () => {
+        const ticks = await chart
+          .locator('text.recharts-cartesian-axis-tick-value')
+          .evaluateAll((els) =>
+            els
+              .filter((el) => el.classList.contains('recharts-yAxis'))
+              .map((el) => el.textContent?.trim() ?? ''),
+          );
+        return ticks.length > 0 && ticks.every((t) => t.length > 0);
+      })
+      .toBe(true);
+    await expect
+      .poll(async () => {
+        const ticks = await chart
+          .locator('text.recharts-cartesian-axis-tick-value')
+          .evaluateAll((els) =>
+            els
+              .filter((el) => el.classList.contains('recharts-xAxis'))
+              .map((el) => el.textContent?.trim() ?? ''),
+          );
+        return ticks.length > 0 && ticks.every((t) => t.length > 0);
+      })
+      .toBe(true);
+  });
+
+  test('shows a tooltip with date, SWE, and precip on hover', async ({ page }) => {
+    await page.goto('/');
+    await selectBasin(page, 'BEAR RIVER');
+
+    const chart = page.locator('.panel__charts .chart').first();
+    const box = await chart.locator('svg.recharts-surface').boundingBox();
+    if (!box) throw new Error('chart surface not laid out');
+    await page.mouse.move(box.x + box.width * 0.5, box.y + box.height * 0.5);
+    await page.waitForTimeout(600);
+
+    const tooltip = page.locator('.recharts-tooltip-wrapper', { hasText: 'SWE' });
+    await expect(tooltip).toBeVisible();
+    await expect(tooltip).toContainText(/Oct \d+/);
+    await expect(tooltip).toContainText(/SWE/);
+    await expect(tooltip).toContainText(/Precip/);
+    await expect(tooltip).toContainText(/in/);
+  });
+
+  test('multi-year toggle loads monthly history from AWDB', async ({ page }) => {
+    await page.goto('/');
+    await selectBasin(page, 'BEAR RIVER');
+
+    // Select the first site in the table (CORTEZ 2 N, highest elevation).
+    await page.locator('.row-select').first().click();
+    const siteChart = page.locator('.panel__charts .chart').nth(1);
+    await expect(siteChart.locator('.chart__title')).toHaveText('CORTEZ 2 N');
+
+    await page.route('**/awdbRestApi/services/v1/data*', (route) => {
+      const values = Array.from({ length: 12 }, (_, i) => ({
+        month: (i % 12) + 1,
+        year: 2026,
+        value: Math.round((0.5 + i * 0.1) * 100) / 100,
+      }));
+      route.fulfill({
+        contentType: 'application/json',
+        body: JSON.stringify([
+          {
+            stationTriplet: '0805231008',
+            data: [
+              {
+                stationElement: {
+                  elementCode: 'WTEQ',
+                  durationName: 'MONTHLY',
+                  beginDate: '2025-10-01',
+                  endDate: '2026-09-30',
+                },
+                values,
+              },
+            ],
+          },
+        ]),
+      });
+    });
+
+    const toggle = page.getByRole('button', { name: /Multi-year/ });
+    const requestPromise = page.waitForRequest((req) =>
+      req.url().includes('/awdbRestApi/services/v1/data'),
+    );
+    await toggle.click();
+    const request = await requestPromise;
+
+    expect(request.url()).toContain('stationTriplets=0805231008');
+    expect(request.url()).toContain('duration=MONTHLY');
+
+    // The site chart now renders monthly points with month-formatted ticks.
+    // (Labels are portal-hoisted out of the axis group — select on the
+    // text elements' own class tokens.)
+    await expect
+      .poll(async () =>
+        siteChart
+          .locator('text.recharts-cartesian-axis-tick-value')
+          .evaluateAll((els) =>
+            els
+              .filter((el) => el.classList.contains('recharts-xAxis'))
+              .map((el) => el.textContent?.trim() ?? ''),
+          ),
+      )
+      .toEqual(expect.arrayContaining([expect.stringMatching(/’2\d/)]));
+  });
+
+  test('charts pass axe', async ({ page }) => {
+    await page.goto('/');
+    await selectBasin(page, 'BEAR RIVER');
+    await page.locator('.row-select').first().click();
+    await expect(page.locator('.panel__charts .chart').nth(1).locator('.chart__title')).toHaveText(
+      'CORTEZ 2 N',
+    );
+
+    // The site chart mounts under the cursor after the row click, which
+    // leaves a tooltip open; move the pointer away so the analyzed state
+    // is the resting one.
+    await page.mouse.move(10, 10);
+    await page.waitForTimeout(300);
+
+    const results = await new AxeBuilder({ page }).include('.panel__charts').analyze();
+    expect(results.violations).toEqual([]);
+  });
+});

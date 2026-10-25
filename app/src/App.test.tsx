@@ -90,21 +90,23 @@ describe('dashboard shell (fetched data)', () => {
   });
 
   it('shows the loading state, then renders the fetched data', async () => {
-    let resolveJson: (v: unknown) => void = () => {};
+    const resolvers: ((v: unknown) => void)[] = [];
     vi.stubGlobal(
       'fetch',
       vi.fn(() =>
         new Promise((resolve) => {
-          resolveJson = resolve;
+          resolvers.push(resolve);
         }).then(() => Promise.resolve({ ok: true, json: async () => MOCK_SNOWPACK })),
       ),
     );
     render(<App />);
     expect(screen.getByRole('status')).toHaveTextContent('Loading data');
-    resolveJson({});
+    // Resolve both fetches (snowpack.json + timeseries.json).
+    for (const resolve of resolvers) resolve({});
     await waitFor(() => expect(screen.getByTestId('water-year')).toBeInTheDocument());
     expect(screen.getByRole('button', { name: /BEAVER/ })).toBeInTheDocument();
     expect(fetch).toHaveBeenCalledWith('/snowpack.json');
+    expect(fetch).toHaveBeenCalledWith('/timeseries.json');
   });
 
   it('shows an error state when the fetch fails', async () => {

@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DetailPanel } from './DetailPanel';
@@ -199,5 +199,134 @@ describe('DetailPanel: KSL table parity', () => {
       'Select a basin',
     );
     await waitFor(() => expect(screen.queryByRole('table')).not.toBeInTheDocument());
+  });
+});
+
+describe('DetailPanel: time series charts (task 9)', () => {
+  function chartTimeseries() {
+    return {
+      schemaVersion: 1 as const,
+      source: 'test',
+      waterYear: 2027,
+      fetchedAt: '2026-10-25T00:00:00.000Z',
+      dates: ['2026-10-01', '2026-10-02', '2026-10-03'],
+      stations: [
+        { t: 'aaa', w: [1, 2, 3], p: [1, 3, 3] },
+        { t: 'bbb', w: [3, null, 4], p: [2, 2, 5] },
+        { t: 'ccc', w: [null, null, null], p: [null, null, null] },
+      ],
+      warnings: [],
+    };
+  }
+
+  const sites = [
+    makeSite({ stationTriplet: 'aaa', name: 'ALPHA', elevationFt: 8000 }),
+    makeSite({ stationTriplet: 'bbb', name: 'BRAVO', elevationFt: 7000 }),
+    makeSite({ stationTriplet: 'ccc', name: 'CHARLIE', elevationFt: 6000 }),
+  ];
+
+  it('renders the basin aggregate chart when a timeseries is provided', () => {
+    render(<DetailPanel basin={singleBasin(sites)} timeseries={chartTimeseries()} />);
+    const panel = screen.getByRole('complementary', { name: /basin detail/i });
+    expect(panel).toHaveTextContent('basin');
+    // The chart figure renders (SVG internals are covered in SeriesChart.test,
+    // which uses a fixed width — ResponsiveContainer measures 0 in jsdom).
+    expect(panel.querySelector('.chart')).not.toBeNull();
+    expect(panel.querySelector('.chart__title')).toHaveTextContent(/basin/);
+  });
+
+  it('notes when the timeseries file is unavailable', () => {
+    render(<DetailPanel basin={singleBasin(sites)} timeseries={null} />);
+    expect(screen.getByText(/Time series unavailable/)).toBeInTheDocument();
+  });
+
+  it('selects a site from its name button and shows its own chart', async () => {
+    const user = userEvent.setup();
+    render(<DetailPanel basin={singleBasin(sites)} timeseries={chartTimeseries()} />);
+    const nameButton = screen.getByRole('button', { name: /ALPHA — show time series/ });
+    await user.click(nameButton);
+    expect(nameButton).toHaveAttribute('aria-pressed', 'true');
+    // The site chart appears with the station's name.
+    const charts = screen.getAllByText('ALPHA');
+    expect(charts.some((el) => el.closest('.chart'))).toBe(true);
+    // Selecting again deselects.
+    await user.click(nameButton);
+    expect(nameButton).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  it('shows the empty state for a site with no series data', async () => {
+    const user = userEvent.setup();
+    render(<DetailPanel basin={singleBasin(sites)} timeseries={chartTimeseries()} />);
+    await user.click(screen.getByRole('button', { name: /CHARLIE — show time series/ }));
+    // CHARLIE's series is all null → "No history yet."
+    expect(screen.getByText('No history yet.')).toBeInTheDocument();
+  });
+
+  it('fetches multi-year history when the toggle is pressed', async () => {
+    const user = userEvent.setup();
+    // Typed with an explicit signature (the impl ignores the arg) so the
+    // recorded call argument stays a string for the URL assertions.
+    const fetchMock = vi.fn<
+      (input: string) => Promise<{ ok: boolean; json: () => Promise<unknown> }>
+    >(async () => ({
+      ok: true,
+      json: async () => [
+        {
+          stationTriplet: 'aaa',
+          data: [
+            {
+              stationElement: { elementCode: 'WTEQ' },
+              values: [
+                { month: 1, year: 2025, value: 6.9 },
+                { month: 2, year: 2025, value: 10.9 },
+              ],
+            },
+            {
+              stationElement: { elementCode: 'PREC' },
+              values: [
+                { month: 1, year: 2025, value: 11.2 },
+                { month: 2, year: 2025, value: 15.5 },
+              ],
+            },
+          ],
+        },
+      ],
+    }));
+    vi.stubGlobal('fetch', fetchMock);
+    render(<DetailPanel basin={singleBasin(sites)} timeseries={chartTimeseries()} />);
+    await user.click(screen.getByRole('button', { name: /ALPHA — show time series/ }));
+    await user.click(screen.getByRole('button', { name: 'Multi-year' }));
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock.mock.calls[0][0]).toContain('stationTriplets=aaa');
+    expect(fetchMock.mock.calls[0][0]).toContain('duration=MONTHLY');
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'This water year' })).toBeInTheDocument(),
+    );
+    vi.unstubAllGlobals();
+  });
+
+  it('resets the selection when the basin changes', async () => {
+    const user = userEvent.setup();
+    const { rerender } = render(
+      <DetailPanel basin={singleBasin(sites)} timeseries={chartTimeseries()} />,
+    );
+    await user.click(screen.getByRole('button', { name: /ALPHA — show time series/ }));
+    expect(screen.getByRole('button', { name: /ALPHA — show time series/ })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+    const otherSites = [makeSite({ stationTriplet: 'zzz', name: 'ZULU', elevationFt: 9000 })];
+    rerender(
+      <DetailPanel
+        basin={{ ...singleBasin(otherSites), id: 'other_basin', name: 'OTHER BASIN' }}
+        timeseries={chartTimeseries()}
+      />,
+    );
+    // No site selected in the new basin.
+    expect(
+      screen
+        .queryByRole('button', { name: /ZULU — show time series/ })
+        ?.getAttribute('aria-pressed'),
+    ).toBe('false');
   });
 });

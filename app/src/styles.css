@@ -32,6 +32,13 @@
   --band-none: #30363d;
   --band-none-text: #8b949e;
 
+  /* Time series charts (task 9). SWE is the cumulative quantity (left axis),
+     precip the daily/monthly one (right axis). */
+  --chart-swe: #4dd0e1;
+  --chart-swe-fill: rgba(77, 208, 225, 0.18);
+  --chart-precip: #3d6f96;
+  --chart-grid: #262d38;
+
   /* Type scale */
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -570,6 +577,110 @@ body {
   font-size: 0.7rem;
   line-height: 1.4;
   color: var(--text-dim);
+}
+
+/* Time series charts (task 9). */
+.panel__charts {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-3) 0 0;
+}
+
+.chart {
+  margin: 0;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: var(--space-2) var(--space-2) var(--space-1);
+}
+
+.chart__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-1);
+}
+
+.chart__title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.chart__toggle {
+  font-size: var(--text-xs);
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+}
+
+.chart__toggle:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.chart__toggle[aria-pressed='true'] {
+  color: var(--text);
+  border-color: var(--accent);
+  background: rgba(88, 166, 255, 0.12);
+}
+
+.chart__toggle:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.chart__body {
+  min-height: 220px;
+}
+
+/* The tooltip item name/value inherit the series color from Recharts;
+   the precip color does not meet WCAG AA on the card background, so
+   force the readable text color (the swatch keeps the series color). */
+.chart .recharts-tooltip-item-name,
+.chart .recharts-tooltip-item-value {
+  color: var(--text);
+}
+
+.chart__status {
+  margin: 0;
+  padding: var(--space-4) 0;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+}
+
+.chart__note {
+  margin: var(--space-3) 0 0;
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+}
+
+/* The site-name cell is a button (keyboard access to the site chart). */
+.row-select {
+  all: unset;
+  display: block;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.row-select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.detail-table__row--selected td {
+  background: rgba(88, 166, 255, 0.1);
+}
+
+.detail-table__row--selected .row-select {
+  color: var(--accent);
 }
 
 /* ==========================================================================

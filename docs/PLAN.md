@@ -137,14 +137,23 @@ by the band-colored rollup (no multi-year history exists yet; task 9 adds it).
 E2E includes a real-data parity test re-deriving every cell from the served
 snowpack.json, so daily pipeline updates stay in lockstep with the UI.
 
-## Task 9 — Time-series charts (est. 3–4 turns)
+## Task 9 — Time-series charts (est. 3–4 turns) — ✅ done (2026-10-25)
 
 Per-site SWE area chart + water-year precip bar/area chart; basin aggregate
 line; multi-year context if the endpoint provides history; chart theming +
 touch/keyboard interaction.
 
+Data side: AWDB daily series source → committed `timeseries.json` (shared date
+axis, per-station arrays, ~24KB) + daily pipeline step; client fetches full
+monthly history on demand for the multi-year toggle (cached in memory).
+
 - **Accept:** real-data charts render for every basin and ≥5 sample sites, with
   empty-state handling for sites missing history.
+
+Done: basin aggregate + per-site charts (Recharts, dual y-axes, themable
+tokens), multi-year monthly-history toggle, empty/loading/unavailable states,
+keyboard row selection, e2e + axe coverage. Charts degrade to a note when the
+timeseries file is missing; the dashboard never blocks on it.
 
 ## Task 10 — Freshness, resilience, shareability (est. 1–2 turns)
 

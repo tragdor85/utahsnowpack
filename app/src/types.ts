@@ -163,3 +163,31 @@ export function formatPctCell(value: number | null, invalid: boolean): string {
 export function formatElevCell(value: number | null): string {
   return value === null ? '-M' : `${Math.round(value)}`;
 }
+
+/**
+ * `timeseries.json` contract (docs/PLAN.md task 9; produced by
+ * `pipeline/src/sources/awdb.ts`). The current water year's daily SWE and
+ * water-year precipitation for every registry station, in a compact shared
+ * date-axis format: each station's arrays align 1:1 with `dates`.
+ */
+export interface TimeseriesStation {
+  /** Station triplet, e.g. "1113:UT:SNTL". */
+  t: string;
+  /** Daily SWE, inches (1 decimal); null where missing. */
+  w: (number | null)[];
+  /** Daily water-year accumulated precipitation, inches; null where missing. */
+  p: (number | null)[];
+}
+
+export interface TimeseriesData {
+  schemaVersion: 1;
+  source: string;
+  /** Water year the `dates` axis belongs to (Oct 1 – Sep 30). */
+  waterYear: number;
+  /** When the pipeline fetched the API (ISO 8601). */
+  fetchedAt: string;
+  /** Shared date axis (YYYY-MM-DD), ascending. */
+  dates: string[];
+  stations: TimeseriesStation[];
+  warnings: string[];
+}
