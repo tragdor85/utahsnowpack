@@ -75,8 +75,10 @@ silently dropped).
 ## Task 6 — UI shell + design system (est. 1–2 turns)
 
 Dark-themed responsive layout (header w/ last-updated + water-year banner,
-legend, main map area, side detail panel) + design tokens (colors incl. the 6
-legend bands, type scale, spacing). Render with a mock `snowpack.json`.
+legend, main map area, side detail panel) + design tokens (colors incl. the 7
+KSL legend bands + `none`, type scale, spacing). Renders with a mock
+`snowpack.json` (tests) and the real one in dev/build (copied from
+`data/` by `app/scripts/copy-snowpack.mjs`).
 
 - **Accept:** desktop (1280) and mobile (390) layouts render mock data with
   correct legend bands; keyboard tab order works; screenshot test committed.

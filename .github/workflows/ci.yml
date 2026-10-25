@@ -24,6 +24,10 @@ jobs:
       - run: pnpm lint
       - run: pnpm test
       - run: pnpm build
+      - name: Install Playwright browser
+        run: pnpm --filter @utahsnowpack/app exec playwright install --with-deps chromium
+      - name: Run e2e layout/screenshot tests
+        run: pnpm --filter @utahsnowpack/app test:e2e
       - uses: actions/upload-artifact@v4
         with:
           name: dist

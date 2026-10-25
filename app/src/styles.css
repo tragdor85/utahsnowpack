@@ -1,18 +1,58 @@
-/* Design tokens — extended into the full design system in docs/PLAN.md task 6. */
+/* ==========================================================================
+   Design system (docs/PLAN.md task 6)
+   Tokens: surfaces, KSL legend bands, type scale, spacing, radius.
+   ========================================================================== */
 :root {
+  /* Surfaces (dark theme) */
   --bg: #0d1117;
   --surface: #161b22;
+  --surface-2: #1c2330;
   --border: #30363d;
   --text: #e6edf3;
   --text-dim: #8b949e;
   --accent: #58a6ff;
 
+  /* KSL legend bands — the exact colors KSL paints (captured from its page),
+     plus `none` (our addition for "no data"). `--band-*-text` is the
+     legible text color on each swatch. */
+  --band-red: #f00;
+  --band-red-text: #fff;
+  --band-orange: #ff9800;
+  --band-orange-text: #000;
+  --band-yellow: #ffff00;
+  --band-yellow-text: #000;
+  --band-green: #00ff00;
+  --band-green-text: #000;
+  --band-blue1: #73ffdf;
+  --band-blue1-text: #000;
+  --band-blue2: #00a9e6;
+  --band-blue2-text: #fff;
+  --band-blue3: #0000ff;
+  --band-blue3-text: #fff;
+  --band-none: #30363d;
+  --band-none-text: #8b949e;
+
+  /* Type scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+
+  /* Spacing */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 1rem;
   --space-4: 2rem;
+  --space-5: 3rem;
 
+  /* Shape */
   --radius: 0.5rem;
+  --radius-sm: 0.25rem;
+  --panel-width: 22rem;
+
+  color-scheme: dark;
 }
 
 * {
@@ -28,9 +68,31 @@ body {
     -apple-system,
     'Segoe UI',
     sans-serif;
+  font-size: var(--text-md);
   line-height: 1.5;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Keyboard focus must be visible (tab-order acceptance). */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Shell layout: header / body (main + panel) / footer
+   ========================================================================== */
 .shell {
   min-height: 100dvh;
   display: grid;
@@ -43,29 +105,98 @@ body {
   background: var(--surface);
 }
 
+.shell__header-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
 .shell__header h1 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: var(--text-xl);
+}
+
+.header__water-year {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: var(--space-1) var(--space-2);
 }
 
 .shell__subtitle {
   margin: var(--space-1) 0 0;
   color: var(--text-dim);
+  font-size: var(--text-sm);
+}
+
+.header__stamps {
+  margin: var(--space-2) 0 0;
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+}
+
+/* Desktop: main area + side panel. Mobile: stacked (panel below). */
+.shell__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--panel-width);
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  align-items: start;
 }
 
 .shell__main {
   display: grid;
-  place-items: center;
   gap: var(--space-3);
-  padding: var(--space-4);
+  min-width: 0;
 }
 
 .shell__footer {
   padding: var(--space-3) var(--space-4);
   border-top: 1px solid var(--border);
   color: var(--text-dim);
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   text-align: center;
+}
+
+.shell__footer p {
+  margin: 0;
+}
+
+.shell__warnings {
+  margin-top: var(--space-2);
+  text-align: left;
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+.shell__warnings summary {
+  cursor: pointer;
+  color: var(--text);
+}
+
+.shell__warnings ul {
+  margin: var(--space-2) 0 0;
+  padding-left: var(--space-4);
+  font-size: var(--text-xs);
+}
+
+.shell__hint {
+  color: var(--text-dim);
+}
+
+/* Loading / error states (centered in the main area). */
+.shell__main[aria-busy],
+.shell__main[role='alert'] {
+  place-items: center;
+  text-align: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
 }
 
 .spinner {
@@ -89,11 +220,257 @@ body {
   }
 }
 
+/* ==========================================================================
+   Band chips (legend swatches, basin chips, rollup chips)
+   ========================================================================== */
+.band-chip {
+  width: 1rem;
+  height: 1rem;
+  border-radius: var(--radius-sm);
+  flex: none;
+}
+
+.band-chip--red {
+  background: var(--band-red);
+  color: var(--band-red-text);
+}
+.band-chip--orange {
+  background: var(--band-orange);
+  color: var(--band-orange-text);
+}
+.band-chip--yellow {
+  background: var(--band-yellow);
+  color: var(--band-yellow-text);
+}
+.band-chip--green {
+  background: var(--band-green);
+  color: var(--band-green-text);
+}
+.band-chip--blue1 {
+  background: var(--band-blue1);
+  color: var(--band-blue1-text);
+}
+.band-chip--blue2 {
+  background: var(--band-blue2);
+  color: var(--band-blue2-text);
+}
+.band-chip--blue3 {
+  background: var(--band-blue3);
+  color: var(--band-blue3-text);
+}
+.band-chip--none {
+  background: var(--band-none);
+  color: var(--band-none-text);
+}
+
+/* ==========================================================================
+   Legend
+   ========================================================================== */
+.legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+}
+
+.legend__band {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+}
+
+/* ==========================================================================
+   Basin list (map-area stand-in; task 7 swaps in the map)
+   ========================================================================== */
+.basin-list {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.basin-list__item {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.basin-list__item:hover {
+  border-color: var(--accent);
+}
+
+.basin-list__item--selected {
+  border-color: var(--accent);
+  background: var(--surface-2);
+}
+
+.basin-list__chip {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.basin-list__name {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.basin-list__pct {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.basin-list__reporting {
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   Detail panel
+   ========================================================================== */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  min-width: 0;
+}
+
+.panel__empty {
+  color: var(--text-dim);
+  margin: 0;
+}
+
+.panel__name {
+  margin: 0;
+  font-size: var(--text-lg);
+  letter-spacing: 0.02em;
+}
+
+.panel__rollup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-2) 0;
+}
+
+.panel__chip {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.panel__pct {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.panel__rollup-label {
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+}
+
+.panel__reporting {
+  margin: 0 0 var(--space-3);
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+}
+
+/* Site table (scrolls horizontally inside the panel when it can't fit —
+   the wrapper contains the overflow so the document never scrolls). */
+.site-table-wrap {
+  overflow-x: auto;
+}
+
+.site-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-xs);
+}
+
+.site-table th {
+  text-align: right;
+  font-weight: 600;
+  color: var(--text-dim);
+  padding: var(--space-1) var(--space-1);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.site-table th:first-child {
+  text-align: left;
+}
+
+.site-table td {
+  padding: var(--space-1) var(--space-1);
+  border-bottom: 1px solid var(--border);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.site-table__name {
+  text-align: left;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.site-table__cell--flagged {
+  color: var(--text-dim);
+}
+
+.site-table__flag {
+  color: var(--accent);
+  font-size: var(--text-xs);
+}
+
+.site-table__row--stale td {
+  opacity: 0.6;
+}
+
+/* ==========================================================================
+   Responsive: stack the panel below the main area on narrow screens.
+   ========================================================================== */
 @media (max-width: 600px) {
   .shell__header,
-  .shell__main,
   .shell__footer {
     padding-left: var(--space-3);
     padding-right: var(--space-3);
+  }
+
+  .shell__body {
+    grid-template-columns: 1fr;
+    padding: var(--space-3);
+  }
+
+  .basin-list__item {
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .basin-list__reporting {
+    display: none;
+  }
+
+  .site-table th:nth-child(6),
+  .site-table th:nth-child(7),
+  .site-table td:nth-child(6),
+  .site-table td:nth-child(7) {
+    display: none;
   }
 }

@@ -6,6 +6,14 @@ coverage/
 *.local
 .DS_Store
 
+# Copied from data/snowpack.json at build/dev time (app/scripts/copy-snowpack.mjs).
+app/public/snowpack.json
+
+# Playwright artifacts (e2e screenshots + failure traces).
+app/screenshots/
+app/test-results/
+app/playwright-report/
+
 # data/snowpack.json and data/fixtures/ are COMMITTED: the daily pipeline
 # (docs/PLAN.md task 5, .github/workflows/daily-data.yml) updates them from
 # live sources. data/raw/ is a local fetch:dry byproduct; data/generated/ is

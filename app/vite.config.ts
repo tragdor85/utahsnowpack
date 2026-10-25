@@ -10,5 +10,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: ['./src/setupTests.ts'],
+    // e2e/ is Playwright's domain (pnpm test:e2e); keep vitest on unit tests.
+    include: ['src/**/*.test.{ts,tsx}'],
   },
 });

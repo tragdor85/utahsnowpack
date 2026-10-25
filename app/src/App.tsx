@@ -1,27 +1,115 @@
+import { useEffect, useState } from 'react';
+import { Header } from './components/Header';
+import { Legend } from './components/Legend';
+import { BasinList } from './components/BasinList';
+import { DetailPanel } from './components/DetailPanel';
+import type { SnowpackData } from './types';
+
 /**
- * Dashboard shell. The map, detail panel, and charts arrive with the data
- * pipeline (docs/PLAN.md tasks 2-5 + 6-9); until snowpack.json exists the
- * app shows the loading state instead of a blank page.
+ * Dashboard shell (docs/PLAN.md task 6).
+ *
+ * Data comes from `snowpack.json` (fetched at `/snowpack.json`), the
+ * canonical contract produced by the pipeline. Tests and the mock render
+ * inject `data` directly, which skips the fetch.
  */
-export default function App() {
+export default function App({ data: injected }: { data?: SnowpackData | null }) {
+  const [fetched, setFetched] = useState<SnowpackData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(injected === undefined);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (injected !== undefined) return;
+    let cancelled = false;
+    fetch('/snowpack.json')
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json() as Promise<SnowpackData>;
+      })
+      .then((data) => {
+        if (cancelled) return;
+        setFetched(data);
+        setLoading(false);
+      })
+      .catch((err: unknown) => {
+        if (cancelled) return;
+        setError(err instanceof Error ? err.message : String(err));
+        setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [injected]);
+
+  const data = injected !== undefined ? injected : fetched;
+
+  if (loading) {
+    return (
+      <div className="shell">
+        <Header data={null} />
+        <main className="shell__main" aria-busy="true">
+          <div className="spinner" aria-hidden="true" />
+          <p role="status">Loading data…</p>
+        </main>
+        <ShellFooter data={null} />
+      </div>
+    );
+  }
+
+  if (data === null) {
+    return (
+      <div className="shell">
+        <Header data={null} />
+        <main className="shell__main" role="alert">
+          <p>Could not load snowpack data{error ? ` (${error})` : ''}.</p>
+          <p className="shell__hint">Try again once the daily pipeline has run.</p>
+        </main>
+        <ShellFooter data={null} />
+      </div>
+    );
+  }
+
+  const selected = data.basins.find((b) => b.id === selectedId) ?? data.basins[0] ?? null;
+
   return (
     <div className="shell">
-      <header className="shell__header">
-        <h1>Utah Snowpack</h1>
-        <p className="shell__subtitle">
-          SNOTEL SWE &amp; water-year precipitation across Utah&rsquo;s 8 major basins
-        </p>
-      </header>
-      <main className="shell__main" aria-busy="true">
-        <div className="spinner" aria-hidden="true" />
-        <p role="status">Loading data…</p>
-      </main>
-      <footer className="shell__footer">
-        <p>
-          Source: USDA NRCS SNOTEL &middot; 206 reporting sites &middot; Water year Oct 1 &ndash;
-          Sep 30
-        </p>
-      </footer>
+      <Header data={data} />
+      <div className="shell__body">
+        <main className="shell__main">
+          <Legend />
+          <BasinList
+            basins={data.basins}
+            selectedId={selected?.id ?? null}
+            onSelect={setSelectedId}
+          />
+        </main>
+        <DetailPanel basin={selected} />
+      </div>
+      <ShellFooter data={data} />
     </div>
+  );
+}
+
+function ShellFooter({ data }: { data: SnowpackData | null }) {
+  const warnings = data?.warnings ?? [];
+  return (
+    <footer className="shell__footer">
+      <p>
+        Source: USDA NRCS SNOTEL &middot; KSL Utah Snowpack Totals &middot; Water year Oct 1 &ndash;
+        Sep 30
+      </p>
+      {warnings.length > 0 && (
+        <details className="shell__warnings">
+          <summary>
+            {warnings.length} data warning{warnings.length === 1 ? '' : 's'}
+          </summary>
+          <ul>
+            {warnings.map((w, i) => (
+              <li key={i}>{w}</li>
+            ))}
+          </ul>
+        </details>
+      )}
+    </footer>
   );
 }
