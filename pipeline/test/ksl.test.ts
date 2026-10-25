@@ -5,7 +5,7 @@ import { parseKslHtml, type KslSection } from '../src/sources/ksl.js';
 import { normalizeName, baselineRoster, coverageReport } from '../src/coverage.js';
 import { parseKslStamp } from '../src/fetch.js';
 
-const FIXTURE = fileURLToPath(new URL('../../data/fixtures/ksl-sample.html', import.meta.url));
+const FIXTURE = fileURLToPath(new URL('./fixtures/ksl-sample.html', import.meta.url));
 const snapshot = parseKslHtml(
   readFileSync(FIXTURE, 'utf8'),
   'fixture:ksl-sample.html',

@@ -182,6 +182,48 @@ catalog membership, and a leave-one-out convex-hull **map check** (each site
 must sit within its basin's other sites, tolerance scaled to basin extent —
 catches a station mis-resolved to a far-away same-named station).
 
+### The normalizer (`data/snowpack.json`)
+
+`pnpm build:snowpack` (offline against the committed fixtures) turns the two
+raw snapshots plus the pinned registry into the canonical `data/snowpack.json`
+(contract in `pipeline/src/schema.ts`, `schemaVersion: 1`). Source roles:
+
+- **KSL** supplies every displayed value — SWE, averages, % of average, and
+  water-year precip, which the WCC report does not carry. Values are taken
+  verbatim after undoing KSL's two cell-shift display quirks
+  (`reconstructKslRow` in `pipeline/src/normalize.ts`):
+  - *name-overflow*: a non-numeric elev cell is the name's tail
+    ("EF Blacks Fork" + "GS"); the last cell (precip % avg) is dropped.
+  - *flag-shift*: a trailing M/-M/* flag on the name plus k trailing empty
+    filler cells means SWE (and, for k ≥ 2, the elevation) was dropped and
+    the remaining cells shifted left. k=2 is the only shape observed
+    ("Chepeta  M"); other k values reconstruct but emit a warning.
+- **WCC** supplies *reported-today* membership: the report lists only stations
+  with a reading, and KSL's basin % is computed over exactly that set. KSL's
+  own table keeps last-known values for non-reporting stations, so it cannot
+  supply the set. For every station that reported, the normalizer cross-checks
+  KSL vs WCC SWE and SWE-avg (tolerance 0.05 in) and warns on disagreement.
+
+Basin rollup: `swePctAvg = round(100 × Σ SWE ÷ Σ SWE-avg)` over the basin's
+reporting stations that have a non-null SWE **and** non-null SWE-avg — the
+only of three candidate rules that reproduces all 8 baseline % values exactly
+(verified 2026-10-24). `colorBand` uses KSL's legend (red <50, orange 50–69,
+yellow 70–89, green 90–109, blue1 110–129, blue2 130–149, blue3 ≥150;
+`none` when the rollup is null). Water year follows the standard convention
+(WY N runs Oct 1 of N−1 to Sep 30 of N, so the Oct 24 2026 capture is WY2027).
+Timestamps: the KSL stamp is America/Denver wall clock (re-anchored, DST-aware)
+and the WCC report date is a calendar date; both are carried verbatim plus
+parsed. Unresolvable rows, WCC rows outside the roster, multi-basin value
+disagreements, and unverified row shapes land in `warnings` — never silently
+dropped.
+
+Parity (plan task 4 acceptance): against the captured 2026-10-24 baseline the
+normalizer matches **all 8 basin % values and 1244/1244 site values (100%)**
+— tolerance 1 pt / 0.1 in, enforced in `pipeline/test/normalize.test.ts`
+(the baseline stores KSL's cells verbatim, so the test reconstructs the
+baseline side too; the reconstruction itself is verified by the WCC
+cross-check and the unit tests).
+
 ### Why the others lose
 
 - **Official SNOTEL/NWPC/DWR brand portals**: unreachable (DNS) from both
@@ -247,16 +289,17 @@ Committed fixtures (generated `data/raw/` output stays gitignored):
 
 ```
 data/fixtures/ksl-2026-10-24.html  # full 206-site page, Oct 24 2026 snapshot
- data/fixtures/ksl-sample.html     # 2-basin/15-row slice (fast parser unit tests)
  data/fixtures/wcc-ut-snotel-report-2026-10-24.html  # full WCC report (latin-1)
  data/fixtures/wcc-ut-stations-2026-10-24.json      # station catalog (260 entries)
+pipeline/test/fixtures/ksl-sample.html              # 2-basin/15-row slice (fast parser unit tests)
 ```
 
 ```bash
 pnpm fetch:dry                                             # live fetch → data/raw/ksl-<YYYY-MM-DD>.json
 pnpm fetch:dry --fixture data/fixtures/ksl-2026-10-24.html # full offline run (100%, passes)
-pnpm fetch:dry --fixture data/fixtures/ksl-sample.html    # PARTIAL → coverage gate FAILS by design
+pnpm fetch:dry --fixture pipeline/test/fixtures/ksl-sample.html  # PARTIAL → coverage gate FAILS by design
 pnpm --filter @utahsnowpack/pipeline exec tsx src/build-registry.ts --fixture data/fixtures  # rebuild data/sites.json offline
+pnpm --filter @utahsnowpack/pipeline build:snowpack       # fixtures + registry → data/snowpack.json
 ```
 
 The full fixture lets the entire pipeline run offline (no network needed in

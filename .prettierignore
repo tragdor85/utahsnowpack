@@ -2,3 +2,4 @@
 **/coverage
 pnpm-lock.yaml
 data
+pipeline/test/fixtures

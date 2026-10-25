@@ -5,7 +5,8 @@
   "scripts": {
     "test": "vitest run",
     "fetch:dry": "tsx src/fetch.ts",
-    "build:registry": "tsx src/build-registry.ts"
+    "build:registry": "tsx src/build-registry.ts",
+    "build:snowpack": "tsx src/build-snowpack.ts"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

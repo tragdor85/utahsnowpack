@@ -7,16 +7,29 @@
  * not auto-rematched (risk R2) — re-running the build must reproduce it from
  * the committed fixtures, and drift shows up as review entries.
  */
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import type { WccRow, WccSnapshot, WccStation } from './sources/wcc.js';
 
 export interface BaselineSite {
   site: string;
   elev_ft: string;
+  /** Verbatim KSL cells — the two display-quirk rows are still shifted. */
+  swe_in: string;
+  swe_avg_in: string;
+  swe_pct_avg: string;
+  precip_in: string;
+  precip_avg_in: string;
+  precip_pct_avg: string;
 }
 
 export interface BaselineBasin {
   id: string;
   name: string;
+  /** KSL's published basin rollup, e.g. "230" (parity-test reference). */
+  pct_avg?: string;
+  /** KSL legend color, e.g. "blue3" (parity-test reference). */
+  color?: string;
   sites: BaselineSite[];
 }
 
@@ -66,6 +79,13 @@ export interface Registry {
   warnings: string[];
 }
 
+/** Load the pinned site registry (`data/sites.json`). */
+export function loadRegistry(
+  path = join(import.meta.dirname, '..', '..', 'data', 'sites.json'),
+): Registry {
+  return JSON.parse(readFileSync(path, 'utf8')) as Registry;
+}
+
 /** Strip everything but alphanumerics, lowercase: the catalog-join key. */
 export function normalizeStationName(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -81,7 +101,10 @@ export function normalizeStationName(name: string): string {
  *   trailing `M`/`-M`/`*` is stripped. (When the elev cell is a shifted
  *   _numeric_ value like ".7", the name keeps no suffix — only the flag.)
  */
-export function kslStationName(row: BaselineSite): { name: string; variant: boolean } {
+export function kslStationName(row: Pick<BaselineSite, 'site' | 'elev_ft'>): {
+  name: string;
+  variant: boolean;
+} {
   let name = row.site;
   let variant = false;
   if (!/^\d+$/.test(row.elev_ft)) {
