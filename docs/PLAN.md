@@ -72,13 +72,25 @@ silently dropped).
 - **Accept:** one `workflow_dispatch` run end-to-end updates the committed
   JSON (deploy wiring lands with task 11); failed runs are logged visibly.
 
-## Task 6 — UI shell + design system (est. 1–2 turns)
+## Task 6 — UI shell + design system (est. 1–2 turns) — ✅ done (2026-10-25, `5b12b6b`)
 
 Dark-themed responsive layout (header w/ last-updated + water-year banner,
 legend, main map area, side detail panel) + design tokens (colors incl. the 7
 KSL legend bands + `none`, type scale, spacing). Renders with a mock
 `snowpack.json` (tests) and the real one in dev/build (copied from
 `data/` by `app/scripts/copy-snowpack.mjs`).
+
+**Landed 2026-10-25:** `app/src/types.ts` mirrors the pipeline contract
+(kept in sync by schema tests on both sides); `COLOR_BAND_META` + the
+`.band-chip--<band>` tokens carry KSL's exact palette (captured from the
+page's own `<style>` block — the plan's "6 bands" is 7: red/orange/yellow/
+green/blue1/blue2/blue3, plus our `none`). Components: `Header` (water-year
+badge + both source stamps), `Legend`, `BasinList` (8 keyboard-navigable
+basin buttons — the map-area stand-in task 7 replaces), `DetailPanel`
+(rollup + per-site table, flags as `*` with tooltips, horizontal scroll
+contained in a wrapper). Playwright e2e (`app/e2e/layout.spec.ts`) asserts
+the 1280 and 390 layouts against the mock — legend colors, geometry,
+no overflow, tab order — and runs in CI after the unit tests.
 
 - **Accept:** desktop (1280) and mobile (390) layouts render mock data with
   correct legend bands; keyboard tab order works; screenshot test committed.
