@@ -1,0 +1,62 @@
+name: deploy
+
+# docs/PLAN.md task 11 — deploy the static site to GitHub Pages.
+#
+# Runs on every push to main: app code changes AND the daily data commits
+# (data/snowpack.json, timeseries.json, og-image.png) redeploy the site, so
+# the deployed dashboard picks up each day's data without any app change.
+#
+# The site lives at https://tragdor85.github.io/utahsnowpack/, so the build
+# uses VITE_BASE=/utahsnowpack/ (asset URLs) and production absolute URLs
+# for the share-card meta tags.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: pages
+  # Superseded deploys are cheap to redo; cancel the in-flight one.
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one Pages site per repo; the workflow that defines it is the source
+# of truth for the site configuration.
+environment:
+  name: github-pages
+  url: ${{ steps.deploy.outputs.page_url }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: github-pages
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build the app
+        working-directory: app
+        env:
+          VITE_BASE: /utahsnowpack/
+          VITE_SITE_URL: https://tragdor85.github.io/utahsnowpack/
+          VITE_OG_IMAGE: https://tragdor85.github.io/utahsnowpack/og-image.png
+        run: pnpm build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: app/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: github-pages
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4
