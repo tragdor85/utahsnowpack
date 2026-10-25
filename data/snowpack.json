@@ -4,9 +4,9 @@
     "ksl": "https://www.ksl.com/weather/snowpack",
     "wcc": "https://wcc.sc.egov.usda.gov/reports/UpdateReport.html?report=Utah&format=SNOTEL+Snowpack+Update+Report"
   },
-  "fetchedAt": "2026-10-25T16:21:27.815Z",
+  "fetchedAt": "2026-10-25T21:02:34.804Z",
   "lastUpdated": {
-    "ksl": "08:15am Sun 25 October 2026",
+    "ksl": "02:15pm Sun 25 October 2026",
     "kslDate": "2026-10-25",
     "wcc": "Sunday, October 25, 2026",
     "wccDate": "2026-10-25"

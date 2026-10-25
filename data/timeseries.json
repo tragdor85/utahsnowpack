@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "source": "https://wcc.sc.egov.usda.gov/awdbRestApi/services/v1/data",
   "waterYear": 2027,
-  "fetchedAt": "2026-10-25T16:15:26.076Z",
+  "fetchedAt": "2026-10-25T21:02:34.256Z",
   "dates": [
     "2026-10-01",
     "2026-10-02",
