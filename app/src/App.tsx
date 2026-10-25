@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Header } from './components/Header';
 import { Legend } from './components/Legend';
+import { BasinMap } from './components/BasinMap';
 import { BasinList } from './components/BasinList';
 import { DetailPanel } from './components/DetailPanel';
 import type { SnowpackData } from './types';
@@ -77,6 +78,7 @@ export default function App({ data: injected }: { data?: SnowpackData | null }) 
       <div className="shell__body">
         <main className="shell__main">
           <Legend />
+          <BasinMap data={data} selectedId={selected?.id ?? null} onSelect={setSelectedId} />
           <BasinList
             basins={data.basins}
             selectedId={selected?.id ?? null}

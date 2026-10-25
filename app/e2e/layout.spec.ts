@@ -1,16 +1,20 @@
 import { expect, test } from '@playwright/test';
 import { MOCK_SNOWPACK } from '../src/data/mock';
+import { BASIN_POLYGONS } from '../src/data/basins';
 import { COLOR_BAND_META } from '../src/types';
 
 /**
- * Layout screenshot tests (docs/PLAN.md task 6 acceptance): desktop 1280
- * and mobile 390 render the mock data with the correct legend bands, the
- * keyboard tab order walks the basins, and nothing overflows horizontally.
+ * Layout + map tests (docs/PLAN.md tasks 6–7 acceptance): desktop 1280 and
+ * mobile 390 render the mock data with the correct legend bands, the basin
+ * map renders and click-selects, the keyboard tab order walks the basins,
+ * and nothing overflows horizontally.
  *
  * The built app fetches /snowpack.json; we intercept it with the mock so
  * the tests are deterministic regardless of the pipeline's latest data.
  * Screenshots land in app/screenshots/ (gitignored); the assertions are
  * against computed styles and geometry, not pixels.
+ * Basemap tiles (CARTO) load over the network where available; the map's
+ * own data is local, so the tests pass offline too.
  */
 
 // KSL's exact palette as the browser computes it from the design tokens.
@@ -75,6 +79,53 @@ test.describe('desktop (1280)', () => {
     await assertNoHorizontalOverflow(page, 1280);
     await page.screenshot({ path: 'screenshots/desktop-1280.png', fullPage: true });
   });
+
+  test('renders the basin map with a sized canvas', async ({ page }) => {
+    await page.goto('/');
+    await assertMockRendered(page);
+
+    const canvas = page.locator('.basin-map canvas');
+    await expect(canvas).toBeVisible();
+    const box = (await canvas.boundingBox())!;
+    expect(box.width).toBeGreaterThan(400);
+    expect(box.height).toBeGreaterThan(300);
+  });
+
+  test('clicking a basin on the map selects it', async ({ page }) => {
+    await page.goto('/');
+    await assertMockRendered(page);
+
+    // Wait until the map instance is attached and its basins source has data
+    // (independent of the network basemap tiles).
+    await page.waitForFunction(() => {
+      const el = document.querySelector('.basin-map');
+      const map =
+        el && (el as unknown as { __map?: { isSourceLoaded: (id: string) => boolean } }).__map;
+      return !!map && map.isSourceLoaded('basins');
+    });
+
+    // Project the DUCHESNE polygon centroid to canvas coordinates.
+    const ring = BASIN_POLYGONS.features.find((f) => f.properties.id === 'duchesne')!.geometry
+      .coordinates[0];
+    const cx = ring.reduce((s, c) => s + c[0], 0) / ring.length;
+    const cy = ring.reduce((s, c) => s + c[1], 0) / ring.length;
+    const pt = await page.evaluate(
+      ([x, y]) => {
+        const el = document.querySelector('.basin-map') as unknown as {
+          __map: { project: (p: [number, number]) => { x: number; y: number } };
+        };
+        const p = el.__map.project([x, y]);
+        return { x: p.x, y: p.y };
+      },
+      [cx, cy],
+    );
+
+    await page.locator('.basin-map').scrollIntoViewIfNeeded();
+    const box = (await page.locator('.basin-map canvas').boundingBox())!;
+    await page.mouse.click(box.x + pt.x, box.y + pt.y);
+
+    await expect(page.locator('.panel__name')).toHaveText('DUCHESNE');
+  });
 });
 
 test.describe('mobile (390)', () => {
@@ -106,5 +157,5 @@ test('keyboard tab order walks the basins in order and Enter selects', async ({ 
   await page.keyboard.press('Tab');
   await expect(items.nth(2)).toBeFocused();
   await page.keyboard.press('Enter');
-  await expect(page.locator('.panel__name')).toHaveText('WEBER/OGDEN');
+  await expect(page.locator('.panel__name')).toHaveText('WEBER-OGDEN');
 });

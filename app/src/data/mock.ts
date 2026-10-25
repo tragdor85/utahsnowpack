@@ -212,12 +212,12 @@ const SITES: Record<string, SnowpackSite[]> = {
 const BASINS: SnowpackBasin[] = [
   basin({ id: 'raft_river', name: 'RAFT RIVER', colorBand: 'blue3', swePctAvg: 180 }, SITES.raft_river),
   basin({ id: 'bear_river', name: 'BEAR RIVER', colorBand: 'orange', swePctAvg: 54 }, SITES.bear_river),
-  basin({ id: 'weber_ogden', name: 'WEBER/OGDEN', colorBand: 'blue1', swePctAvg: 112 }, SITES.weber_ogden),
-  basin({ id: 'provo', name: 'PROVO', colorBand: 'green', swePctAvg: 95 }, SITES.provo),
-  basin({ id: 'green_river', name: 'GREEN RIVER', colorBand: 'yellow', swePctAvg: 78 }, SITES.green_river),
+  basin({ id: 'weber_ogden', name: 'WEBER-OGDEN', colorBand: 'blue1', swePctAvg: 112 }, SITES.weber_ogden),
+  basin({ id: 'provo_river', name: 'PROVO RIVER', colorBand: 'green', swePctAvg: 95 }, SITES.provo),
+  basin({ id: 'green_river', name: 'NE UINTAHS', colorBand: 'yellow', swePctAvg: 78 }, SITES.green_river),
   basin({ id: 'duchesne', name: 'DUCHESNE', colorBand: 'blue2', swePctAvg: 135 }, SITES.duchesne),
-  basin({ id: 'sevier', name: 'SEVIER', colorBand: 'red', swePctAvg: 32 }, SITES.sevier),
-  basin({ id: 'beaver', name: 'BEAVER', colorBand: 'none' }, SITES.beaver),
+  basin({ id: 'sevier_river', name: 'UPPER SEVIER', colorBand: 'red', swePctAvg: 32 }, SITES.sevier),
+  basin({ id: 'beaver_river', name: 'BEAVER RIVER', colorBand: 'none' }, SITES.beaver),
 ];
 
 export const MOCK_SNOWPACK: SnowpackData = {

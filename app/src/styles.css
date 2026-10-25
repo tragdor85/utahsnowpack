@@ -284,6 +284,42 @@ body {
 }
 
 /* ==========================================================================
+   Basin map (task 7)
+   ========================================================================== */
+.basin-map {
+  height: clamp(320px, 55vh, 640px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.basin-map--fallback {
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+}
+
+.basin-map--fallback p {
+  color: var(--text-dim);
+  margin: 0;
+}
+
+/* MapLibre tooltip (hover). */
+.map-tooltip {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-xs);
+  line-height: 1.4;
+}
+
+.map-tooltip .maplibregl-popup-close-button {
+  display: none;
+}
+
+/* ==========================================================================
    Basin list (map-area stand-in; task 7 swaps in the map)
    ========================================================================== */
 .basin-list {

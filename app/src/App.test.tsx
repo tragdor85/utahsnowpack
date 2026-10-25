@@ -35,7 +35,7 @@ describe('dashboard shell (mock data)', () => {
   it('renders every basin with its band and SWE percent (em dash when missing)', () => {
     render(<App data={MOCK_SNOWPACK} />);
     const items = screen.getAllByRole('button', {
-      name: /RAFT RIVER|BEAR RIVER|WEBER\/OGDEN|PROVO|GREEN RIVER|DUCHESNE|SEVIER|BEAVER/,
+      name: /RAFT RIVER|BEAR RIVER|WEBER-OGDEN|PROVO|NE UINTAHS|DUCHESNE|SEVIER|BEAVER/,
     });
     expect(items).toHaveLength(8);
     expect(screen.getByRole('button', { name: /RAFT RIVER/ })).toHaveTextContent('180%');
@@ -72,7 +72,7 @@ describe('dashboard shell (mock data)', () => {
     await user.tab();
     expect(screen.getByRole('button', { name: /BEAR RIVER/ })).toHaveFocus();
     await user.tab();
-    expect(screen.getByRole('button', { name: /WEBER\/OGDEN/ })).toHaveFocus();
+    expect(screen.getByRole('button', { name: /WEBER-OGDEN/ })).toHaveFocus();
   });
 
   it('surfaces pipeline warnings in the footer', () => {
