@@ -109,15 +109,18 @@ describe('dashboard shell (fetched data)', () => {
     expect(fetch).toHaveBeenCalledWith('/timeseries.json');
   });
 
-  it('shows an error state when the fetch fails', async () => {
+  it('falls back to the bundled data with a warning when the fetch fails', async () => {
     vi.stubGlobal(
       'fetch',
       vi.fn(() => Promise.reject(new Error('HTTP 500'))),
     );
     render(<App />);
     await waitFor(() =>
-      expect(screen.getByRole('alert')).toHaveTextContent('Could not load snowpack data'),
+      expect(screen.getByRole('alert')).toHaveTextContent(/Live data unavailable/),
     );
+    // The dashboard still renders the last good data bundled at build time.
+    expect(screen.getByTestId('water-year')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /BEAVER/ })).toBeInTheDocument();
   });
 
   it('shows an error state when injected data is null', () => {

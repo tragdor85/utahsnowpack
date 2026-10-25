@@ -316,6 +316,7 @@ pnpm fetch:all                                             # KSL + WCC report + 
 pnpm --filter @utahsnowpack/pipeline exec tsx src/build-registry.ts --fixture data/fixtures  # rebuild data/sites.json offline
 pnpm --filter @utahsnowpack/pipeline build:snowpack       # fixtures + registry → data/snowpack.json
 pnpm --filter @utahsnowpack/pipeline build:timeseries    # AWDB fixture + registry → data/timeseries.json
+pnpm --filter @utahsnowpack/pipeline build:og-image     # snowpack.json + registry → data/og-image.png (share card, task 10)
 ```
 
 The full fixture lets the entire pipeline run offline (no network needed in

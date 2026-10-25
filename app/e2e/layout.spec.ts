@@ -159,3 +159,42 @@ test('keyboard tab order walks the basins in order and Enter selects', async ({ 
   await page.keyboard.press('Enter');
   await expect(page.locator('.panel__name')).toHaveText('WEBER-OGDEN');
 });
+
+// Freshness + resilience + shareability (docs/PLAN.md task 10).
+
+test('falls back to the bundled data with a warning when the live fetch fails', async ({
+  page,
+}) => {
+  // Registered after the beforeEach mock route, so it wins: the live JSON
+  // is unreachable and the app must serve its bundled copy.
+  await page.route('**/snowpack.json', (route) => route.abort());
+  await page.goto('/');
+
+  await expect(page.getByRole('alert')).toHaveText(/Live data unavailable/);
+  await expect(page.getByRole('alert')).toHaveText(/showing data from/);
+  // The dashboard still renders the last good data.
+  await expect(page.getByTestId('water-year')).toBeVisible();
+  await expect(page.getByTestId('updated-relative')).toBeVisible();
+  await expect(page.locator('.basin-list__item')).toHaveCount(8);
+});
+
+test('exposes share-card meta tags, favicon, and manifest', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
+    'content',
+    'Utah Snowpack',
+  );
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+    'content',
+    '/og-image.png',
+  );
+  await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
+    'content',
+    'summary_large_image',
+  );
+  await expect(page.locator('link[rel="manifest"]')).toHaveAttribute(
+    'href',
+    '/manifest.webmanifest',
+  );
+  await expect(page.locator('link[rel="icon"]')).toHaveAttribute('href', '/favicon.svg');
+});

@@ -1,10 +1,22 @@
+import { formatRelativeTime, stalenessOf } from '../data/freshness';
 import type { SnowpackData } from '../types';
 
+const STALENESS_LABEL: Record<'stale' | 'very-stale', string> = {
+  stale: 'stale',
+  'very-stale': 'very stale',
+};
+
 /**
- * Dashboard header: title, water-year banner, and the two source stamps
- * (docs/PLAN.md task 6). Task 10 extends this with the staleness indicator.
+ * Dashboard header: title, water-year banner, the two source stamps
+ * (docs/PLAN.md task 6) and the freshness indicator (task 10): a
+ * relative "updated" stamp, plus a staleness badge when the data is
+ * older than a daily run or two.
+ *
+ * `now` is injectable for tests; defaults to the current clock.
  */
-export function Header({ data }: { data: SnowpackData | null }) {
+export function Header({ data, now }: { data: SnowpackData | null; now?: Date }) {
+  const clock = now ?? new Date();
+  const staleness = data !== null ? stalenessOf(data.fetchedAt, clock) : null;
   return (
     <header className="shell__header">
       <div className="shell__header-row">
@@ -35,9 +47,22 @@ export function Header({ data }: { data: SnowpackData | null }) {
           </span>
           <span aria-hidden="true">·</span>
           <span>
-            fetched{' '}
-            <time dateTime={data.fetchedAt}>{new Date(data.fetchedAt).toLocaleString()}</time>
+            updated{' '}
+            <time dateTime={data.fetchedAt} data-testid="updated-relative">
+              {formatRelativeTime(data.fetchedAt, clock)}
+            </time>
           </span>
+          {staleness !== null && staleness !== 'fresh' && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span
+                className={`header__staleness header__staleness--${staleness}`}
+                data-testid="staleness-badge"
+              >
+                {STALENESS_LABEL[staleness]}
+              </span>
+            </>
+          )}
         </p>
       )}
     </header>

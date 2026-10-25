@@ -51,6 +51,9 @@ jobs:
       - name: Build timeseries.json
         run: pnpm --filter @utahsnowpack/pipeline build:timeseries
 
+      - name: Build og-image.png (share card)
+        run: pnpm --filter @utahsnowpack/pipeline build:og-image
+
       - name: Surface run summary + warnings
         if: always()
         run: |
@@ -73,7 +76,7 @@ jobs:
         run: |
           git config user.name "utahsnowpack-bot"
           git config user.email "utahsnowpack-bot@users.noreply.github.com"
-          git add data/snowpack.json data/timeseries.json data/fixtures/
+          git add data/snowpack.json data/timeseries.json data/og-image.png data/og-image.svg data/fixtures/
           if git diff --cached --quiet; then
             echo "no data changes — skipping commit"
           else

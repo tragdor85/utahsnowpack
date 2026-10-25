@@ -1,7 +1,7 @@
-// Copy data/snowpack.json (and data/timeseries.json) into app/public/ so
-// Vite serves them at /snowpack.json and /timeseries.json in dev and bundles
-// them into dist/ at build time. (docs/PLAN.md tasks 6 + 9; task 11's
-// deploy step does the same for the site.)
+// Copy data/snowpack.json, data/timeseries.json, and data/og-image.png into
+// app/public/ so Vite serves them in dev and bundles them into dist/ at build
+// time. (docs/PLAN.md tasks 6 + 9 + 10; task 11's deploy step does the same
+// for the site.)
 import { cpSync, existsSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -31,5 +31,18 @@ if (existsSync(timeseries)) {
   console.warn(
     `timeseries.json not found at ${timeseries} — charts will show no history. ` +
       'Run `pnpm --filter @utahsnowpack/pipeline build:timeseries`.',
+  );
+}
+
+// The share-card image is optional too: without it the og:image tag points
+// at a 404, which social crawlers simply skip.
+const ogImage = join(dataDir, 'og-image.png');
+if (existsSync(ogImage)) {
+  cpSync(ogImage, join(destDir, 'og-image.png'));
+  console.log(`copied ${ogImage} -> ${join(destDir, 'og-image.png')}`);
+} else {
+  console.warn(
+    `og-image.png not found at ${ogImage} — share cards will have no image. ` +
+      'Run `pnpm --filter @utahsnowpack/pipeline build:og-image`.',
   );
 }

@@ -8,7 +8,11 @@
     "fetch:all": "tsx src/fetch-all.ts",
     "build:registry": "tsx src/build-registry.ts",
     "build:snowpack": "tsx src/build-snowpack.ts",
-    "build:timeseries": "tsx src/build-timeseries.ts"
+    "build:timeseries": "tsx src/build-timeseries.ts",
+    "build:og-image": "tsx src/build-og-image.ts"
+  },
+  "dependencies": {
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

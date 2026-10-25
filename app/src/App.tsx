@@ -5,16 +5,24 @@ import { BasinMap } from './components/BasinMap';
 import { BasinList } from './components/BasinList';
 import { DetailPanel } from './components/DetailPanel';
 import { fetchTimeseries } from './data/timeseries';
+import { formatDataDate } from './data/freshness';
 import type { SnowpackData, TimeseriesData } from './types';
+import bundledRaw from '../../data/snowpack.json';
+
+// The last good data, bundled at build time (docs/PLAN.md task 10): if the
+// live fetch fails the dashboard still renders, with a visible warning.
+// The file is pipeline-validated (pipeline/src/schema.ts) before commit.
+const bundledSnowpack = bundledRaw as unknown as SnowpackData;
 
 /**
  * Dashboard shell (docs/PLAN.md task 6).
  *
  * Data comes from `snowpack.json` (fetched at `/snowpack.json`), the
  * canonical contract produced by the pipeline. Tests and the mock render
- * inject `data` directly, which skips the fetch. The time series
- * (`/timeseries.json`, task 9) is optional: a failure degrades the charts,
- * never the dashboard.
+ * inject `data` directly, which skips the fetch. If the fetch fails the
+ * app falls back to the bundled copy (task 10) and shows a warning; the
+ * time series (`/timeseries.json`, task 9) is optional: a failure degrades
+ * the charts, never the dashboard.
  */
 export default function App({
   data: injected,
@@ -25,6 +33,7 @@ export default function App({
 }) {
   const [fetched, setFetched] = useState<SnowpackData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [fellBack, setFellBack] = useState(false);
   const [loading, setLoading] = useState(injected === undefined);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [timeseries, setTimeseries] = useState<TimeseriesData | null>(injectedTimeseries ?? null);
@@ -44,6 +53,10 @@ export default function App({
       })
       .catch((err: unknown) => {
         if (cancelled) return;
+        // Resilience (task 10): serve the last good data bundled at build
+        // time, with a visible warning that it may be stale.
+        setFetched(bundledSnowpack);
+        setFellBack(true);
         setError(err instanceof Error ? err.message : String(err));
         setLoading(false);
       });
@@ -97,6 +110,12 @@ export default function App({
   return (
     <div className="shell">
       <Header data={data} />
+      {fellBack && (
+        <div className="shell__fallback" role="alert">
+          Live data unavailable{error ? ` (${error})` : ''} — showing data from{' '}
+          {formatDataDate(data.fetchedAt)}.
+        </div>
+      )}
       <div className="shell__body">
         <main className="shell__main">
           <Legend />

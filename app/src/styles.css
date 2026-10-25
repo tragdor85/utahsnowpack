@@ -11,6 +11,9 @@
   --text: #e6edf3;
   --text-dim: #8b949e;
   --accent: #58a6ff;
+  /* Status (task 10 staleness badge / fallback banner). */
+  --warn: #d29922;
+  --danger: #f85149;
 
   /* KSL legend bands — the exact colors KSL paints (captured from its page),
      plus `none` (our addition for "no data"). `--band-*-text` is the
@@ -145,6 +148,36 @@ body {
   gap: var(--space-2);
   flex-wrap: wrap;
   color: var(--text-dim);
+  font-size: var(--text-sm);
+}
+
+/* Staleness badge (task 10): shown only when the data is older than a
+   daily run or two. */
+.header__staleness {
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0 var(--space-2);
+}
+
+.header__staleness--stale {
+  color: var(--warn);
+  border: 1px solid var(--warn);
+}
+
+.header__staleness--very-stale {
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+
+/* Fallback banner (task 10): the live fetch failed, so the dashboard is
+   showing the last good data bundled at build time. */
+.shell__fallback {
+  margin: var(--space-3) var(--space-4) 0;
+  padding: var(--space-2) var(--space-3);
+  background: color-mix(in srgb, var(--warn) 14%, var(--surface));
+  border: 1px solid var(--warn);
+  border-radius: var(--radius, 6px);
+  color: var(--text);
   font-size: var(--text-sm);
 }
 

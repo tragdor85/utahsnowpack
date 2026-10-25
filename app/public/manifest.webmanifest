@@ -1,0 +1,17 @@
+{
+  "name": "Utah Snowpack",
+  "short_name": "Utah Snowpack",
+  "description": "Live Utah snowpack dashboard: SWE and water-year precipitation across Utah's 8 major basins.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#0d1117",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

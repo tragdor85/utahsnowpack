@@ -1,6 +1,7 @@
 **/dist
 **/coverage
-app/public
+app/public/snowpack.json
+app/public/timeseries.json
 pnpm-lock.yaml
 data
 pipeline/test/fixtures

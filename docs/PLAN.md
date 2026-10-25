@@ -155,7 +155,7 @@ tokens), multi-year monthly-history toggle, empty/loading/unavailable states,
 keyboard row selection, e2e + axe coverage. Charts degrade to a note when the
 timeseries file is missing; the dashboard never blocks on it.
 
-## Task 10 — Freshness, resilience, shareability (est. 1–2 turns)
+## Task 10 — Freshness, resilience, shareability (est. 1–2 turns) — ✅ done (2026-10-25)
 
 "Last updated" display with relative time + staleness badges (per site and
 global), client fallback to the last bundled `snowpack.json` on fetch failure,
@@ -163,6 +163,16 @@ OG/Twitter meta tags, favicon + PWA manifest.
 
 - **Accept:** with network blocked, the page still serves the last good data
   with a visible "data from <date>" warning; og:image renders the current map.
+
+Done: header shows "updated Xh ago" + stale/very-stale badge (36h/72h
+thresholds — one or two missed daily runs); on fetch failure the app serves
+the build-time-bundled snowpack.json with a warning banner; og/twitter meta +
+favicon + manifest; the daily pipeline renders data/og-image.png (1200×630:
+basin hulls in band colors + per-basin values).
+
+Note: per-site staleness is expressed via the existing `-M`/dimmed display —
+neither KSL nor the WCC report publishes a per-site last-report date, so there
+is no fresher per-site signal to badge.
 
 ## Task 11 — Deploy + end-to-end parity (est. 2–3 turns)
 

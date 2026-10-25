@@ -7,7 +7,9 @@ coverage/
 .DS_Store
 
 # Copied from data/ at build/dev time (app/scripts/copy-snowpack.mjs).
-app/public/
+app/public/snowpack.json
+app/public/timeseries.json
+app/public/og-image.png
 
 # Playwright artifacts (e2e screenshots + failure traces).
 app/screenshots/
