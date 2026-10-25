@@ -15,7 +15,8 @@ import type { TimeseriesData, TimeseriesStation } from '../types';
  */
 export async function fetchTimeseries(): Promise<TimeseriesData | null> {
   try {
-    const res = await fetch('/timeseries.json');
+    // Base-relative: the site deploys under /utahsnowpack/ on GitHub Pages.
+    const res = await fetch(`${import.meta.env.BASE_URL}timeseries.json`);
     if (!res.ok) return null;
     const data = (await res.json()) as TimeseriesData;
     if (data.schemaVersion !== 1 || !Array.isArray(data.dates) || !Array.isArray(data.stations)) {

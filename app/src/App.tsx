@@ -41,7 +41,9 @@ export default function App({
   useEffect(() => {
     if (injected !== undefined) return;
     let cancelled = false;
-    fetch('/snowpack.json')
+    // Base-relative: the site deploys under /utahsnowpack/ on GitHub Pages
+    // (VITE_BASE), root locally.
+    fetch(`${import.meta.env.BASE_URL}snowpack.json`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json() as Promise<SnowpackData>;
