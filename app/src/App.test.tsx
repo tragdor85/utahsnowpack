@@ -59,9 +59,12 @@ describe('dashboard shell (mock data)', () => {
     const panel = screen.getByRole('complementary', { name: /basin detail/i });
     expect(panel).toHaveTextContent('BEAR RIVER');
     expect(panel).toHaveTextContent('54%');
-    // CORTEZ 2 N has swe-missing: its SWE cell is flagged with a tooltip.
-    expect(panel).toHaveTextContent('CORTEZ 2 N');
-    expect(panel.querySelector('.site-table__flag')?.getAttribute('title')).toMatch(/SWE missing/);
+    // CORTEZ 2 N has swe-missing: its SWE cell shows -M and the row is
+    // dimmed + announced as non-reporting.
+    const row = screen.getByText('CORTEZ 2 N').closest('tr');
+    expect(row).toHaveClass('detail-table__row--stale');
+    expect(row?.getAttribute('aria-label')).toMatch(/SWE missing/);
+    expect(row?.querySelectorAll('td')[2]).toHaveTextContent('-M');
   });
 
   it('walks the basin list in order with the keyboard', async () => {

@@ -137,3 +137,29 @@ export function formatPct(value: number | null): string {
 export function formatInches(value: number | null, digits = 1): string {
   return value === null ? '—' : value.toFixed(digits);
 }
+
+/**
+ * KSL-style cell text for inches: one decimal, no leading zero ("6.4",
+ * ".7"); "-M" for missing data (KSL's marker).
+ */
+export function formatInchesCell(value: number | null): string {
+  if (value === null) return '-M';
+  return value.toFixed(1).replace(/^(-?)0\./, '$1.');
+}
+
+/**
+ * KSL-style cell text for a percent-of-average: "120"; "120*" when the
+ * percent is flagged invalid; "*" when invalid with no value; "-M" when
+ * missing. (KSL places the asterisk in the % Avg column, never the value
+ * column — verified against the 10-24 capture: 192 of 194 matched sites
+ * cell-for-cell; the 2 exceptions are KSL's own column-shift bug.)
+ */
+export function formatPctCell(value: number | null, invalid: boolean): string {
+  if (invalid) return value === null ? '*' : `${Math.round(value)}*`;
+  return value === null ? '-M' : `${Math.round(value)}`;
+}
+
+/** KSL-style cell text for elevation: whole feet, "-M" when missing. */
+export function formatElevCell(value: number | null): string {
+  return value === null ? '-M' : `${Math.round(value)}`;
+}

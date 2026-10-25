@@ -72,9 +72,9 @@ test.describe('desktop (1280)', () => {
     const panel = (await page.locator('.panel').boundingBox())!;
     expect(panel.x, 'panel should be right of the list').toBeGreaterThan(list.x + list.width / 2);
 
-    // The default selection (first basin) shows its rollup.
+    // The default selection (first basin) shows its rollup in the stats.
     await expect(page.locator('.panel__name')).toHaveText('RAFT RIVER');
-    await expect(page.locator('.panel__pct')).toHaveText('180%');
+    await expect(page.locator('.panel__stats')).toHaveText(/180%/);
 
     await assertNoHorizontalOverflow(page, 1280);
     await page.screenshot({ path: 'screenshots/desktop-1280.png', fullPage: true });

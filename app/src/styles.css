@@ -398,86 +398,178 @@ body {
   letter-spacing: 0.02em;
 }
 
-.panel__rollup {
+.panel__header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: var(--space-2);
-  margin: var(--space-2) 0;
+  margin-bottom: var(--space-2);
 }
 
-.panel__chip {
-  width: 1.5rem;
-  height: 1.5rem;
+.panel__band {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--text-dim);
 }
 
-.panel__pct {
-  font-size: var(--text-2xl);
+/* Per-basin summary: 2×2 stat grid under the header. */
+.panel__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-2);
+}
+
+.panel__stat {
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+}
+
+.panel__stat dt {
+  font-size: var(--text-xs);
+  color: var(--text-dim);
+}
+
+.panel__stat dd {
+  margin: 0;
+  font-size: var(--text-lg);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
 
-.panel__rollup-label {
-  color: var(--text-dim);
+.band-text {
+  color: var(--band-none-text);
+}
+
+.band-text--red {
+  color: var(--band-red);
+}
+
+.band-text--orange {
+  color: var(--band-orange);
+}
+
+.band-text--yellow {
+  color: var(--band-yellow);
+}
+
+.band-text--green {
+  color: var(--band-green);
+}
+
+.band-text--blue1 {
+  color: var(--band-blue1);
+}
+
+.band-text--blue2 {
+  color: var(--band-blue2);
+}
+
+.band-text--blue3 {
+  color: var(--band-blue3);
+}
+
+.panel__search input {
+  width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font: inherit;
   font-size: var(--text-sm);
+  padding: var(--space-1) var(--space-2);
 }
 
-.panel__reporting {
-  margin: 0 0 var(--space-3);
+.panel__search input::placeholder {
   color: var(--text-dim);
-  font-size: var(--text-sm);
 }
 
-/* Site table (scrolls horizontally inside the panel when it can't fit —
-   the wrapper contains the overflow so the document never scrolls). */
-.site-table-wrap {
-  overflow-x: auto;
+/* Site table (KSL column-for-column; scrolls inside the panel — the
+   wrapper contains the overflow so the document never scrolls). */
+.panel__table-wrap {
+  overflow: auto;
+  max-height: 55vh;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
 }
 
-.site-table {
+.panel__table-wrap:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.detail-table {
   width: 100%;
   border-collapse: collapse;
   font-size: var(--text-xs);
 }
 
-.site-table th {
+.detail-table th {
   text-align: right;
   font-weight: 600;
   color: var(--text-dim);
-  padding: var(--space-1) var(--space-1);
+  padding: var(--space-1) var(--space-2);
   border-bottom: 1px solid var(--border);
   white-space: nowrap;
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  z-index: 1;
 }
 
-.site-table th:first-child {
+.detail-table thead tr {
+  height: 28px;
+}
+
+.detail-table thead tr:nth-child(2) th {
+  top: 28px;
+  border-bottom: 2px solid var(--border);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+}
+
+.detail-table th:first-child {
   text-align: left;
 }
 
-.site-table td {
-  padding: var(--space-1) var(--space-1);
+.detail-table td {
+  padding: var(--space-1) var(--space-2);
   border-bottom: 1px solid var(--border);
   text-align: right;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
-.site-table__name {
+.detail-table__name {
   text-align: left;
   font-weight: 500;
+  max-width: 11rem;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.site-table__cell--flagged {
+.detail-table tbody tr:hover td {
+  background: var(--surface-2);
+}
+
+/* Non-reporting stations: dimmed, but still visible (KSL shows them too). */
+.detail-table__row--stale td {
+  opacity: 0.5;
+}
+
+.detail-table__empty {
+  text-align: left;
   color: var(--text-dim);
 }
 
-.site-table__flag {
-  color: var(--accent);
-  font-size: var(--text-xs);
-}
-
-.site-table__row--stale td {
-  opacity: 0.6;
+.panel__footnote {
+  margin: var(--space-2) 0 0;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  color: var(--text-dim);
 }
 
 /* ==========================================================================
@@ -503,10 +595,10 @@ body {
     display: none;
   }
 
-  .site-table th:nth-child(6),
-  .site-table th:nth-child(7),
-  .site-table td:nth-child(6),
-  .site-table td:nth-child(7) {
+  .detail-table th:nth-child(6),
+  .detail-table th:nth-child(7),
+  .detail-table td:nth-child(6),
+  .detail-table td:nth-child(7) {
     display: none;
   }
 }
