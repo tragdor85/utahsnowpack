@@ -57,7 +57,7 @@ function parseRows(tableHtml: string): KslRow[] {
   for (const m of tableHtml.matchAll(/<tr[^>]*class="[^"]*highlight[^"]*"[^>]*>(.*?)<\/tr>/g)) {
     const cells = [...m[1].matchAll(/<td[^>]*>(.*?)<\/td>/gs)].map((c) => cleanCell(c[1]));
     if (cells.length !== CELL_KEYS.length) continue;
-    rows.push(Object.fromEntries(cells.map((v, i) => [CELL_KEYS[i], v])) as KslRow);
+    rows.push(Object.fromEntries(cells.map((v, i) => [CELL_KEYS[i], v])) as unknown as KslRow);
   }
   return rows;
 }
@@ -84,7 +84,7 @@ function parseFallbackSections(html: string): KslSection[] {
     sections.push({
       name: label,
       rows: rows.map(
-        (cells) => Object.fromEntries(cells.map((v, i) => [CELL_KEYS[i], v])) as KslRow,
+        (cells) => Object.fromEntries(cells.map((v, i) => [CELL_KEYS[i], v])) as unknown as KslRow,
       ),
     });
   }
