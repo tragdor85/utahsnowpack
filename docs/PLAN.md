@@ -48,14 +48,29 @@ and the 6-band color class the same way KSL does.
   for all 8 basin % values and ≥95% of site values (tolerance: 1 pt / 0.1 in);
   schema + normalization tests green.
 
-## Task 5 — Daily data pipeline (est. 1–2 turns)
+## Task 5 — Daily data pipeline (est. 1–2 turns) — ✅ done (2026-10-25, `e2c3413`)
 
-GitHub Actions workflow: daily cron (~08:30 MDT, after the SNOTEL report) and
-`workflow_dispatch` — fetch → normalize → commit/publish `snowpack.json` (and
-raw fixtures for audit) → trigger deploy. Include a staleness stamp in the JSON.
+GitHub Actions workflow: daily cron and `workflow_dispatch` — fetch →
+normalize → commit `snowpack.json` + raw captures (the deploy workflow,
+task 11, redeploys on main pushes). The cron runs **18:30 UTC**
+(10:30 MST / 11:30 MDT): the SNOTEL report lands 08:00 Mountain, but the
+KSL page re-renders on its own schedule (observed ~02:15 pre-report and
+~10:10 post-report), so fetching earlier captures a stale pre-report page.
+`cancel-in-progress: false` — a run must finish its commit or fail.
 
-- **Accept:** one `workflow_dispatch` run end-to-end updates the deployed JSON
-  without a deploy of app code; failed runs are logged visibly.
+**Landed 2026-10-25:** `fetch:all` (KSL + WCC report required — fail loudly,
+nothing written; station catalog best-effort) writes date-stamped captures
+to the now-committed `data/fixtures/`; `data/snowpack.json` is committed too.
+Investigating the first live run corrected two Task-4 assumptions: the WCC
+report lists **every** station (`-M` for non-reporters), so `reportedToday`
+now means _SWE non-missing in WCC_; and the report's `Basin Index (%)` rows
+are parsed and cross-checked against our rollups, alongside an aggregate
+out-of-sync warning that surfaces a stale KSL page (the 2026-10-25 capture
+is exactly that scenario: 9 warnings, null rollups — all visible, nothing
+silently dropped).
+
+- **Accept:** one `workflow_dispatch` run end-to-end updates the committed
+  JSON (deploy wiring lands with task 11); failed runs are logged visibly.
 
 ## Task 6 — UI shell + design system (est. 1–2 turns)
 
