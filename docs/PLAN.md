@@ -95,16 +95,31 @@ no overflow, tab order — and runs in CI after the unit tests.
 - **Accept:** desktop (1280) and mobile (390) layouts render mock data with
   correct legend bands; keyboard tab order works; screenshot test committed.
 
-## Task 7 — Interactive basin map (est. 3–4 turns)
+## Task 7 — Interactive basin map (est. 3–4 turns) — ✅ done (2026-10-25, `5bec291`)
 
 MapLibre GL basemap (no tracking, offline-capable tiles) with the 8 basin
-polygons (source: NHD hydrologic boundaries clipped to the KSL basins, or
-hand-traced GeoJSON), colored by SWE % band, click/keyboard selection, hover
-tooltips, and site dots.
+polygons, colored by SWE % band, click/keyboard selection, hover tooltips,
+and site dots.
 
 - **Accept:** all 8 basins render with colors matching the KSL bands for
   baseline data; selecting a basin updates the detail panel; works with zero
   third-party network calls beyond tiles (and degrades gracefully without).
+- **Impl:** `app/src/data/basins.ts` — 8 basin polygons (padded convex hulls
+  of the registry site coordinates, clipped to the Utah display box; the
+  registry, not the map, is the source of truth — polygons are approximate
+  display shapes and may overlap). `app/src/map/layers.ts` — pure GeoJSON
+  builders (`basinFeatures`, `siteFeatures`) + `BAND_COLORS` (hex literals
+  for MapLibre paint expressions; the `--band-*` tokens remain the DOM source
+  of truth). `app/src/components/BasinMap.tsx` — MapLibre GL map: CARTO dark
+  raster basemap (3 subdomains, no key), basin fill/line layers, site dots
+  (reported vs not), hover tooltips, click selection + fitBounds, WebGL
+  fallback message. Layers are added on `style.load` (not `load`, which is
+  gated on the network tiles); the worker URL is set explicitly because Vite
+  inlines the worker module (`?url` import of the emitted asset). The basin
+  list stays alongside the map for keyboard selection; both drive the same
+  selection state. Mock basin ids/names corrected to the canonical registry
+  values. e2e: canvas renders sized, clicking the DUCHESNE polygon selects
+  it; unit: layer builders + polygon bounds.
 
 ## Task 8 — Basin/site detail panel (est. 2–3 turns)
 
