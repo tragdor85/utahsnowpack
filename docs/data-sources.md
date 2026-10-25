@@ -304,6 +304,7 @@ Committed fixtures (generated `data/raw/` output stays gitignored):
 data/fixtures/ksl-2026-10-24.html  # full 206-site page, Oct 24 2026 snapshot
  data/fixtures/wcc-ut-snotel-report-2026-10-24.html  # full WCC report (latin-1)
  data/fixtures/wcc-ut-stations-2026-10-24.json      # station catalog (260 entries)
+ data/fixtures/awdb-series-2026-10-25.json          # AWDB daily series, current WY (task 9)
 pipeline/test/fixtures/ksl-sample.html              # 2-basin/15-row slice (fast parser unit tests)
 ```
 
@@ -311,8 +312,10 @@ pipeline/test/fixtures/ksl-sample.html              # 2-basin/15-row slice (fast
 pnpm fetch:dry                                             # live fetch → data/raw/ksl-<YYYY-MM-DD>.json
 pnpm fetch:dry --fixture data/fixtures/ksl-2026-10-24.html # full offline run (100%, passes)
 pnpm fetch:dry --fixture pipeline/test/fixtures/ksl-sample.html  # PARTIAL → coverage gate FAILS by design
+pnpm fetch:all                                             # KSL + WCC report + catalog + AWDB series → data/fixtures/
 pnpm --filter @utahsnowpack/pipeline exec tsx src/build-registry.ts --fixture data/fixtures  # rebuild data/sites.json offline
 pnpm --filter @utahsnowpack/pipeline build:snowpack       # fixtures + registry → data/snowpack.json
+pnpm --filter @utahsnowpack/pipeline build:timeseries    # AWDB fixture + registry → data/timeseries.json
 ```
 
 The full fixture lets the entire pipeline run offline (no network needed in

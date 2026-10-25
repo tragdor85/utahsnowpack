@@ -7,7 +7,8 @@
     "fetch:dry": "tsx src/fetch.ts",
     "fetch:all": "tsx src/fetch-all.ts",
     "build:registry": "tsx src/build-registry.ts",
-    "build:snowpack": "tsx src/build-snowpack.ts"
+    "build:snowpack": "tsx src/build-snowpack.ts",
+    "build:timeseries": "tsx src/build-timeseries.ts"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",

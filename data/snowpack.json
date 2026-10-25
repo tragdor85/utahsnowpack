@@ -4,9 +4,9 @@
     "ksl": "https://www.ksl.com/weather/snowpack",
     "wcc": "https://wcc.sc.egov.usda.gov/reports/UpdateReport.html?report=Utah&format=SNOTEL+Snowpack+Update+Report"
   },
-  "fetchedAt": "2026-10-25T12:00:00.494Z",
+  "fetchedAt": "2026-10-25T16:21:27.815Z",
   "lastUpdated": {
-    "ksl": "04:15am Sun 25 October 2026",
+    "ksl": "08:15am Sun 25 October 2026",
     "kslDate": "2026-10-25",
     "wcc": "Sunday, October 25, 2026",
     "wccDate": "2026-10-25"
@@ -2501,17 +2501,15 @@
           "latitude": 37.86943,
           "longitude": -109.44717,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0.8,
           "sweAvgIn": null,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 15.2,
           "precipAvgIn": null,
           "precipPctAvg": null,
           "flags": [
-            "swe-missing",
             "swe-avg-missing",
             "swe-pct-invalid",
-            "precip-missing",
             "precip-avg-missing",
             "precip-pct-invalid"
           ]
@@ -3258,17 +3256,14 @@
           "latitude": 39.3485,
           "longitude": -112.192,
           "reportedToday": false,
-          "sweIn": null,
+          "sweIn": 0,
           "sweAvgIn": 0,
           "swePctAvg": null,
-          "precipIn": null,
+          "precipIn": 5.2,
           "precipAvgIn": 1.2,
-          "precipPctAvg": null,
+          "precipPctAvg": 433,
           "flags": [
-            "swe-missing",
-            "swe-pct-invalid",
-            "precip-missing",
-            "precip-pct-invalid"
+            "swe-pct-invalid"
           ]
         }
       ]

@@ -6,12 +6,14 @@
  *   KSL snowpack page   → data/fixtures/ksl-<YYYY-MM-DD>.html
  *   WCC SNOTEL report   → data/fixtures/wcc-ut-snotel-report-<YYYY-MM-DD>.html
  *   WCC station catalog → data/fixtures/wcc-ut-stations-<YYYY-MM-DD>.json
+ *   AWDB daily series   → data/fixtures/awdb-series-<YYYY-MM-DD>.json
  *
  * The KSL page and the WCC report are REQUIRED: if either is unreachable or
  * unrecognizable the run fails loudly (non-zero exit, nothing written) so
- * the daily workflow never commits unparseable data. The station catalog is
- * best-effort — it only feeds manual registry refreshes, so a failure there
- * warns but does not block the snowpack build.
+ * the daily workflow never commits unparseable data. The station catalog and
+ * the AWDB series are best-effort — they feed registry refreshes and the
+ * time series chart, so a failure there warns but does not block the
+ * snowpack build.
  *
  * Usage:
  *   pnpm fetch:all [capture-date]
@@ -32,6 +34,12 @@ import {
   type WccStation,
 } from './sources/wcc.js';
 import { parseKslHtml, type KslSnapshot } from './sources/ksl.js';
+import {
+  fetchAwdbSeries,
+  waterYearOf,
+  waterYearStart,
+  type AwdbSeriesEntry,
+} from './sources/awdb.js';
 import { loadRegistry } from './registry.js';
 
 const REPO_ROOT = fileURLToPath(new URL('../..', import.meta.url));
@@ -62,6 +70,11 @@ export interface FetchAllOptions {
   fetchKslHtml?: () => Promise<string>;
   fetchWccReportHtml?: () => Promise<string>;
   fetchWccStations?: (names: string[]) => Promise<WccStation[]>;
+  fetchAwdbSeries?: (
+    triplets: string[],
+    beginDate: string,
+    endDate: string,
+  ) => Promise<AwdbSeriesEntry[]>;
 }
 
 export interface FetchAllResult {
@@ -72,6 +85,7 @@ export interface FetchAllResult {
   files: string[];
   ksl: KslSnapshot | null;
   wcc: WccSnapshot | null;
+  awdb: AwdbSeriesEntry[] | null;
 }
 
 export async function runFetchAll(opts: FetchAllOptions = {}): Promise<FetchAllResult> {
@@ -117,6 +131,24 @@ export async function runFetchAll(opts: FetchAllOptions = {}): Promise<FetchAllR
     );
   }
 
+  // Best-effort daily series for the current water year (task 9): the charts
+  // degrade to "no history" if this fails, so it never blocks the capture.
+  let awdb: AwdbSeriesEntry[] | null = null;
+  try {
+    const registry = loadRegistry();
+    const triplets = registry.sites.map((s) => s.stationTriplet);
+    awdb = await (opts.fetchAwdbSeries ?? fetchAwdbSeries)(
+      triplets,
+      waterYearStart(waterYearOf(date)),
+      date,
+    );
+  } catch (err) {
+    warnings.push(
+      `AWDB series fetch failed (skipping time series): ` +
+        `${err instanceof Error ? err.message : String(err)}`,
+    );
+  }
+
   // 2. Parse + guard the required sources.
   let ksl: KslSnapshot | null = null;
   if (kslHtml !== undefined) {
@@ -156,7 +188,7 @@ export async function runFetchAll(opts: FetchAllOptions = {}): Promise<FetchAllR
   if (errors.length > 0) {
     for (const e of errors) console.error(`ERROR: ${e}`);
     console.error('fetch:all FAILED — nothing written');
-    return { ok: false, warnings, errors, files: [], ksl, wcc };
+    return { ok: false, warnings, errors, files: [], ksl, wcc, awdb: null };
   }
 
   // 3. Write the captures.
@@ -173,15 +205,25 @@ export async function runFetchAll(opts: FetchAllOptions = {}): Promise<FetchAllR
     writeFileSync(catPath, JSON.stringify(stations, null, 2) + '\n');
     files.push(catPath);
   }
+  if (awdb) {
+    if (awdb.length > 0) {
+      const seriesPath = resolvePath(outDir, `awdb-series-${date}.json`);
+      writeFileSync(seriesPath, JSON.stringify(awdb, null, 2) + '\n');
+      files.push(seriesPath);
+    } else {
+      warnings.push('AWDB series returned no data (skipping capture)');
+    }
+  }
 
   console.log(`capture date:  ${date}`);
   console.log(`ksl:           ${ksl!.rowCount} rows (last updated ${ksl!.lastUpdated ?? '?'})`);
   console.log(`wcc report:    ${wcc!.rowCount} rows (${wcc!.reportDate})`);
   console.log(`wcc stations:  ${stations ? `${stations.length} catalog entries` : 'skipped'}`);
+  console.log(`awdb series:   ${awdb ? `${awdb.length} station entries` : 'skipped'}`);
   for (const f of files) console.log(`wrote:         ${f}`);
   for (const w of warnings) console.warn(`warn: ${w}`);
   console.log('fetch:all OK');
-  return { ok: true, warnings, errors, files, ksl: ksl!, wcc: wcc! };
+  return { ok: true, warnings, errors, files, ksl: ksl!, wcc: wcc!, awdb };
 }
 
 export async function main(argv: string[] = process.argv.slice(2)): Promise<number> {
