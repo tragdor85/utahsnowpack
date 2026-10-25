@@ -37,7 +37,7 @@ lat/lon, elevation, and basin membership by matching the SNOTEL station catalog
   validates against a schema test; coordinates plot within their basins on a
   quick map check.
 
-## Task 4 — Normalizer + snowpack.json contract (est. 2–3 turns)
+## Task 4 — Normalizer + snowpack.json contract (est. 2–3 turns) — ✅ done (2026-10-25, `d37ebe8`)
 
 Define the canonical output schema (`data/snowpack.json`: basins → sites, SWE
 in, water-year precip in, long-term averages, % of average, `-M`/`*` flags,
