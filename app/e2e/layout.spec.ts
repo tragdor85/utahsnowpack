@@ -13,8 +13,8 @@ import { COLOR_BAND_META } from '../src/types';
  * the tests are deterministic regardless of the pipeline's latest data.
  * Screenshots land in app/screenshots/ (gitignored); the assertions are
  * against computed styles and geometry, not pixels.
- * Basemap tiles (CARTO) load over the network where available; the map's
- * own data is local, so the tests pass offline too.
+ * Basemap tiles (Esri satellite) load over the network where available;
+ * the map's own data is local, so the tests pass offline too.
  */
 
 // KSL's exact palette as the browser computes it from the design tokens.

@@ -110,8 +110,11 @@ and site dots.
   display shapes and may overlap). `app/src/map/layers.ts` — pure GeoJSON
   builders (`basinFeatures`, `siteFeatures`) + `BAND_COLORS` (hex literals
   for MapLibre paint expressions; the `--band-*` tokens remain the DOM source
-  of truth). `app/src/components/BasinMap.tsx` — MapLibre GL map: CARTO dark
-  raster basemap (3 subdomains, no key), basin fill/line layers, site dots
+  of truth). `app/src/components/BasinMap.tsx` — MapLibre GL map: raster
+  basemap (originally CARTO dark; swapped 2026-10-26 to Esri
+  `World_Imagery` — free, no key, no account — because the legacy keyless
+  CARTO endpoint went dark and served blank placeholder tiles, leaving the
+  map a featureless gray slab), basin fill/line layers, site dots
   (reported vs not), hover tooltips, click selection + fitBounds, WebGL
   fallback message. Layers are added on `style.load` (not `load`, which is
   gated on the network tiles); the worker URL is set explicitly because Vite

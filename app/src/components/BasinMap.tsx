@@ -7,10 +7,15 @@ import { formatPct, type SnowpackData } from '../types';
 
 /**
  * Interactive basin map (docs/PLAN.md task 7): MapLibre GL with a free
- * dark raster basemap (CARTO dark — no key, no tracking), the 8 basin
- * polygons colored by SWE band, site dots, hover tooltips, and click
- * selection. Keyboard selection lives in the basin list (the map is a
- * mouse surface); both drive the same selection state.
+ * raster basemap, the 8 basin polygons colored by SWE band, site dots,
+ * hover tooltips, and click selection. Keyboard selection lives in the basin
+ * list (the map is a mouse surface); both drive the same selection state.
+ *
+ * Basemap: Esri's World_Imagery satellite tiles — free, no API key, no
+ * account (the legacy keyless CARTO dark endpoint went dark: it now serves
+ * blank placeholder tiles, which left the map a featureless gray slab).
+ * Satellite terrain gives the basins real geographic context (mountains,
+ * rivers, the Great Salt Lake) and suits the dark theme.
  *
  * Degrades gracefully: the basemap is the only network dependency. Offline
  * or without WebGL the map falls back to a dark background (or a message)
@@ -28,14 +33,13 @@ const STYLE: maplibregl.StyleSpecification = {
   sources: {
     basemap: {
       type: 'raster',
+      // ArcGIS tile scheme is z/y/x (row before column) — not z/x/y.
       tiles: [
-        'https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
-        'https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
-        'https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
       ],
       tileSize: 256,
       attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        '&copy; <a href="https://www.esri.com/">Esri</a>, Maxar, Earthstar Geographics, GIS User Community',
     },
   },
   layers: [
